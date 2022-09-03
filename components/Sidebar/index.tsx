@@ -9,15 +9,15 @@ export const Sidebar = () => {
 
   return (
     <nav className='bg-black shadow-lg font-medium text-sm flex flex-col content-between'>
-      <section className='flex flex-col gap-2'>
+      <section className={`flex flex-col`}>
         {menu.main.map(({id, title, path, Icon}) => (
           <MenuItem key={id} id={id} title={title} path={path} active={currentPath === path} Icon={Icon}/>
         ))}
-        <hr className="text-dark"/>
+        <hr className="text-dark my-3"/>
         {menu.secondary.map(({id, title, path, Icon}) => (
           <MenuItem key={id} id={id} title={title} path={path} active={currentPath === path} Icon={Icon}/>
         ))}
-        <hr className="text-dark"/>
+        <hr className="text-dark my-3"/>
       </section>
     </nav>
   )
