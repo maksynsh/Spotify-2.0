@@ -8,7 +8,7 @@ export interface MenuItemProps extends MenuItemType {
 
 export const MenuItem = ({ title, active, path, Icon }: MenuItemProps) => {
   return (
-      <BaseButton className={`btn-base border-l-4 border-transparent hover:bg-gray-800 ${active && 'text-white border-green-600 hover:bg-gray-600'}`} to={path}>
+      <BaseButton className={`btn-base border-l-4 border-transparent hover:bg-dark ${active && 'text-white border-green hover:bg-gray'}`} to={path}>
         {Icon}
         {title}
       </BaseButton>

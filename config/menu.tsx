@@ -1,5 +1,5 @@
 import {HomeIcon, MagnifyingGlassIcon, QueueListIcon, HeartIcon} from '@heroicons/react/24/outline'
-import {PlusCircleIcon} from '@heroicons/react/24/solid'
+import {PlusCircleIcon, RssIcon} from '@heroicons/react/24/solid'
 
 export interface MenuItemType {
   id: string
@@ -43,9 +43,15 @@ export const menu: MenuSectionType = {
     },
     {
       id: 'liked',
-      title: 'Liked',
+      title: 'Liked songs',
       path: '/liked',
       Icon: <HeartIcon className="h-6 w-6"/>,
+    },
+    {
+      id: 'top',
+      title: 'Your favorites',
+      path: '/top',
+      Icon: <RssIcon className="h-6 w-6"/>,
     },
   ],
 }
