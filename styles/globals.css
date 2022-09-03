@@ -6,8 +6,12 @@
   box-sizing: border-box;
 }
 
+body {
+  @apply bg-dark
+}
+
 @layer components {
   .btn-base {
-    @apply py-2 px-4 flex items-center gap-3 font-medium text-sm text-slate-300 hover:text-slate-50 ease-in duration-100;
+    @apply py-2 px-4 flex items-center gap-3 font-medium text-sm text-gray hover:text-white ease-in duration-100;
   }
 }
