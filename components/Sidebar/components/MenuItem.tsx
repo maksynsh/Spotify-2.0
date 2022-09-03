@@ -1,12 +1,9 @@
 import React from "react";
 import { BaseButton } from "components";
+import { MenuItemType } from "config/menu";
 
-export interface MenuItemProps {
-  id: string
-  title: string
+export interface MenuItemProps extends MenuItemType {
   active: boolean
-  path?: string
-  Icon?: React.ReactElement
 }
 
 export const MenuItem = ({ title, active, path, Icon }: MenuItemProps) => {
