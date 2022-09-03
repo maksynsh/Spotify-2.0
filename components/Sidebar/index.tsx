@@ -1,18 +1,13 @@
 import React from 'react'
-
-import {QueueListIcon} from '@heroicons/react/24/solid'
+import {QueueListIcon} from '@heroicons/react/24/outline'
+import { MenuItem } from './components/MenuItem'
 
 export const Sidebar = () => {
   return (
-    <div>
+    <section className='bg-black shadow-lg'>
       <ul>
-        <li>
-          <button>
-            <QueueListIcon className="h-5 w-5"/>
-            <p>Your Library</p>
-          </button>
-        </li>
+        <MenuItem id={'1'} title='Your Library' path='/library' active={false} Icon={<QueueListIcon className="h-6 w-6"/>}/>
       </ul>
-    </div>
+    </section>
   )
 }
