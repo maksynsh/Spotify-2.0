@@ -10,7 +10,7 @@ export const MenuItem = ({ title, active, path, Icon }: MenuItemProps) => {
   return (
     <BaseButton
       className={`btn-base border-l-4 border-transparent hover:bg-dark ${
-        active && 'text-white border-green'
+        active && 'text-white border-green bg-dark'
       }`}
       to={path}
     >

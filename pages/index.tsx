@@ -5,7 +5,7 @@ import { Sidebar } from 'components'
 
 const Home: NextPage = () => {
   return (
-    <div className=''>
+    <div className='h-screen overflow-hidden'>
       <Head>
         <title>Spotify Next</title>
         <link rel='icon' href='/favicon.ico' />
@@ -13,7 +13,10 @@ const Home: NextPage = () => {
 
       <main>
         <Sidebar />
+        {/* Center */}
       </main>
+
+      {/* <section>Player</section> */}
     </div>
   )
 }
