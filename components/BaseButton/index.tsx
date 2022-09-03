@@ -5,7 +5,7 @@ interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   to?: string
 }
 
-export const BaseButton = ({to, onClick, children, ...props}: BaseButtonProps) => {
+export const BaseButton = ({ to, onClick, children, ...props }: BaseButtonProps) => {
   const router = useRouter()
 
   const handleLink = (e: MouseEvent<HTMLButtonElement>) => {
@@ -16,6 +16,8 @@ export const BaseButton = ({to, onClick, children, ...props}: BaseButtonProps) =
   }
 
   return (
-    <button onClick={to ? handleLink : onClick} {...props}>{children}</button>
+    <button onClick={to ? handleLink : onClick} {...props}>
+      {children}
+    </button>
   )
 }

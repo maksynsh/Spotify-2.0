@@ -1,5 +1,10 @@
-import {HomeIcon, MagnifyingGlassIcon, QueueListIcon, HeartIcon} from '@heroicons/react/24/outline'
-import {PlusCircleIcon, RssIcon} from '@heroicons/react/24/solid'
+import {
+  HomeIcon,
+  MagnifyingGlassIcon,
+  QueueListIcon,
+  HeartIcon,
+} from '@heroicons/react/24/outline'
+import { PlusCircleIcon, RssIcon } from '@heroicons/react/24/solid'
 
 export interface MenuItemType {
   id: string
@@ -19,19 +24,19 @@ export const menu: MenuSectionType = {
       id: 'home',
       title: 'Home',
       path: '/',
-      Icon: <HomeIcon width='1.5rem' height='1.5rem'/>,
+      Icon: <HomeIcon width='1.5rem' height='1.5rem' />,
     },
     {
       id: 'search',
       title: 'Search',
       path: '/search',
-      Icon: <MagnifyingGlassIcon width='1.5rem' height='1.5rem'/>,
+      Icon: <MagnifyingGlassIcon width='1.5rem' height='1.5rem' />,
     },
     {
       id: 'library',
       title: 'Your library',
       path: '/library',
-      Icon: <QueueListIcon width='1.5rem' height='1.5rem'/>,
+      Icon: <QueueListIcon width='1.5rem' height='1.5rem' />,
     },
   ],
   secondary: [
@@ -39,19 +44,19 @@ export const menu: MenuSectionType = {
       id: 'create-playlist',
       title: 'Create playlist',
       path: '/playlist/create',
-      Icon: <PlusCircleIcon width='1.5rem' height='1.5rem'/>,
+      Icon: <PlusCircleIcon width='1.5rem' height='1.5rem' />,
     },
     {
       id: 'liked',
       title: 'Liked songs',
       path: '/liked',
-      Icon: <HeartIcon width='1.5rem' height='1.5rem'/>,
+      Icon: <HeartIcon width='1.5rem' height='1.5rem' />,
     },
     {
       id: 'top',
       title: 'Your favorites',
       path: '/top',
-      Icon: <RssIcon width='1.5rem' height='1.5rem'/>,
+      Icon: <RssIcon width='1.5rem' height='1.5rem' />,
     },
   ],
 }

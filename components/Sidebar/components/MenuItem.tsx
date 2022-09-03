@@ -1,6 +1,6 @@
-import React from "react";
-import { BaseButton } from "components";
-import { MenuItemType } from "config/menu";
+import React from 'react'
+import { BaseButton } from 'components'
+import { MenuItemType } from 'config/menu'
 
 export interface MenuItemProps extends MenuItemType {
   active: boolean
@@ -8,9 +8,14 @@ export interface MenuItemProps extends MenuItemType {
 
 export const MenuItem = ({ title, active, path, Icon }: MenuItemProps) => {
   return (
-      <BaseButton className={`btn-base border-l-4 border-transparent hover:bg-dark ${active && 'text-white border-green hover:bg-gray'}`} to={path}>
-        {Icon}
-        {title}
-      </BaseButton>
-  );
-};
+    <BaseButton
+      className={`btn-base border-l-4 border-transparent hover:bg-dark ${
+        active && 'text-white border-green hover:bg-gray'
+      }`}
+      to={path}
+    >
+      {Icon}
+      {title}
+    </BaseButton>
+  )
+}
