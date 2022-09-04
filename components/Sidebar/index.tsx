@@ -11,36 +11,42 @@ export const Sidebar = () => {
     <nav className='bg-black shadow-lg font-medium text-sm flex flex-col content-between'>
       <section className={`flex flex-col`}>
         {/* Main menu items */}
-        {menu.main.map(({ id, title, path, Icon }) => (
-          <MenuItem
-            key={id}
-            id={id}
-            title={title}
-            path={path}
-            active={currentPath === path}
-            Icon={Icon}
-          />
-        ))}
-        <hr className='text-dark my-3' />
+        <div className='flex flex-col py-3'>
+          {menu.main.map(({ id, title, path, Icon }) => (
+            <MenuItem
+              key={id}
+              id={id}
+              title={title}
+              path={path}
+              active={currentPath === path}
+              Icon={Icon}
+            />
+          ))}
+        </div>
+        <hr className='text-dark' />
         {/* Secondary menu items */}
-        {menu.secondary.map(({ id, title, path, Icon }) => (
-          <MenuItem
-            key={id}
-            id={id}
-            title={title}
-            path={path}
-            active={currentPath === path}
-            Icon={Icon}
-          />
-        ))}
-        <hr className='text-dark my-3' />
+        <div className='flex flex-col py-3'>
+          {menu.secondary.map(({ id, title, path, Icon }) => (
+            <MenuItem
+              key={id}
+              id={id}
+              title={title}
+              path={path}
+              active={currentPath === path}
+              Icon={Icon}
+            />
+          ))}
+        </div>
+        <hr className='text-dark' />
         {/* Playlists */}
-        <MenuItem
-          id={'id'}
-          title={'Best of Red Hot Chilli Peppers'}
-          path={'playlist/best-rhcp'}
-          active={currentPath === 'playlist/best-rhcp'}
-        />
+        <div className='flex flex-col'>
+          <MenuItem
+            id={'id'}
+            title={'Best of Red Hot Chilli Peppers'}
+            path={'playlist/best-rhcp'}
+            active={currentPath === 'playlist/best-rhcp'}
+          />
+        </div>
       </section>
     </nav>
   )
