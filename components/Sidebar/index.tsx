@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 import { MenuItem } from './components/MenuItem'
 import { menu } from 'config/menu'
@@ -8,6 +8,7 @@ import { Button } from 'components'
 
 export const Sidebar = () => {
   const { pathname: currentPath } = useRouter()
+  const { data: session, status } = useSession()
 
   return (
     <nav className='bg-black shadow-lg font-medium text-sm flex flex-col content-between py-3'>
