@@ -1,15 +1,20 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { signOut } from 'next-auth/react'
 
 import { MenuItem } from './components/MenuItem'
 import { menu } from 'config/menu'
+import { Button } from 'components'
 
 export const Sidebar = () => {
   const { pathname: currentPath } = useRouter()
 
   return (
-    <nav className='bg-black shadow-lg font-medium text-sm flex flex-col content-between'>
+    <nav className='bg-black shadow-lg font-medium text-sm flex flex-col content-between py-3'>
       <section className={`flex flex-col`}>
+        <Button color='secondary' onClick={() => signOut()}>
+          Log out
+        </Button>
         {/* Main menu items */}
         <div className='flex flex-col py-3'>
           {menu.main.map(({ id, title, path, Icon }) => (

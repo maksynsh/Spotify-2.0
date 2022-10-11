@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react'
 import { useRouter } from 'next/router'
 
-interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string
 }
 

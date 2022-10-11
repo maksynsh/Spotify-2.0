@@ -1,16 +1,10 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 
 import { Sidebar } from 'components'
 
 const Home: NextPage = () => {
   return (
-    <div className='h-screen overflow-hidden'>
-      <Head>
-        <title>Spotify Next</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-
+    <div className='h-screen overflow-hidden bg-dark'>
       <main>
         <Sidebar />
         {/* Center */}

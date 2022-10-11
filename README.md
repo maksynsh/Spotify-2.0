@@ -12,6 +12,7 @@ yarn verison 1.22
 `JWT_SECRET` - Secret phrase
 `NEXT_PUBLIC_CLIENT_ID` - Spotify developers client id
 `NEXT_PUBLIC_CLIENT_SECRET` - Spotify developers client secret
+`NEXT_PUBLIC_REDIRECT_URI` - baseUrl + /api/auth/callback/spotify
 
 3. Start dev environment with `npm run dev` or `yarn dev`
 

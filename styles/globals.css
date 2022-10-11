@@ -7,11 +7,32 @@
 }
 
 body {
-  @apply bg-dark
+  @apply bg-dark;
 }
 
 @layer components {
+  .btn {
+    @apply flex items-center gap-3 ease-in duration-100
+  }
+
   .btn-base {
-    @apply py-2 px-4 flex items-center gap-3 text-gray hover:text-white ease-in duration-100;
+    @apply btn py-2 px-4 text-gray hover:text-white;
+  }
+
+  .btn-primary {
+    @apply btn bg-green text-white rounded-full hover:brightness-110
+  }
+  .btn-secondary {
+    @apply btn bg-transparent text-white rounded-full border-white border-2 hover:bg-white hover:text-black
+  }
+
+  .btn-small {
+    @apply px-3 py-1 text-sm font-semibold
+  }
+  .btn-default {
+    @apply px-6 py-2 text-base font-semibold
+  }
+  .btn-large {
+    @apply px-7 py-3 text-lg font-semibold
   }
 }
