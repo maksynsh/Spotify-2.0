@@ -16,7 +16,11 @@ const COLORS = [
   'from-blue-500',
 ]
 
-export const Content = () => {
+interface LayoutProps {
+  children: React.ReactNode
+}
+
+export const Content: React.FC<LayoutProps> = ({ children }) => {
   const { data: session } = useSession()
   const [color, setColor] = useState<string | undefined>()
 
@@ -41,7 +45,7 @@ export const Content = () => {
       <section
         className={`flex items-end space-x-7 bg-gradient-to-b ${color} to-dark h-80 w-full text-white padding-8`}
       >
-        <h1>Content space</h1>
+        {children}
       </section>
     </div>
   )

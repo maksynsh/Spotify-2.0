@@ -1,18 +1,9 @@
 import type { NextPage } from 'next'
 
-import { Content, Sidebar } from 'components'
+import { Layout } from 'components'
 
 const Home: NextPage = () => {
-  return (
-    <div className='h-screen overflow-hidden bg-dark'>
-      <main className='flex'>
-        <Sidebar />
-        <Content />
-      </main>
-
-      {/* <section>Player</section> */}
-    </div>
-  )
+  return <Layout>Home content</Layout>
 }
 
 export default Home
