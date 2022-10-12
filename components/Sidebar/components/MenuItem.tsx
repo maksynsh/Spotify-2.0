@@ -15,7 +15,7 @@ export const MenuItem = ({ title, active, path, Icon }: MenuItemProps) => {
       to={path}
     >
       {Icon}
-      {title}
+      <div className='text-ellipsis overflow-hidden whitespace-nowrap'>{title}</div>
     </BaseButton>
   )
 }

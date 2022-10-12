@@ -35,4 +35,20 @@ body {
   .btn-large {
     @apply px-7 py-3 text-lg font-semibold
   }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scrollbar::-webkit-scrollbar-track {
+    @apply bg-black
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #595959;
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #8c8c8c;
+  }
 }
