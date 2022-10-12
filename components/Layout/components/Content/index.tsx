@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 import { shuffle } from 'lodash'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
@@ -21,12 +22,13 @@ interface LayoutProps {
 }
 
 export const Content: React.FC<LayoutProps> = ({ children }) => {
+  const { asPath: currentPath } = useRouter()
   const { data: session } = useSession()
   const [color, setColor] = useState<string | undefined>()
 
   useEffect(() => {
     setColor(shuffle(COLORS).pop())
-  }, [])
+  }, [currentPath])
 
   return (
     <div className='flex flex-col flex-grow text-white relative'>

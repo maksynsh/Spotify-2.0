@@ -1,23 +1,22 @@
 import React, { MouseEvent } from 'react'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string
 }
 
-export const BaseButton = ({ to, onClick, children, ...props }: BaseButtonProps) => {
-  const router = useRouter()
-
-  const handleLink = (e: MouseEvent<HTMLButtonElement>) => {
-    if (to) {
-      e.preventDefault()
-      router.push(to)
-    }
-  }
-
+export const BaseButton = ({ to, onClick = () => {}, children, ...props }: BaseButtonProps) => {
   return (
-    <button onClick={to ? handleLink : onClick} {...props}>
-      {children}
-    </button>
+    <>
+      {to ? (
+        <Link href={to}>
+          <button {...props}>{children}</button>
+        </Link>
+      ) : (
+        <button onClick={onClick} {...props}>
+          {children}
+        </button>
+      )}
+    </>
   )
 }

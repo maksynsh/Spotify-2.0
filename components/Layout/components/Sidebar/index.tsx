@@ -2,23 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
 
+import { useRecoilState } from 'recoil'
+
 import { MenuItem } from './components/MenuItem'
 import { menu } from 'config/menu'
 import { Button } from 'components'
 import { useResizable, useSpotify } from 'hooks'
+import { playlistListState } from 'atoms/playlist'
 
 export const Sidebar = () => {
   const spotifyApi = useSpotify()
-  const { pathname: currentPath } = useRouter()
+  const { asPath: currentPath } = useRouter()
   const { data: session } = useSession()
   const { onDragStart, onDrag } = useResizable({ elementId: 'resizable', min: 200, max: 356 })
 
-  const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>([])
+  const [playlists, setPlaylists] =
+    useRecoilState<SpotifyApi.PlaylistObjectSimplified[]>(playlistListState)
 
   useEffect(() => {
-    if (spotifyApi.getAccessToken()) {
+    if (spotifyApi.getAccessToken() && playlists.length < 1) {
       spotifyApi.getUserPlaylists().then((data) => {
-        setPlaylists(data.body.items)
+        setPlaylists(data?.body?.items ?? [])
       })
     }
   }, [session, spotifyApi])
@@ -65,8 +69,8 @@ export const Sidebar = () => {
                 key={id}
                 id={id}
                 title={name}
-                path={`playlist/${id}`}
-                active={currentPath === `playlist/${id}`}
+                path={`/playlist/${id}`}
+                active={currentPath === `/playlist/${id}`}
               />
             ))}
           </div>
