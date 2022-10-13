@@ -12,9 +12,12 @@ const Playlist: NextPage = ({}) => {
   const { id } = router.query
 
   const [playlist, setPlaylist] = useState<SpotifyApi.SinglePlaylistResponse | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
+      setIsLoading(true)
+
       spotifyApi
         .getPlaylist(id as string)
         .then((data) => {
@@ -23,13 +26,16 @@ const Playlist: NextPage = ({}) => {
         .catch((err) => {
           console.error('Something went wrong!', err)
         })
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
   }, [spotifyApi, id])
 
   return (
-    <Layout>
+    <Layout isLoading={isLoading}>
       <GradientSection>
-        <div className='flex align-center gap-4 mx-8 py-2 md:my-6 h-fit'>
+        <div className='flex align-center gap-4 mx-2 md:mx-8 py-2 md:my-6 h-fit'>
           <div className='w-40 h-40 md:w-56 md:h-56 shadow-2xl shadow-dark relative'>
             <Image
               src={playlist?.images[0]?.url || ''}
@@ -51,6 +57,7 @@ const Playlist: NextPage = ({}) => {
             </h2>
             <p className='mt-auto text-sm'>
               <span className='font-semibold'>{playlist?.owner.display_name}</span>
+              <wbr />
               <span className='mx-1'>•</span>
               {playlist?.tracks?.items.length} songs
             </p>

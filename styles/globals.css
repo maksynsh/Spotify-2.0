@@ -6,6 +6,14 @@
   box-sizing: border-box;
 }
 
+table td:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+table td:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
 body {
   @apply bg-dark;
 }

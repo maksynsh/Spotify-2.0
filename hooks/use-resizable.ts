@@ -22,7 +22,7 @@ export const useResizable = ({ elementId, min = 0, max = 9999 }: ResizableParams
     if (!resizable || e.clientX < min || e.clientX > max) {
       return
     }
-    resizable.style.width = `${initialSize + parseInt(e.clientX - initialPos)}px`
+    resizable.style.width = `${initialSize + (e.clientX - initialPos)}px`
   }
 
   return { onDragStart, onDrag }

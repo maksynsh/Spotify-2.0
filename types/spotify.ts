@@ -4,11 +4,18 @@ export interface Artist {
   href: string
 }
 
+export interface Image {
+  width?: number
+  height?: number
+  url: string
+}
+
 export interface Album {
   id: string
   name: string
   href: string
   artists: Artist[]
+  images: Image[]
 }
 
 export interface Track {

@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { ClockIcon } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon, ChevronUpIcon, PlayIcon } from '@heroicons/react/24/solid'
 
 import { Track } from 'types/spotify'
 
@@ -20,14 +20,22 @@ const columnHelper = createColumnHelper<Song>()
 
 const columns = [
   columnHelper.accessor('id', {
-    cell: (props) => 'play',
+    cell: (props) => <PlayIcon width={16} className='cursor-pointer text-white' />,
     header: () => '#',
     size: 1,
     enableSorting: false,
   }),
   columnHelper.accessor((row) => row.name, {
     id: 'title',
-    cell: (info) => <i>{info.getValue()}</i>,
+    cell: (info) => (
+      <div className='flex gap-4'>
+        <img className='w-10 h-10' src={info.row.original.album?.images.pop()?.url} alt='' />
+        <div className='flex flex-col justify-between'>
+          <div className='font-semibold leading-none text-white'>{info.getValue()}</div>
+          <div className='leading-none'>{info.row.original.artists?.at(0)?.name}</div>
+        </div>
+      </div>
+    ),
     header: () => <span>Title</span>,
   }),
   columnHelper.accessor('album.name', {
@@ -67,14 +75,17 @@ export const SongsTable = ({ data }: SongsTableProps) => {
   })
 
   return (
-    <div className='text-white bg-dark bg-opacity-30 backdrop-blur-md'>
+    <div className='text-white bg-dark bg-opacity-30 backdrop-blur-md px-2 md:px-8'>
       <table className='text-sm w-full table-fixed overflow-auto'>
-        <thead>
+        <thead className='border-b-[1px] border-carbon'>
           {getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr key={headerGroup.id} className='h-9'>
               {headerGroup.headers.map((header) => {
                 return (
-                  <th key={header.id} className='text-start uppercase font-normal'>
+                  <th
+                    key={header.id}
+                    className='text-start uppercase font-normal first-of-type:w-11 px-4'
+                  >
                     <div
                       className={`flex gap-1 ${
                         header.column.getCanSort() ? 'cursor-pointer select-none' : ''
@@ -105,13 +116,16 @@ export const SongsTable = ({ data }: SongsTableProps) => {
             </tr>
           ))}
         </thead>
-        <tbody className='text-xs'>
+        <tbody className='text-xs md:text-sm'>
           {getRowModel().rows.map((row) => {
             return (
-              <tr key={row.id}>
+              <tr
+                key={row.id}
+                className='text-gray h-14 rounded-md hover:bg-carbon hover:bg-opacity-60 hover:text-white'
+              >
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <td key={cell.id} className='text-trim'>
+                    <td key={cell.id} className='text-trim px-4'>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   )
