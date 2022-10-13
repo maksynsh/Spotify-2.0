@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-import { GradientSection, Layout } from 'components'
+import { GradientSection, Layout, SongsTable } from 'components'
 import { useSpotify } from 'hooks'
 
 const Playlist: NextPage = ({}) => {
@@ -30,7 +30,7 @@ const Playlist: NextPage = ({}) => {
     <Layout>
       <GradientSection>
         <div className='flex align-center gap-4 mx-8 py-2 md:my-6 h-fit'>
-          <div className='w-56 h-56 shadow-2xl shadow-dark relative'>
+          <div className='w-40 h-40 md:w-56 md:h-56 shadow-2xl shadow-dark relative'>
             <Image
               src={playlist?.images[0]?.url || ''}
               loader={() => playlist?.images[0]?.url || ''}
@@ -44,7 +44,9 @@ const Playlist: NextPage = ({}) => {
             </p>
             <h2
               style={{ width: 'calc(100vw - 600px) !important' }}
-              className='max-h-32 md:max-h-36 xl:max-h-32 overflow-hidden text-ellipsis font-bold text-2xl md:text-3xl xl:text-6xl'
+              className={`h-[5.5rem] md:h-36 xl:h-32 overflow-hidden text-ellipsis font-bold text-2xl md:text-3xl xl:text-6xl
+              ${(playlist?.name?.length ?? 1) > 19 && 'text-xl md:text-1xl xl:text-3xl'}
+              ${(playlist?.name?.length ?? 1) > 35 && 'text-lg md:text-xl xl:text-2xl'}`}
             >
               {playlist?.name}
             </h2>
@@ -56,6 +58,14 @@ const Playlist: NextPage = ({}) => {
           </div>
         </div>
       </GradientSection>
+      <div className='-mt-32'>
+        <SongsTable
+          data={
+            playlist?.tracks?.items?.map((song) => ({ added_at: song.added_at, ...song.track })) ??
+            []
+          }
+        />
+      </div>
     </Layout>
   )
 }

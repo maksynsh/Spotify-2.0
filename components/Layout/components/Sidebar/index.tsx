@@ -34,8 +34,8 @@ export const Sidebar = () => {
   return (
     <div
       id='resizable'
-      className='flex w-full md:w-64 absolute z-50 bottom-0 md:static 
-    bg-gradient-to-b from-transparent to-black md:bg-black'
+      className='flex w-full md:w-64 sticky z-50 bottom-0 md:sticky md:h-screen md:top-0 pt-2.5 md:pt-0
+      bg-gradient-to-b from-transparent via-black/90 to-black md:bg-black'
     >
       <nav className='shadow-lg w-full font-medium text-xs md:text-sm flex flex-col content-between md:pb-3 md:h-screen md:overflow-y-auto scrollbar'>
         <section className={`flex flex-col`}>

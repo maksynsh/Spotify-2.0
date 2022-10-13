@@ -36,6 +36,10 @@ body {
     @apply px-7 py-3 text-lg font-semibold
   }
 
+  .text-trim {
+    @apply text-ellipsis overflow-hidden whitespace-nowrap break-words
+  }
+
   .scrollbar::-webkit-scrollbar {
     width: 12px;
   }
