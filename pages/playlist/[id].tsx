@@ -43,8 +43,7 @@ const Playlist: NextPage = ({}) => {
               {playlist?.public && 'public'} {playlist?.type}
             </p>
             <h2
-              style={{ width: 'calc(100vw - 600px) !important' }}
-              className={`h-[5.5rem] md:h-36 xl:h-32 overflow-hidden text-ellipsis font-bold text-2xl md:text-3xl xl:text-6xl
+              className={`h-[5.5rem] md:h-36 xl:h-32 overflow-hidden text-ellipsis font-bold text-2xl md:text-3xl xl:text-6xl playlist-header
               ${(playlist?.name?.length ?? 1) > 19 && 'text-xl md:text-1xl xl:text-3xl'}
               ${(playlist?.name?.length ?? 1) > 35 && 'text-lg md:text-xl xl:text-2xl'}`}
             >

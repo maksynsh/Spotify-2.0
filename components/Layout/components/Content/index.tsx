@@ -12,7 +12,7 @@ export const Content: React.FC<LayoutProps> = ({ children }) => {
   const { data: session } = useSession()
 
   return (
-    <div className='flex flex-col h-auto overflow-y-auto flex-grow text-white relative'>
+    <div className='flex flex-col min-h-screen overflow-y-auto flex-grow text-white relative'>
       <header className='flex items-center justify-between h-16 p-2 px-2 md:px-6 absolute left-0 right-0 top-0'>
         <Button color='secondary' onClick={() => signOut()}>
           Log out

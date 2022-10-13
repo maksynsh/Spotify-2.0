@@ -55,4 +55,14 @@ body {
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #8c8c8c;
   }
+
+  .playlist-header {
+    width: calc(100vw - 300px);
+  }
+
+  @media(min-width: 768px) {
+    .playlist-header {
+      width: calc(100vw - 600px);
+    }
+  }
 }

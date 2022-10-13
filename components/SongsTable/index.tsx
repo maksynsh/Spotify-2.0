@@ -105,7 +105,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
             </tr>
           ))}
         </thead>
-        <tbody>
+        <tbody className='text-xs'>
           {getRowModel().rows.map((row) => {
             return (
               <tr key={row.id}>
