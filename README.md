@@ -9,7 +9,7 @@ yarn verison 1.22
 
 2. Create env file with following variables:
 `NEXTAUTH_URL` - Base URL
-`JWT_SECRET` - Secret phrase
+`SECRET` - Secret phrase
 `NEXT_PUBLIC_CLIENT_ID` - Spotify developers client id
 `NEXT_PUBLIC_CLIENT_SECRET` - Spotify developers client secret
 `NEXT_PUBLIC_REDIRECT_URI` - baseUrl + /api/auth/callback/spotify

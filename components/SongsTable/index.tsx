@@ -11,6 +11,7 @@ import { ClockIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, ChevronUpIcon, PlayIcon } from '@heroicons/react/24/solid'
 
 import { Track } from 'types/spotify'
+import moment from 'moment'
 
 interface Song extends Track {
   added_at: string
@@ -50,7 +51,7 @@ const columns = [
   }),
   columnHelper.accessor('duration_ms', {
     id: 'duration',
-    cell: (info) => info.getValue(),
+    cell: (info) => moment(info.getValue()).fromNow(),
     header: () => <ClockIcon width={24} height={24} />,
   }),
 ]
