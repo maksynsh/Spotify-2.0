@@ -9,8 +9,10 @@ export interface MenuItemProps extends MenuItemType {
 export const MenuItem = ({ title, active, path, Icon }: MenuItemProps) => {
   return (
     <BaseButton
-      className={`btn-base border-l-4 border-transparent hover:bg-dark ${
-        active && 'text-white border-green bg-dark'
+      className={`btn-base flex-col md:flex-row gap-1 md:gap-3 w-auto md:w-auto
+      flex-grow basis-full sm:basis-24 sm:flex-grow-0 flex-1 md:flex-auto border-b-4 md:border-l-4 md:border-b-0
+      border-transparent bg-transparent md:hover:bg-dark ${
+        active && 'text-white border-green md:bg-dark'
       }`}
       to={path}
     >

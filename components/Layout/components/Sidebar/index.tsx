@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 import { useRecoilState } from 'recoil'
 
 import { MenuItem } from './components/MenuItem'
 import { menu } from 'config/menu'
-import { Button } from 'components'
 import { useResizable, useSpotify } from 'hooks'
 import { playlistListState } from 'atoms/playlist'
 
@@ -33,14 +32,15 @@ export const Sidebar = () => {
   }, [session, spotifyApi])
 
   return (
-    <div id='resizable' className='flex w-64 bg-black'>
-      <nav className='shadow-lg font-medium text-xs md:text-sm flex flex-col content-between py-3 h-screen overflow-y-auto scrollbar'>
+    <div
+      id='resizable'
+      className='flex w-full md:w-64 absolute z-50 bottom-0 md:static 
+    bg-gradient-to-b from-transparent to-black md:bg-black'
+    >
+      <nav className='shadow-lg w-full font-medium text-xs md:text-sm flex flex-col content-between md:pb-3 md:h-screen md:overflow-y-auto scrollbar'>
         <section className={`flex flex-col`}>
-          <Button color='secondary' onClick={() => signOut()}>
-            Log out
-          </Button>
           {/* Main menu items */}
-          <div className='flex flex-col py-3'>
+          <div className='flex md:flex-col justify-center md:justify-start md:py-3'>
             {menu.main.map(({ id, title, path, Icon }) => (
               <MenuItem
                 key={id}
@@ -52,9 +52,9 @@ export const Sidebar = () => {
               />
             ))}
           </div>
-          <hr className='text-dark mx-4' />
+          <hr className='text-dark mx-4 hidden md:block' />
           {/* Secondary menu items */}
-          <div className='flex flex-col py-3'>
+          <div className='flex-col py-3 hidden md:flex'>
             {menu.secondary.map(({ id, title, path, Icon }) => (
               <MenuItem
                 key={id}
@@ -66,9 +66,9 @@ export const Sidebar = () => {
               />
             ))}
           </div>
-          <hr className='text-dark mx-4' />
+          <hr className='text-dark mx-4 hidden md:block' />
           {/* Playlists */}
-          <div className='flex flex-col'>
+          <div className='flex-col hidden md:flex'>
             {playlists.map(({ id, name }) => (
               <MenuItem
                 key={id}
@@ -82,7 +82,7 @@ export const Sidebar = () => {
         </section>
       </nav>
       <div
-        className='w-2 ml-0.5 h-full bg-transparent hover:bg-zinc-400 ease-in duration-100 cursor-col-resize'
+        className='w-2 ml-0.5 h-full bg-transparent hover:bg-zinc-400 ease-in duration-100 cursor-col-resize hidden md:block'
         draggable='true'
         onDragStart={onDragStart}
         onDrag={onDrag}

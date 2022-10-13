@@ -1,7 +1,9 @@
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
 import { UserIcon } from 'assets'
+import { Button } from 'components'
+
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -11,7 +13,10 @@ export const Content: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className='flex flex-col flex-grow text-white relative'>
-      <header className='flex justify-end h-16 p-2 px-6 absolute left-0 right-0 top-0'>
+      <header className='flex justify-between h-16 p-2 px-6 absolute left-0 right-0 top-0'>
+        <Button color='secondary' onClick={() => signOut()}>
+          Log out
+        </Button>
         <div className='flex items-center gap-2 bg-black rounded-full p-0.5 pr-2 cursor-pointer ease-in duration-75 opacity-90 hover:opacity-80'>
           {session?.user?.image ? (
             <img

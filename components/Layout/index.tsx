@@ -8,7 +8,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className='h-screen overflow-hidden bg-dark'>
-      <main className='flex'>
+      <main className='flex flex-col-reverse md:flex-row'>
         <Sidebar />
         <Content>{children}</Content>
       </main>
