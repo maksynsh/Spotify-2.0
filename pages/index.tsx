@@ -1,9 +1,13 @@
 import type { NextPage } from 'next'
 
-import { Layout } from 'components'
+import { GradientSection, Layout } from 'components'
 
 const Home: NextPage = () => {
-  return <Layout>Home content</Layout>
+  return (
+    <Layout>
+      <GradientSection>Home content</GradientSection>
+    </Layout>
+  )
 }
 
 export default Home

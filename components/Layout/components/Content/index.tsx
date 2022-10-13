@@ -1,54 +1,33 @@
-import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
-
-import { shuffle } from 'lodash'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
-const COLORS = [
-  'from-green',
-  'from-purple-500',
-  'from-red-500',
-  'from-yellow-500',
-  'from-orange-500',
-  'from-slate-500',
-  'from-pink-500',
-  'from-indigo-500',
-  'from-blue-500',
-]
-
+import { UserIcon } from 'assets'
 interface LayoutProps {
   children: React.ReactNode
 }
 
 export const Content: React.FC<LayoutProps> = ({ children }) => {
-  const { asPath: currentPath } = useRouter()
   const { data: session } = useSession()
-  const [color, setColor] = useState<string | undefined>()
-
-  useEffect(() => {
-    setColor(shuffle(COLORS).pop())
-  }, [currentPath])
 
   return (
     <div className='flex flex-col flex-grow text-white relative'>
-      <header className='flex justify-end p-2 px-6 absolute left-0 right-0 top-0'>
+      <header className='flex justify-end h-16 p-2 px-6 absolute left-0 right-0 top-0'>
         <div className='flex items-center gap-2 bg-black rounded-full p-0.5 pr-2 cursor-pointer ease-in duration-75 opacity-90 hover:opacity-80'>
-          <img
-            className='rounded-full w-10 h-10'
-            src={session?.user?.image ?? ''}
-            alt='userImage'
-          />
-          <h4 className='font-semibold'>{session?.user?.name ?? 'user'}</h4>
+          {session?.user?.image ? (
+            <img
+              className='rounded-full w-10 h-10'
+              src={session?.user?.image ?? '/user.svg'}
+              alt='userImage'
+            />
+          ) : (
+            <UserIcon className='rounded-full w-10 h-10 text-white border-2 border-white p-1.5' />
+          )}
+          <h4 className='font-semibold mb-0.5'>{session?.user?.name ?? 'user'}</h4>
           <ChevronDownIcon className='h-5 w-5' />
         </div>
       </header>
 
-      <section
-        className={`flex items-end space-x-7 bg-gradient-to-b ${color} to-dark h-80 w-full text-white padding-8`}
-      >
-        {children}
-      </section>
+      {children}
     </div>
   )
 }

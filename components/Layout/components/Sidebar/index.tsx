@@ -21,15 +21,20 @@ export const Sidebar = () => {
 
   useEffect(() => {
     if (spotifyApi.getAccessToken() && playlists.length < 1) {
-      spotifyApi.getUserPlaylists().then((data) => {
-        setPlaylists(data?.body?.items ?? [])
-      })
+      spotifyApi
+        .getUserPlaylists()
+        .then((data) => {
+          setPlaylists(data?.body?.items ?? [])
+        })
+        .catch((err) => {
+          console.error('Something went wrong!', err)
+        })
     }
   }, [session, spotifyApi])
 
   return (
     <div id='resizable' className='flex w-64 bg-black'>
-      <nav className='shadow-lg font-medium text-sm flex flex-col content-between py-3 h-screen overflow-y-auto scrollbar'>
+      <nav className='shadow-lg font-medium text-xs md:text-sm flex flex-col content-between py-3 h-screen overflow-y-auto scrollbar'>
         <section className={`flex flex-col`}>
           <Button color='secondary' onClick={() => signOut()}>
             Log out
