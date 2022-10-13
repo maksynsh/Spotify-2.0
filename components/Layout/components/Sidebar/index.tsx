@@ -82,7 +82,7 @@ export const Sidebar = () => {
         </section>
       </nav>
       <div
-        className='w-2 ml-0.5 h-full bg-transparent hover:bg-zinc-400 ease-in duration-100 cursor-col-resize hidden md:block'
+        className='w-[5px] ml-0.5 h-full bg-transparent hover:bg-zinc-400 ease-in duration-100 cursor-col-resize hidden md:block'
         draggable='true'
         onDragStart={onDragStart}
         onDrag={onDrag}

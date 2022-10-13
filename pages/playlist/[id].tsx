@@ -29,7 +29,7 @@ const Playlist: NextPage = ({}) => {
   return (
     <Layout>
       <GradientSection>
-        <div className='flex align-center gap-4 mx-8 my-6 h-fit'>
+        <div className='flex align-center gap-4 mx-8 py-2 md:my-6 h-fit'>
           <div className='w-56 h-56 shadow-2xl shadow-dark relative'>
             <Image
               src={playlist?.images[0]?.url || ''}
