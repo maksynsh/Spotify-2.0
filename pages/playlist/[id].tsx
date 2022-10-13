@@ -60,4 +60,12 @@ const Playlist: NextPage = ({}) => {
   )
 }
 
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context)
+
+//   return {
+//     props: { session },
+//   }
+// }
+
 export default Playlist
