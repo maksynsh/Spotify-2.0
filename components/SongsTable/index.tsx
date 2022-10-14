@@ -22,7 +22,7 @@ const columnHelper = createColumnHelper<Song>()
 
 const columns = [
   columnHelper.accessor('id', {
-    cell: (props) => <PlayIcon width={16} className='cursor-pointer text-white' />,
+    cell: () => <PlayIcon width={16} className='cursor-pointer text-white' />,
     header: () => '#',
     size: 1,
     enableSorting: false,
@@ -30,9 +30,9 @@ const columns = [
   columnHelper.accessor((row) => row.name, {
     id: 'title',
     cell: (info) => (
-      <div className='flex gap-4'>
+      <div className='flex gap-4 min-w-0'>
         <img className='w-10 h-10' src={info.row.original.album?.images.pop()?.url} alt='' />
-        <div className='flex flex-col justify-center md:justify-between'>
+        <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <div className='font-semibold leading-none text-white'>{info.getValue()}</div>
           <div className='leading-none'>{info.row.original.artists?.at(0)?.name}</div>
         </div>
@@ -67,7 +67,7 @@ interface ColumnBreakpoints {
 }
 
 const COLUMN_BREAKPOINTS: ColumnBreakpoints = {
-  768: ['added-at', 'album'],
+  768: ['added-at'],
   640: ['added-at', 'album', 'id'],
 }
 

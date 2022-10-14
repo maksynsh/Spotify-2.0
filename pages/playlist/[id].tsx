@@ -49,8 +49,9 @@ const Playlist: NextPage = ({}) => {
               {playlist?.public && 'public'} {playlist?.type}
             </p>
             <h2
-              className={`whitespace-nowrap h-auto sm:h-28 md:h-36 overflow-hidden text-ellipsis sm:whitespace-normal font-bold text-2xl md:text-3xl xl:text-6xl playlist-header
-              ${(playlist?.name?.length ?? 1) > 19 && 'text-xl md:text-1xl xl:text-3xl'}
+              className={`whitespace-nowrap h-auto sm:h-28 md:h-36 overflow-hidden text-ellipsis sm:whitespace-normal 
+              font-bold text-2xl md:text-4xl xl:text-6xl playlist-header
+              ${(playlist?.name?.length ?? 1) > 19 && 'text-xl md:text-2xl xl:text-3xl'}
               ${(playlist?.name?.length ?? 1) > 35 && 'text-lg md:text-xl xl:text-2xl'}`}
             >
               {playlist?.name}

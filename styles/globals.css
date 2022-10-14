@@ -64,7 +64,6 @@ body {
     background: #8c8c8c;
   }
 
-
   @media(min-width: 640px) {
     .playlist-header {
       width: calc(100vw - 300px);
