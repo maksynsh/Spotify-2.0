@@ -37,21 +37,26 @@ const columns = [
         </div>
       </div>
     ),
-    header: () => <span>Title</span>,
+    header: () => 'Title',
   }),
   columnHelper.accessor('album.name', {
     id: 'album-name',
     cell: (info) => info.getValue(),
-    header: () => <span>Album</span>,
+    header: () => 'Album',
   }),
   columnHelper.accessor('added_at', {
     id: 'added-at',
-    cell: (info) => info.getValue(),
+    cell: (info) => moment(info.getValue()).fromNow(),
     header: () => <span>Date added</span>,
   }),
   columnHelper.accessor('duration_ms', {
     id: 'duration',
-    cell: (info) => moment(info.getValue()).fromNow(),
+    cell: (info) => {
+      const value = info.getValue()
+      const seconds = moment.duration(value).seconds()
+      const minutes = moment.duration(value).minutes()
+      return minutes + ':' + seconds
+    },
     header: () => <ClockIcon width={24} height={24} />,
   }),
 ]
@@ -126,7 +131,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
               >
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <td key={cell.id} className='text-trim px-4'>
+                    <td key={cell.id} className='text-trim px-4 cursor-default'>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   )
