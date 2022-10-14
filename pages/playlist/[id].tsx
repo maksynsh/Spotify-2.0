@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 import { GradientSection, Layout, SongsTable } from 'components'
 import { useSpotify } from 'hooks'
+import { getSession } from 'next-auth/react'
 
 const Playlist: NextPage = ({}) => {
   const spotifyApi = useSpotify()
@@ -77,12 +78,12 @@ const Playlist: NextPage = ({}) => {
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const session = await getSession(context)
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
 
-//   return {
-//     props: { session },
-//   }
-// }
+  return {
+    props: { session },
+  }
+}
 
 export default Playlist
