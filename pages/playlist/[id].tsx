@@ -22,6 +22,7 @@ const Playlist: NextPage = ({}) => {
       spotifyApi
         .getPlaylist(id as string)
         .then((data) => {
+          console.log(data.body)
           setPlaylist(data?.body ?? [])
         })
         .catch((err) => {

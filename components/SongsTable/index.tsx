@@ -36,7 +36,7 @@ const columns = [
     id: 'title',
     cell: (info) => (
       <div className='flex gap-4 min-w-0'>
-        <img className='w-10 h-10' src={info.row.original.album?.images.pop()?.url} alt='' />
+        <img className='w-10 h-10' src={info.row.original.album?.images.pop()?.url} alt='album' />
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <div className='font-semibold leading-none text-white'>{info.getValue()}</div>
           <div className='leading-none'>{info.row.original.artists?.at(0)?.name}</div>
@@ -96,6 +96,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
     getSortedRowModel: getSortedRowModel(),
     autoResetAll: false,
   })
+  console.log('Table data state: ', data)
 
   useEffect(() => {
     Object.keys(COLUMN_BREAKPOINTS).forEach((breakpoint: any) => {
@@ -160,8 +161,6 @@ export const SongsTable = ({ data }: SongsTableProps) => {
               <tr
                 key={row.id}
                 className='text-gray h-14 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
-                onMouseEnter={() => row.toggleSelected(true)}
-                onMouseLeave={() => row.toggleSelected(false)}
               >
                 {row.getVisibleCells().map((cell) => {
                   return (
