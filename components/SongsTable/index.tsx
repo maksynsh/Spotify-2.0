@@ -22,7 +22,12 @@ const columnHelper = createColumnHelper<Song>()
 
 const columns = [
   columnHelper.accessor('id', {
-    cell: () => <PlayIcon width={16} className='cursor-pointer text-white' />,
+    cell: (info) =>
+      info.cell.row.getIsSelected() ? (
+        <PlayIcon width={16} className='cursor-pointer text-white' />
+      ) : (
+        info.row.index
+      ),
     header: () => '#',
     size: 1,
     enableSorting: false,
@@ -116,7 +121,8 @@ export const SongsTable = ({ data }: SongsTableProps) => {
                 return (
                   <th
                     key={header.id}
-                    className='text-start uppercase font-normal sm:first-of-type:w-11 last-of-type:w-12 last-of-type:px-1 px-4'
+                    className='text-start uppercase font-normal sm:first-of-type:w-8 first-of-type:px-2 
+                    last-of-type:w-12 last-of-type:px-1 px-4'
                   >
                     <div
                       className={`flex gap-1 ${
@@ -154,10 +160,15 @@ export const SongsTable = ({ data }: SongsTableProps) => {
               <tr
                 key={row.id}
                 className='text-gray h-14 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
+                onMouseEnter={() => row.toggleSelected(true)}
+                onMouseLeave={() => row.toggleSelected(false)}
               >
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <td key={cell.id} className='text-trim px-4 cursor-default last-of-type:px-1'>
+                    <td
+                      key={cell.id}
+                      className='text-trim px-4 cursor-default first-of-type:px-2 last-of-type:px-1'
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   )
