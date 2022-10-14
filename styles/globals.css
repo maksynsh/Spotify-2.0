@@ -45,7 +45,7 @@ body {
   }
 
   .text-trim {
-    @apply text-ellipsis overflow-hidden whitespace-nowrap break-words
+    @apply text-ellipsis overflow-hidden whitespace-nowrap
   }
 
   .scrollbar::-webkit-scrollbar {
@@ -64,8 +64,11 @@ body {
     background: #8c8c8c;
   }
 
-  .playlist-header {
-    width: calc(100vw - 300px);
+
+  @media(min-width: 640px) {
+    .playlist-header {
+      width: calc(100vw - 300px);
+    }
   }
 
   @media(min-width: 768px) {
