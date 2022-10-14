@@ -13,6 +13,7 @@ import { ChevronDownIcon, ChevronUpIcon, PlayIcon } from '@heroicons/react/24/so
 
 import { Track } from 'types/spotify'
 import { useDimensions } from 'hooks'
+import { duration } from 'lib/utils'
 
 export interface Song extends Track {
   added_at: string
@@ -58,12 +59,7 @@ const columns = [
   }),
   columnHelper.accessor('duration_ms', {
     id: 'duration',
-    cell: (info) => {
-      const value = info.getValue()
-      const seconds = moment.duration(value).seconds()
-      const minutes = moment.duration(value).minutes()
-      return minutes + ':' + (seconds < 10 ? `0${seconds}` : seconds)
-    },
+    cell: (info) => duration(info.getValue()),
     header: () => <ClockIcon width={24} height={24} />,
   }),
 ]
