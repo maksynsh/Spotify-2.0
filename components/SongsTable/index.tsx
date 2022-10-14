@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   createColumnHelper,
   flexRender,
@@ -7,11 +7,12 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
+import moment from 'moment'
 import { ClockIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, ChevronUpIcon, PlayIcon } from '@heroicons/react/24/solid'
 
 import { Track } from 'types/spotify'
-import moment from 'moment'
+import { useDimensions } from 'hooks'
 
 interface Song extends Track {
   added_at: string
@@ -31,7 +32,7 @@ const columns = [
     cell: (info) => (
       <div className='flex gap-4'>
         <img className='w-10 h-10' src={info.row.original.album?.images.pop()?.url} alt='' />
-        <div className='flex flex-col justify-between'>
+        <div className='flex flex-col justify-center md:justify-between'>
           <div className='font-semibold leading-none text-white'>{info.getValue()}</div>
           <div className='leading-none'>{info.row.original.artists?.at(0)?.name}</div>
         </div>
@@ -40,7 +41,7 @@ const columns = [
     header: () => 'Title',
   }),
   columnHelper.accessor('album.name', {
-    id: 'album-name',
+    id: 'album',
     cell: (info) => info.getValue(),
     header: () => 'Album',
   }),
@@ -61,6 +62,15 @@ const columns = [
   }),
 ]
 
+interface ColumnBreakpoints {
+  [key: number]: string[]
+}
+
+const COLUMN_BREAKPOINTS: ColumnBreakpoints = {
+  768: ['added-at', 'album'],
+  640: ['added-at', 'album', 'id'],
+}
+
 interface SongsTableProps {
   data: Song[]
 }
@@ -68,7 +78,9 @@ interface SongsTableProps {
 export const SongsTable = ({ data }: SongsTableProps) => {
   const [sorting, setSorting] = useState<SortingState>([])
 
-  const { getHeaderGroups, getRowModel } = useReactTable({
+  const { width } = useDimensions()
+
+  const { getHeaderGroups, getRowModel, getAllLeafColumns } = useReactTable({
     columns,
     data,
     state: {
@@ -80,6 +92,20 @@ export const SongsTable = ({ data }: SongsTableProps) => {
     autoResetAll: false,
   })
 
+  useEffect(() => {
+    Object.keys(COLUMN_BREAKPOINTS).forEach((breakpoint: any) => {
+      getAllLeafColumns().forEach((column) => {
+        if (COLUMN_BREAKPOINTS[breakpoint].includes(column.id)) {
+          if (width < breakpoint) {
+            column.toggleVisibility(false)
+            return
+          }
+          column.toggleVisibility(true)
+        }
+      })
+    })
+  }, [width])
+
   return (
     <div className='text-white bg-dark bg-opacity-30 backdrop-blur-md px-2 md:px-8'>
       <table className='text-sm w-full table-fixed overflow-auto'>
@@ -90,7 +116,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
                 return (
                   <th
                     key={header.id}
-                    className='text-start uppercase font-normal first-of-type:w-11 px-4'
+                    className='text-start uppercase font-normal sm:first-of-type:w-11 last-of-type:w-12 last-of-type:px-1 px-4'
                   >
                     <div
                       className={`flex gap-1 ${
@@ -127,11 +153,11 @@ export const SongsTable = ({ data }: SongsTableProps) => {
             return (
               <tr
                 key={row.id}
-                className='text-gray h-14 rounded-md hover:bg-carbon hover:bg-opacity-60 hover:text-white'
+                className='text-gray h-14 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
               >
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <td key={cell.id} className='text-trim px-4 cursor-default'>
+                    <td key={cell.id} className='text-trim px-4 cursor-default last-of-type:px-1'>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   )
