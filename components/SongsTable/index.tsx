@@ -158,7 +158,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
             return (
               <tr
                 key={row.id}
-                className='text-gray h-14 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
+                className='text-gray h-14 ease-in duration-100 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
               >
                 {row.getVisibleCells().map((cell) => {
                   return (

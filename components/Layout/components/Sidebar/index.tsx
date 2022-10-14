@@ -105,7 +105,7 @@ export const Sidebar = () => {
       />
       <div
         className={`w-6 h-6 hover:brightness-90 box-content ease-in duration-150 bg-green text-white rounded-full border-4 
-      border-black cursor-pointer absolute top-4 -right-3 z-20 flex justify-center items-center 
+      border-black cursor-pointer absolute top-4 -right-3 z-20 hidden md:flex justify-center items-center 
         ${hidden && 'rotate-180 -right-6 w-5 h-5 border-0 top-[20px] bg-slate-900 bg-opacity-10'}`}
         onClick={toggleSidebar}
       >

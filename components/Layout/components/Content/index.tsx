@@ -17,7 +17,7 @@ export const Content: React.FC<LayoutProps> = ({ children }) => {
         <Button color='secondary' onClick={() => signOut()}>
           Log out
         </Button>
-        <div className='flex items-center gap-2 bg-black rounded-full h-11 w-11 md:w-auto p-1 md:p-0.5 cursor-pointer ease-in duration-75 opacity-90 hover:opacity-80'>
+        <div className='flex items-center gap-2 bg-black rounded-full h-11 w-11 md:w-auto p-1 md:p-0.5 cursor-pointer ease-in duration-75 hover:opacity-90'>
           {session?.user?.image ? (
             <img
               className='rounded-full object-cover h-full md:w-10 md:h-10'

@@ -31,7 +31,7 @@ export const GradientSection = ({ children }: GradientSectionProps) => {
   return (
     <section
       className={`overflow-y-hidden bg-gradient-to-b ${color}
-      to-dark h-96 md:h-[30rem] w-full text-white pt-16 transition-all ease-in duration-200`}
+      to-dark h-[29.5rem] md:h-[35rem] w-full text-white pt-16 transition-all ease-in duration-200`}
     >
       {children}
     </section>
