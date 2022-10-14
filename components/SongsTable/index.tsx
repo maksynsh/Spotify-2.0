@@ -56,7 +56,7 @@ const columns = [
       const value = info.getValue()
       const seconds = moment.duration(value).seconds()
       const minutes = moment.duration(value).minutes()
-      return minutes + ':' + seconds
+      return minutes + ':' + (seconds < 10 ? `0${seconds}` : seconds)
     },
     header: () => <ClockIcon width={24} height={24} />,
   }),
