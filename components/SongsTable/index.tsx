@@ -26,7 +26,7 @@ const columns = [
       info.cell.row.getIsSelected() ? (
         <PlayIcon width={16} className='cursor-pointer text-white' />
       ) : (
-        info.row.index
+        info.row.index + 1
       ),
     header: () => '#',
     size: 1,
