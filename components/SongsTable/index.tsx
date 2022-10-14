@@ -73,7 +73,8 @@ interface ColumnBreakpoints {
 }
 
 const COLUMN_BREAKPOINTS: ColumnBreakpoints = {
-  768: ['added-at'],
+  1280: ['added-at'],
+  768: ['added-at', 'album'],
   640: ['added-at', 'album', 'id'],
 }
 
