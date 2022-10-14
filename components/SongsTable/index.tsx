@@ -14,8 +14,9 @@ import { ChevronDownIcon, ChevronUpIcon, PlayIcon } from '@heroicons/react/24/so
 import { Track } from 'types/spotify'
 import { useDimensions } from 'hooks'
 
-interface Song extends Track {
+export interface Song extends Track {
   added_at: string
+  image: string
 }
 
 const columnHelper = createColumnHelper<Song>()
@@ -36,7 +37,7 @@ const columns = [
     id: 'title',
     cell: (info) => (
       <div className='flex gap-4 min-w-0'>
-        <img className='w-10 h-10' src={info.row.original.album?.images.pop()?.url} alt='album' />
+        <img className='w-10 h-10' src={info.row.original.image} alt='album' />
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <div className='font-semibold leading-none text-white'>{info.getValue()}</div>
           <div className='leading-none'>{info.row.original.artists?.at(0)?.name}</div>
@@ -122,7 +123,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
                 return (
                   <th
                     key={header.id}
-                    className='text-start uppercase font-normal sm:first-of-type:w-8 first-of-type:px-2 
+                    className='text-start uppercase font-normal sm:first-of-type:w-10 first-of-type:pr-0 
                     last-of-type:w-12 last-of-type:px-1 px-4'
                   >
                     <div
@@ -166,7 +167,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
                   return (
                     <td
                       key={cell.id}
-                      className='text-trim px-4 cursor-default first-of-type:px-2 last-of-type:px-1'
+                      className='text-trim px-4 cursor-default first-of-type:pr-0 last-of-type:px-1'
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
