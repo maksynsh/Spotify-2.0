@@ -97,7 +97,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
     getSortedRowModel: getSortedRowModel(),
     autoResetAll: false,
   })
-  console.log('Table data state: ', data)
+  console.debug('Table data state: ', data)
 
   useEffect(() => {
     Object.keys(COLUMN_BREAKPOINTS).forEach((breakpoint: any) => {
