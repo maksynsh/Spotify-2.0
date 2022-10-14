@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import { useRecoilState } from 'recoil'
 
 import { MenuItem } from './components/MenuItem'
-import { menu } from 'config/menu'
+import { menu } from 'lib/menu'
 import { useResizable, useSpotify } from 'hooks'
 import { playlistListState } from 'atoms/playlist'
 import { ChevronLeftIcon } from '@heroicons/react/24/solid'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BaseButton } from 'components'
-import { MenuItemType } from 'config/menu'
+import { MenuItemType } from 'lib/menu'
 
 export interface MenuItemProps extends MenuItemType {
   active: boolean
