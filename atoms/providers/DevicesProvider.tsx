@@ -21,5 +21,5 @@ export const DevicesProvider = ({ children }: DevicesProviderProps) => {
     }
   }, [])
 
-  return <>{children}</>
+  return children
 }

@@ -30,7 +30,7 @@ const Playlist: NextPage = ({}) => {
             tracks:
               data?.body?.tracks?.items?.map((song) => ({
                 added_at: song.added_at,
-                image: song.track?.album.images.pop()?.url ?? '',
+                image: song.track?.album.images.at(-1)?.url ?? '',
                 ...song.track,
               })) ?? [],
           })

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-
+import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 import { useRecoilState } from 'recoil'
 
 import { MenuItem } from './components/MenuItem'
 import { menu } from 'lib/menu'
 import { useResizable, useSpotify } from 'hooks'
 import { playlistListState } from 'atoms/playlist'
-import { ChevronLeftIcon } from '@heroicons/react/24/solid'
+import { currentTrackIdState } from 'atoms/song'
 
 export const Sidebar = () => {
   const spotifyApi = useSpotify()
@@ -18,6 +18,7 @@ export const Sidebar = () => {
   const [hidden, setHidden] = useState(false)
   const [playlists, setPlaylists] =
     useRecoilState<SpotifyApi.PlaylistObjectSimplified[]>(playlistListState)
+  const [currentTrackId] = useRecoilState(currentTrackIdState)
 
   const toggleSidebar = () => {
     let resizable = document.getElementById('resizable')
@@ -84,7 +85,7 @@ export const Sidebar = () => {
           </div>
           <hr className='text-dark mx-4 hidden md:block' />
           {/* Playlists */}
-          <div className='flex-col hidden md:flex'>
+          <div className={`flex-col hidden md:flex ${currentTrackId && 'md:pb-24'}`}>
             {playlists.map(({ id, name }) => (
               <MenuItem
                 key={id}

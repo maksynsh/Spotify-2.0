@@ -23,10 +23,13 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
         context_uri: contextUri,
         offset: { uri: row.original.uri as string },
         //uris: [row.original.uri || ''],
-        //device_id: availableDevices?.find(d => d.is_active)?.id || availableDevices && availableDevices[0]?.id || ''
+        device_id:
+          availableDevices?.find((d) => d.is_active)?.id ||
+          (availableDevices && availableDevices[0]?.id) ||
+          '',
       })
       .then(() => {
-        setCurrentTrackId(row.original.uri || ''), setIsPlaying(true)
+        setCurrentTrackId(row.original.id || ''), setIsPlaying(true)
       })
   }
 
