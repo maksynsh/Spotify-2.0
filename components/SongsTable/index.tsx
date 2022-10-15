@@ -14,6 +14,7 @@ import { ChevronDownIcon, ChevronUpIcon, PlayIcon } from '@heroicons/react/24/so
 import { Track } from 'types/spotify'
 import { useDimensions } from 'hooks'
 import { duration } from 'lib/utils'
+import { SongRow } from './components/SongRow'
 
 export interface Song extends Track {
   added_at: string
@@ -76,9 +77,10 @@ const COLUMN_BREAKPOINTS: ColumnBreakpoints = {
 
 interface SongsTableProps {
   data: Song[]
+  playlistUri: string
 }
 
-export const SongsTable = ({ data }: SongsTableProps) => {
+export const SongsTable = ({ data, playlistUri }: SongsTableProps) => {
   const [sorting, setSorting] = useState<SortingState>([])
 
   const { width } = useDimensions()
@@ -155,23 +157,7 @@ export const SongsTable = ({ data }: SongsTableProps) => {
         </thead>
         <tbody className='text-xs md:text-sm'>
           {getRowModel().rows.map((row) => {
-            return (
-              <tr
-                key={row.id}
-                className='text-gray h-14 ease-in duration-100 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
-              >
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <td
-                      key={cell.id}
-                      className='text-trim px-4 cursor-default first-of-type:pr-0 last-of-type:px-1'
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  )
-                })}
-              </tr>
-            )
+            return <SongRow key={row.id} row={row} contextUri={playlistUri} />
           })}
         </tbody>
       </table>

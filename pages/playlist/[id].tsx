@@ -78,7 +78,10 @@ const Playlist: NextPage = ({}) => {
         </div>
       </GradientSection>
       <div className='-mt-[13.5rem]'>
-        <SongsTable data={playlist?.tracks || []} />
+        <SongsTable
+          data={playlist?.tracks || []}
+          playlistUri={playlist?.info.uri ?? `spotify:playlist:${id}`}
+        />
       </div>
     </Layout>
   )

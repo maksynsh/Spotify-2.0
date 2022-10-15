@@ -2,8 +2,8 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
-
 import { RecoilRoot } from 'recoil'
+import { DevicesProvider } from 'atoms/providers'
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -14,7 +14,9 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       </Head>
       <SessionProvider session={session}>
         <RecoilRoot>
-          <Component {...pageProps} />
+          <DevicesProvider>
+            <Component {...pageProps} />
+          </DevicesProvider>
         </RecoilRoot>
       </SessionProvider>
     </>

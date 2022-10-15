@@ -16,6 +16,7 @@ export interface Album {
   href: string
   artists: Artist[]
   images: Image[]
+  uri: string
 }
 
 export interface Track {
@@ -26,6 +27,7 @@ export interface Track {
   external_urls?: object
   preview_url?: string | null
   album?: Album
+  uri?: string
 }
 
 export interface SongData {

@@ -1,3 +1,4 @@
+import { Player } from 'components'
 import { Content } from './components/Content'
 import { Sidebar } from './components/Sidebar'
 
@@ -14,7 +15,7 @@ export const Layout: React.FC<LayoutProps> = ({ isLoading = false, children }) =
         <Content>{!isLoading && children}</Content>
       </main>
 
-      {/* <section>Player</section> */}
+      <Player />
     </div>
   )
 }
