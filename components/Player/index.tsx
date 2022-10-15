@@ -26,9 +26,9 @@ export const Player = () => {
     <div
       className={`${
         !currentTrackId && 'hidden'
-      } fixed bottom-[3.5rem] md:bottom-0 w-full h-14 md:h-24 
-      text-[11px] px-4 md:bg-gradient-to-b from-black to-stone-800
-      bg-dark z-50 text-white border-carbon md:border-t-[1px] flex items-center`}
+      } fixed bottom-[3.5rem] md:bottom-0 w-[calc(100vw-16px)] md:w-full h-14 md:h-24
+      text-[11px] px-2 md:px-4 mx-2 md:mx-0 bg-carbon md:bg-gradient-to-b from-black to-stone-800
+      z-50 text-white border-carbon md:border-t-[1px] flex items-center`}
     >
       <div></div>
       <div className='flex gap-4'>

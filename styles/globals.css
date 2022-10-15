@@ -52,19 +52,22 @@ body {
     @apply text-ellipsis overflow-hidden whitespace-nowrap
   }
 
-  .scrollbar::-webkit-scrollbar {
-    width: 0;
+  .scrollbar-hidden::-webkit-scrollbar {
+    width: 0px;
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
   }
   
-  .scrollbar::-webkit-scrollbar-track {
-    @apply bg-black
+  ::-webkit-scrollbar-track {
+    background: transparent;
   }
   
-  .scrollbar::-webkit-scrollbar-thumb {
-    background: #595959;
+  ::-webkit-scrollbar-thumb {
+    @apply bg-carbon;
   }
   
-  .scrollbar::-webkit-scrollbar-thumb:hover {
+  ::-webkit-scrollbar-thumb:hover {
     background: #8c8c8c;
   }
 

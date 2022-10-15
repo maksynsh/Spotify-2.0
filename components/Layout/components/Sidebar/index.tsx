@@ -54,7 +54,7 @@ export const Sidebar = () => {
       className='flex w-full md:w-64 sticky z-50 bottom-0 md:sticky md:h-screen md:top-0 pt-2.5 md:pt-0
       bg-gradient-to-b from-transparent via-black/90 to-black md:bg-black ease-in duration-150'
     >
-      <nav className='shadow-lg w-full font-medium text-xs md:text-sm flex flex-col content-between md:pb-3 md:h-screen md:overflow-y-auto scrollbar'>
+      <nav className='shadow-lg w-full font-medium text-xs md:text-sm flex flex-col content-between md:pb-3 md:h-screen md:overflow-y-auto scrollbar-hidden'>
         <section className={`flex flex-col`}>
           {/* Main menu items */}
           <div className='flex md:flex-col justify-center md:justify-start md:py-3'>
