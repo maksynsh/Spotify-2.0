@@ -19,8 +19,8 @@ body {
 }
 
 @layer components {
-  .play-button:not(:hover):first-child::after {
-    content: attr(data-index) !important
+  .player-btn {
+    @apply w-5 h-5 cursor-pointer hover:scale-95 transition transform duration-100 ease-out;
   }
 
   .btn {
@@ -70,6 +70,7 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background: #8c8c8c;
   }
+  
 
   @media(min-width: 640px) {
     .playlist-header {
@@ -82,4 +83,106 @@ body {
       width: calc(100vw - 600px);
     }
   }
+
+  input[type=range] {
+    height: 18px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 95px;
+    background: transparent;
+  }
+  /* input[type=range]:hover::-webkit-slider-runnable-track,
+  input[type=range]:hover::-ms-track,
+  input[type=range]:hover::-moz-range-track{
+    @apply bg-green;
+  }
+  input[type=range]:hover::-webkit-slider-thumb,
+  input[type=range]:hover::-moz-range-thumb,
+  input[type=range]:hover::-ms-thumb{
+    height: 1px !important;
+    width: 1px !important;
+  } */
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #FFFFFF;
+    border-radius: 50px;
+    border: 0px solid #000000;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 0px solid #000000;
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    background: #FFFFFF;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -4px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #FFFFFF;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #FFFFFF;
+    border-radius: 50px;
+    border: 0px solid #000000;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 0px solid #000000;
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    background: #FFFFFF;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #FFFFFF;
+    border: 0px solid #000000;
+    border-radius: 100px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #FFFFFF;
+    border: 0px solid #000000;
+    border-radius: 100px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px #000000;
+    border: 0px solid #000000;
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    background: #FFFFFF;
+    cursor: pointer;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #FFFFFF;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #FFFFFF;
+  }  
 }
