@@ -20,7 +20,7 @@ body {
 
 @layer components {
   .player-btn {
-    @apply w-5 h-5 cursor-pointer hover:scale-95 transition transform duration-100 ease-out;
+    @apply w-5 h-5 box-content p-1 cursor-pointer hover:scale-95 transition transform duration-100 ease-out;
   }
 
   .btn {
@@ -46,7 +46,7 @@ body {
   }
   
   .btn-dot-green {
-    @apply h-1 w-1 rounded-full bg-green absolute bottom-0 left-1/2 transform -translate-x-1/2 -mb-1
+    @apply h-1 w-1 rounded-full bg-green absolute bottom-0 left-1/2 transform -translate-x-1/2 -mb-0.5
   }
   .text-trim {
     @apply text-ellipsis overflow-hidden whitespace-nowrap

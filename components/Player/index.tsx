@@ -20,6 +20,7 @@ export const Player = () => {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   const [volume, setVolume] = useLocalStorage<number>({ key: 'volume', initialValue: 50 })
   const [repeatMode, setRepeatMode] = useState<SpotifyApi.PlaybackObject['repeat_state']>('off')
+  const [shuffleMode, setShuffleMode] = useState<SpotifyApi.PlaybackObject['shuffle_state']>(false)
   const songInfo = useSongInfo()
 
   const fetchCurrentPlaybackState = () => {
@@ -31,6 +32,7 @@ export const Player = () => {
           setCurrentTrackId(data?.body?.item?.id || null)
           setIsPlaying(data.body.is_playing)
           setRepeatMode(data.body.repeat_state || 'off')
+          setShuffleMode(data.body.shuffle_state || false)
           if (data.body.device?.volume_percent) {
             setVolume(data.body.device.volume_percent)
           }
@@ -120,14 +122,28 @@ export const Player = () => {
       .catch((err) => console.error(err))
   }
 
+  const toggleShuffleMode = () => {
+    spotifyApi
+      .getMyCurrentPlaybackState()
+      .then((data) => {
+        if (data.body.shuffle_state) {
+          spotifyApi.setShuffle(false).then(() => setShuffleMode(false))
+          return
+        }
+        spotifyApi.setShuffle(true).then(() => setShuffleMode(true))
+      })
+      .catch((err) => console.error(err))
+  }
+
   return (
     <div
       className={`${
         !currentTrackId && 'hidden'
       } fixed bottom-[3.5rem] md:bottom-0 w-[calc(100vw-16px)] md:w-full h-14 md:h-24 rounded-md md:rounded-none
       text-[11px] px-2 md:px-4 mx-2 md:mx-0 bg-carbon md:bg-gradient-to-b from-dragonstone via-dragonstone to-zinc-800
-      z-50 text-white border-carbon md:border-t-[1px] grid grid-cols-[1fr_50px] md:grid-cols-3 items-center`}
+      z-50 text-gray border-carbon md:border-t-[1px] grid grid-cols-[1fr_50px] md:grid-cols-3 items-center`}
     >
+      {/* Left */}
       <div className='flex gap-4'>
         <img
           className='h-10 w-10 md:h-14 md:w-14'
@@ -136,15 +152,23 @@ export const Player = () => {
         />
         <div className='flex flex-col min-w-0 justify-center'>
           <h3 className='font-semibold text-white text-sm truncate'>{songInfo?.name}</h3>
-          <div className='text-gray truncate'>{songInfo?.artists[0].name}</div>
+          <div className='truncate'>{songInfo?.artists[0].name}</div>
         </div>
       </div>
-      <div className='flex items-center justify-end md:justify-center gap-6'>
-        <ArrowsRightLeftIcon className='player-btn hidden md:block' />
+
+      {/* Center */}
+      <div className='flex items-center justify-end md:justify-center gap-4'>
+        <div
+          className={`player-btn hidden md:block ${shuffleMode && 'text-green'} relative`}
+          onClick={toggleShuffleMode}
+        >
+          <ArrowsRightLeftIcon />
+          {shuffleMode && <div className='btn-dot-green' />}
+        </div>
         <BackwardIcon className='player-btn hidden md:block' onClick={previousSong} />
         <div
           onClick={handlePlayPause}
-          className='player-btn w-8 h-8 md:bg-white md:text-dark rounded-full cursor-pointer flex items-center justify-center'
+          className='player-btn p-0 w-8 h-8 md:bg-white md:text-dark rounded-full cursor-pointer flex items-center justify-center'
         >
           {isPlaying ? (
             <PauseIcon className='w-6 h-6' />
@@ -166,6 +190,8 @@ export const Player = () => {
           )}
         </div>
       </div>
+
+      {/* Right */}
       <div className='hidden md:flex items-center gap-2 justify-end pr-5'>
         <div onClick={() => (volume === 0 ? setVolume(50) : setVolume(0))}>
           {volume === 0 ? (
