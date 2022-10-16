@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import {
   ArrowPathRoundedSquareIcon,
@@ -8,10 +8,11 @@ import {
   PauseIcon,
   PlayIcon,
 } from '@heroicons/react/24/solid'
-import { SpeakerWaveIcon } from '@heroicons/react/24/outline'
+import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline'
 
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useSongInfo, useSpotify } from 'hooks'
+import { debounce } from 'lodash'
 
 export const Player = () => {
   const spotifyApi = useSpotify()
@@ -44,6 +45,17 @@ export const Player = () => {
       })
     }
   }, [])
+
+  useEffect(() => {
+    if (volume < 100) {
+      debounceAdjustedVolume(volume)
+    }
+  }, [volume])
+
+  const debounceAdjustedVolume = useCallback(
+    debounce((volume) => spotifyApi.setVolume(volume).catch((err) => console.error(err)), 75),
+    [],
+  )
 
   return (
     <div
@@ -80,9 +92,22 @@ export const Player = () => {
         <ForwardIcon className='player-btn hidden md:block' />
         <ArrowPathRoundedSquareIcon className='player-btn hidden md:block' />
       </div>
-      <div className='hidden md:flex items-center gap-4 justify-end pr-5'>
-        <SpeakerWaveIcon className='player-btn ' />
-        <input type='range' min={0} max={100} />
+      <div className='hidden md:flex items-center gap-2 justify-end pr-5'>
+        <div onClick={() => (volume === 0 ? setVolume(50) : setVolume(0))}>
+          {volume === 0 ? (
+            <SpeakerXMarkIcon className='player-btn' />
+          ) : (
+            <SpeakerWaveIcon className='player-btn' />
+          )}
+        </div>
+        <input
+          type='range'
+          value={volume}
+          onChange={(e) => setVolume(Number(e.target.value))}
+          step={1}
+          min={0}
+          max={100}
+        />
       </div>
     </div>
   )
