@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import {
   ArrowPathRoundedSquareIcon,
@@ -19,30 +19,18 @@ export const Player = () => {
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   const [volume, setVolume] = useLocalStorage<number>({ key: 'volume', initialValue: 50 })
+  const [repeatMode, setRepeatMode] = useState<SpotifyApi.PlaybackObject['repeat_state']>('off')
   const songInfo = useSongInfo()
 
-  const handlePlayPause = () => {
-    spotifyApi.getMyCurrentPlaybackState().then((data) => {
-      if (!data?.body) {
-        setCurrentTrackId(null)
-        return
-      }
-      if (data.body.is_playing) {
-        spotifyApi.pause().finally(() => setIsPlaying(false))
-        return
-      }
-      spotifyApi.play().then(() => setIsPlaying(true))
-    })
-  }
-
-  const fetchCurrentPlayingTrack = () => {
+  const fetchCurrentPlaybackState = () => {
     if (spotifyApi.getAccessToken()) {
       spotifyApi
-        .getMyCurrentPlayingTrack()
+        .getMyCurrentPlaybackState()
         .then((data) => {
-          if (!data?.body) return
+          if (!data?.body) return setCurrentTrackId(null)
           setCurrentTrackId(data?.body?.item?.id || null)
           setIsPlaying(data.body.is_playing)
+          setRepeatMode(data.body.repeat_state || 'off')
           if (data.body.device?.volume_percent) {
             setVolume(data.body.device.volume_percent)
           }
@@ -52,11 +40,9 @@ export const Player = () => {
   }
 
   useEffect(() => {
-    if (!currentTrackId) {
-      fetchCurrentPlayingTrack()
-    }
+    fetchCurrentPlaybackState()
 
-    const refreshInterval = setInterval(() => fetchCurrentPlayingTrack(), 10000)
+    const refreshInterval = setInterval(() => fetchCurrentPlaybackState(), 10000)
 
     return () => clearInterval(refreshInterval)
   }, [])
@@ -77,7 +63,7 @@ export const Player = () => {
       spotifyApi
         .skipToNext()
         .then(() => {
-          setTimeout(() => fetchCurrentPlayingTrack(), 50)
+          setTimeout(() => fetchCurrentPlaybackState(), 50)
         })
         .catch((err) => {
           console.error(err)
@@ -91,7 +77,7 @@ export const Player = () => {
       spotifyApi
         .skipToPrevious()
         .then(() => {
-          setTimeout(() => fetchCurrentPlayingTrack(), 50)
+          setTimeout(() => fetchCurrentPlaybackState(), 50)
         })
         .catch((err) => {
           console.error(err)
@@ -100,12 +86,46 @@ export const Player = () => {
     }
   }
 
+  const handlePlayPause = () => {
+    spotifyApi
+      .getMyCurrentPlaybackState()
+      .then((data) => {
+        if (!data?.body) {
+          setCurrentTrackId(null)
+          return
+        }
+        if (data.body.is_playing) {
+          spotifyApi.pause().finally(() => setIsPlaying(false))
+          return
+        }
+        spotifyApi.play().then(() => setIsPlaying(true))
+      })
+      .catch((err) => console.error(err))
+  }
+
+  const toggleRepeatMode = () => {
+    spotifyApi
+      .getMyCurrentPlaybackState()
+      .then((data) => {
+        if (data.body.repeat_state === 'off') {
+          spotifyApi.setRepeat('track').then(() => setRepeatMode('track'))
+          return
+        }
+        if (data.body.repeat_state === 'track') {
+          spotifyApi.setRepeat('context').then(() => setRepeatMode('context'))
+          return
+        }
+        spotifyApi.setRepeat('off').then(() => setRepeatMode('off'))
+      })
+      .catch((err) => console.error(err))
+  }
+
   return (
     <div
       className={`${
         !currentTrackId && 'hidden'
       } fixed bottom-[3.5rem] md:bottom-0 w-[calc(100vw-16px)] md:w-full h-14 md:h-24 rounded-md md:rounded-none
-      text-[11px] px-2 md:px-4 mx-2 md:mx-0 bg-carbon md:bg-gradient-to-b from-black to-stone-800
+      text-[11px] px-2 md:px-4 mx-2 md:mx-0 bg-carbon md:bg-gradient-to-b from-dragonstone via-dragonstone to-zinc-800
       z-50 text-white border-carbon md:border-t-[1px] grid grid-cols-[1fr_50px] md:grid-cols-3 items-center`}
     >
       <div className='flex gap-4'>
@@ -133,7 +153,18 @@ export const Player = () => {
           )}
         </div>
         <ForwardIcon className='player-btn hidden md:block' onClick={nextSong} />
-        <ArrowPathRoundedSquareIcon className='player-btn hidden md:block' />
+        <div
+          className={`player-btn hidden md:block ${repeatMode !== 'off' && 'text-green'} relative`}
+          onClick={toggleRepeatMode}
+        >
+          <ArrowPathRoundedSquareIcon />
+          {repeatMode !== 'off' && <div className='btn-dot-green' />}
+          {repeatMode === 'track' && (
+            <div className='bg-dragonstone text-[10px] absolute top-0 left-1/2 transform -translate-x-1/2 -mt-1'>
+              1
+            </div>
+          )}
+        </div>
       </div>
       <div className='hidden md:flex items-center gap-2 justify-end pr-5'>
         <div onClick={() => (volume === 0 ? setVolume(50) : setVolume(0))}>

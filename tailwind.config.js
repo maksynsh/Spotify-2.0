@@ -9,6 +9,7 @@ module.exports = {
       colors: {
         'transparent': 'transparent',
         'dark': '#181818',
+        'dragonstone': '#121212',
         'black': '#040306',
         'green': '#1db954',
         'gray': '#a0a0a0',
