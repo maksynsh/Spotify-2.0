@@ -115,7 +115,7 @@ export const SongsTable = ({ data, playlistUri }: SongsTableProps) => {
   return (
     <div className='text-white bg-dark bg-opacity-30 backdrop-blur-md px-2 md:px-8'>
       <table className='text-sm w-full table-fixed overflow-auto'>
-        <thead className='border-b-[1px] border-carbon'>
+        <thead className='border-b-[1px] border-carbon text-gray'>
           {getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className='h-9'>
               {headerGroup.headers.map((header) => {
@@ -155,7 +155,7 @@ export const SongsTable = ({ data, playlistUri }: SongsTableProps) => {
             </tr>
           ))}
         </thead>
-        <tbody className='text-xs md:text-sm'>
+        <tbody className='text-xs md:text-sm before:h-2 before:table-row'>
           {getRowModel().rows.map((row) => {
             return <SongRow key={row.id} row={row} contextUri={playlistUri} />
           })}
