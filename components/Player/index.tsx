@@ -37,14 +37,17 @@ export const Player = () => {
 
   const fetchCurrentPlayingTrack = () => {
     if (spotifyApi.getAccessToken()) {
-      spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-        if (!data?.body) return
-        setCurrentTrackId(data?.body?.item?.id || null)
-        setIsPlaying(data.body.is_playing)
-        if (data.body.device?.volume_percent) {
-          setVolume(data.body.device.volume_percent)
-        }
-      })
+      spotifyApi
+        .getMyCurrentPlayingTrack()
+        .then((data) => {
+          if (!data?.body) return
+          setCurrentTrackId(data?.body?.item?.id || null)
+          setIsPlaying(data.body.is_playing)
+          if (data.body.device?.volume_percent) {
+            setVolume(data.body.device.volume_percent)
+          }
+        })
+        .catch((err) => console.error('Could not fetch current track', err))
     }
   }
 
@@ -52,6 +55,10 @@ export const Player = () => {
     if (!currentTrackId) {
       fetchCurrentPlayingTrack()
     }
+
+    const refreshInterval = setInterval(() => fetchCurrentPlayingTrack(), 10000)
+
+    return () => clearInterval(refreshInterval)
   }, [])
 
   useEffect(() => {
