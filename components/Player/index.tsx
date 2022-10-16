@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import {
   ArrowPathRoundedSquareIcon,
@@ -77,7 +77,7 @@ export const Player = () => {
       spotifyApi
         .skipToNext()
         .then(() => {
-          fetchCurrentPlayingTrack()
+          setTimeout(() => fetchCurrentPlayingTrack(), 50)
         })
         .catch((err) => {
           console.error(err)
@@ -91,7 +91,7 @@ export const Player = () => {
       spotifyApi
         .skipToPrevious()
         .then(() => {
-          fetchCurrentPlayingTrack()
+          setTimeout(() => fetchCurrentPlayingTrack(), 50)
         })
         .catch((err) => {
           console.error(err)
