@@ -11,14 +11,14 @@ import {
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline'
 
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
-import { useSongInfo, useSpotify } from 'hooks'
+import { useLocalStorage, useSongInfo, useSpotify } from 'hooks'
 import { debounce } from 'lodash'
 
 export const Player = () => {
   const spotifyApi = useSpotify()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
-  const [volume, setVolume] = useState(50)
+  const [volume, setVolume] = useLocalStorage<number>({ key: 'volume', initialValue: 50 })
   const songInfo = useSongInfo()
 
   const handlePlayPause = () => {
@@ -35,14 +35,22 @@ export const Player = () => {
     })
   }
 
-  useEffect(() => {
-    if (spotifyApi.getAccessToken() && !currentTrackId) {
+  const fetchCurrentPlayingTrack = () => {
+    if (spotifyApi.getAccessToken()) {
       spotifyApi.getMyCurrentPlayingTrack().then((data) => {
         if (!data?.body) return
         setCurrentTrackId(data?.body?.item?.id || null)
         setIsPlaying(data.body.is_playing)
-        setVolume(data.body.device?.volume_percent || 50)
+        if (data.body.device?.volume_percent) {
+          setVolume(data.body.device.volume_percent)
+        }
       })
+    }
+  }
+
+  useEffect(() => {
+    if (!currentTrackId) {
+      fetchCurrentPlayingTrack()
     }
   }, [])
 
@@ -56,6 +64,34 @@ export const Player = () => {
     debounce((volume) => spotifyApi.setVolume(volume).catch((err) => console.error(err)), 75),
     [],
   )
+
+  const nextSong = () => {
+    if (spotifyApi.getAccessToken()) {
+      spotifyApi
+        .skipToNext()
+        .then(() => {
+          fetchCurrentPlayingTrack()
+        })
+        .catch((err) => {
+          console.error(err)
+          setCurrentTrackId(null)
+        })
+    }
+  }
+
+  const previousSong = () => {
+    if (spotifyApi.getAccessToken()) {
+      spotifyApi
+        .skipToPrevious()
+        .then(() => {
+          fetchCurrentPlayingTrack()
+        })
+        .catch((err) => {
+          console.error(err)
+          setCurrentTrackId(null)
+        })
+    }
+  }
 
   return (
     <div
@@ -78,7 +114,7 @@ export const Player = () => {
       </div>
       <div className='flex items-center justify-end md:justify-center gap-6'>
         <ArrowsRightLeftIcon className='player-btn hidden md:block' />
-        <BackwardIcon className='player-btn hidden md:block' />
+        <BackwardIcon className='player-btn hidden md:block' onClick={previousSong} />
         <div
           onClick={handlePlayPause}
           className='player-btn w-8 h-8 md:bg-white md:text-dark rounded-full cursor-pointer flex items-center justify-center'
@@ -89,7 +125,7 @@ export const Player = () => {
             <PlayIcon className='w-[21px] h-[21px] ml-0.5' />
           )}
         </div>
-        <ForwardIcon className='player-btn hidden md:block' />
+        <ForwardIcon className='player-btn hidden md:block' onClick={nextSong} />
         <ArrowPathRoundedSquareIcon className='player-btn hidden md:block' />
       </div>
       <div className='hidden md:flex items-center gap-2 justify-end pr-5'>
