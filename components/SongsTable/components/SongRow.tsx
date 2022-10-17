@@ -42,9 +42,20 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
         return (
           <td
             key={cell.id}
-            className='text-trim px-4 cursor-default first-of-type:pr-0 last-of-type:px-1'
+            className={`text-trim px-4 cursor-default first-of-type:pr-0 last-of-type:px-1 
+            ${
+              cell.column.id === 'title'
+                ? cell.row.original.id === currentTrackId
+                  ? 'text-green'
+                  : 'text-white'
+                : ''
+            }`}
           >
-            {flexRender(cell.column.columnDef.cell, { ...cell.getContext() })}
+            {cell.column.id === 'id' && cell.row.original.id === currentTrackId ? (
+              <img className='w-3 h-3' src={'/images/equaliser-animated.gif'} alt='eq' />
+            ) : (
+              flexRender(cell.column.columnDef.cell, { ...cell.getContext() })
+            )}
           </td>
         )
       })}

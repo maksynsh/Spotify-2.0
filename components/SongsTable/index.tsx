@@ -41,8 +41,8 @@ const columns = [
       <div className='flex gap-4 min-w-0'>
         <img className='w-10 h-10' src={info.row.original.image} alt='album' />
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
-          <h3 className='font-semibold leading-none text-white'>{info.getValue()}</h3>
-          <div className='leading-none'>{info.row.original.artists?.at(0)?.name}</div>
+          <h3 className='font-semibold leading-none text-inherit'>{info.getValue()}</h3>
+          <div className='leading-none text-gray'>{info.row.original.artists?.at(0)?.name}</div>
         </div>
       </div>
     ),
