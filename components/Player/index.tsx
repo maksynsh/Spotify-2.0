@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/solid'
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline'
 
-import { currentTrackIdState, isPlayingState } from 'atoms/song'
+import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useLocalStorage, useSongInfo, useSpotify } from 'hooks'
 import { debounce } from 'lodash'
 
@@ -18,6 +18,7 @@ export const Player = () => {
   const spotifyApi = useSpotify()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
+  const setSongContextUri = useRecoilState(currentContextUriState)[1]
   const [volume, setVolume] = useLocalStorage<number>({ key: 'volume', initialValue: 50 })
   const [repeatMode, setRepeatMode] = useState<SpotifyApi.PlaybackObject['repeat_state']>('off')
   const [shuffleMode, setShuffleMode] = useState<SpotifyApi.PlaybackObject['shuffle_state']>(false)
@@ -33,6 +34,9 @@ export const Player = () => {
           setIsPlaying(data.body.is_playing)
           setRepeatMode(data.body.repeat_state || 'off')
           setShuffleMode(data.body.shuffle_state || false)
+          if (data?.body?.context?.uri) {
+            setSongContextUri(data.body.context.uri)
+          }
           if (data.body.device?.volume_percent) {
             setVolume(data.body.device.volume_percent)
           }

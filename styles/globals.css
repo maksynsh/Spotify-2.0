@@ -44,6 +44,9 @@ body {
   .btn-default {
     @apply px-6 py-2 text-base font-semibold
   }
+  .btn-large {
+    @apply px-9 py-3 text-lg font-semibold
+  }
   
   .btn-dot-green {
     @apply h-1 w-1 rounded-full bg-green absolute bottom-0 left-1/2 transform -translate-x-1/2 -mb-0.5

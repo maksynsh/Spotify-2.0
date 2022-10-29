@@ -8,7 +8,7 @@ import { MenuItem } from './components/MenuItem'
 import { menu } from 'lib/menu'
 import { useResizable, useSpotify } from 'hooks'
 import { playlistListState } from 'atoms/playlist'
-import { currentTrackIdState } from 'atoms/song'
+import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
 
 export const Sidebar = () => {
   const spotifyApi = useSpotify()
@@ -19,6 +19,8 @@ export const Sidebar = () => {
   const [playlists, setPlaylists] =
     useRecoilState<SpotifyApi.PlaylistObjectSimplified[]>(playlistListState)
   const [currentTrackId] = useRecoilState(currentTrackIdState)
+  const [currentContextUri] = useRecoilState(currentContextUriState)
+  const [isPlaying] = useRecoilState(isPlayingState)
 
   const toggleSidebar = () => {
     let resizable = document.getElementById('resizable')
@@ -80,19 +82,25 @@ export const Sidebar = () => {
                 path={path}
                 active={currentPath === path}
                 Icon={Icon}
+                //@ts-ignore
+                isPlaying={
+                  id === 'liked' &&
+                  currentContextUri === `spotify:user:${session?.user?.id}:collection`
+                }
               />
             ))}
           </div>
           <hr className='text-dark mx-4 hidden md:block' />
           {/* Playlists */}
           <div className={`flex-col hidden md:flex ${currentTrackId && 'md:pb-24'}`}>
-            {playlists.map(({ id, name }) => (
+            {playlists.map(({ id, name, uri }) => (
               <MenuItem
                 key={id}
                 id={id}
                 title={name}
                 path={`/playlist/${id}`}
                 active={currentPath === `/playlist/${id}`}
+                isPlaying={uri === currentContextUri && isPlaying}
               />
             ))}
           </div>

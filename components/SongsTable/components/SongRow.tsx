@@ -1,7 +1,7 @@
 import { flexRender, Row } from '@tanstack/react-table'
 import { useRecoilState } from 'recoil'
 
-import { currentTrackIdState, isPlayingState } from 'atoms/song'
+import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useSpotify } from 'hooks'
 import { Song } from '..'
 import { availableDevicesState } from 'atoms/devices'
@@ -15,6 +15,7 @@ interface SongRowProps {
 export const SongRow = ({ row, contextUri }: SongRowProps) => {
   const spotifyApi = useSpotify()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
+  const setSongContextUri = useRecoilState(currentContextUriState)[1]
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   const [availableDevices] = useRecoilState(availableDevicesState)
 
@@ -31,6 +32,7 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
       })
       .then(() => {
         setCurrentTrackId(row.original.id || ''), setIsPlaying(true)
+        setSongContextUri(contextUri)
       })
   }
 
