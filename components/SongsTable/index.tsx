@@ -113,7 +113,7 @@ export const SongsTable = ({ data, playlistUri }: SongsTableProps) => {
 
   return (
     <div className='text-white bg-dark bg-opacity-30 backdrop-blur-md px-2 md:px-8'>
-      <table className='text-sm w-full table-fixed overflow-auto'>
+      <table className='text-sm w-full table-fixed overflow-auto select-none'>
         <thead className='border-b-[1px] border-carbon text-gray'>
           {getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className='h-9'>

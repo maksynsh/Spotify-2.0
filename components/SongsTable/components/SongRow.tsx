@@ -5,6 +5,7 @@ import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useSpotify } from 'hooks'
 import { Song } from '..'
 import { availableDevicesState } from 'atoms/devices'
+import { PauseIcon } from '@heroicons/react/24/solid'
 
 interface SongRowProps {
   row: Row<Song>
@@ -51,7 +52,7 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
                 : ''
             }`}
           >
-            {cell.column.id === 'id' && cell.row.original.id === currentTrackId ? (
+            {cell.column.id === 'id' && cell.row.original.id === currentTrackId && isPlaying ? (
               <img className='w-3 h-3' src={'/images/equaliser-animated.gif'} alt='eq' />
             ) : (
               flexRender(cell.column.columnDef.cell, { ...cell.getContext() })
