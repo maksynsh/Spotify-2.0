@@ -1,11 +1,13 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { RecoilRoot } from 'recoil'
+
 import { DevicesProvider } from 'atoms/providers'
 
-function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
   return (
     <>
       <Head>
