@@ -51,7 +51,7 @@ const Playlist: NextPage = ({}) => {
           <Image
             src={playlist?.info?.images[0]?.url || ''}
             loader={() => playlist?.info?.images[0]?.url || ''}
-            layout='fill'
+            fill
             alt='playlistCover'
           />
         </div>
