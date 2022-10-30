@@ -1,11 +1,15 @@
 import type { NextPage } from 'next'
 
-import { GradientSection, Layout } from 'components'
+import { Layout } from 'components'
+import { RecommendsSection } from 'components/home'
 
 const Home: NextPage = () => {
   return (
     <Layout>
-      <GradientSection>Home content</GradientSection>
+      <div className='flex flex-col sm:flex-row sm:mt-0 align-center gap-4 mx-2 md:mx-8 md:my-5 h-fit'>
+        <h2 className='text-3xl font-bold'>Hello!</h2>
+        <RecommendsSection />
+      </div>
     </Layout>
   )
 }

@@ -82,9 +82,9 @@ export const Sidebar = () => {
                 path={path}
                 active={currentPath === path}
                 Icon={Icon}
-                //@ts-ignore
                 isPlaying={
                   id === 'liked' &&
+                  //@ts-ignore
                   currentContextUri === `spotify:user:${session?.user?.id}:collection`
                 }
               />
