@@ -15,7 +15,7 @@ export const Content: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className='flex flex-col flex-grow min-h-screen text-white relative mb-14 md:mb-24'>
       <GradientBackground />
-      <header className='flex items-center justify-between h-16 p-2 px-2 md:px-6 absolute left-0 right-0 top-0 z-50'>
+      <header className='flex items-center justify-between h-16 p-2 px-2 md:px-6 absolute left-0 right-0 top-0 z-40'>
         <Button color='secondary' onClick={() => signOut()}>
           Log out
         </Button>
