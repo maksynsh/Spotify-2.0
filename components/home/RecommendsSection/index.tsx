@@ -30,7 +30,7 @@ export const RecommendsSection = () => {
 
   return (
     <section className='flex flex-col gap-6'>
-      <h2 className='text-3xl font-bold'>Hello!</h2>
+      <h2 className='hidden sm:block text-3xl font-bold'>Hello!</h2>
       <div className='grid grid-cols-2 xl:grid-cols-3 w-full gap-2 sm:gap-4'>
         <SimplifiedPlaylistCard
           id={'liked'}

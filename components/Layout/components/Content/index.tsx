@@ -30,7 +30,7 @@ export const Content: React.FC<LayoutProps> = ({ gradientOpacity, children }) =>
           ) : (
             <UserIcon className='rounded-full object-cover h-full md:w-10 md:h-10 text-white border-2 border-white p-1.5' />
           )}
-          <h4 className='font-semibold truncate mb-0.5 hidden md:block'>
+          <h4 className='font-semibold truncate hidden md:block'>
             {session?.user?.name ?? 'user'}
           </h4>
           <ChevronDownIcon className='h-5 w-5 pr-2 hidden md:block' />

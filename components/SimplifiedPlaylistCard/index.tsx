@@ -46,7 +46,7 @@ export const SimplifiedPlaylistCard = ({ id, name, imageUrl }: SimplifiedPlaylis
         alt=''
       />
       <figcaption className='flex items-center justify-between px-2 pr-0 sm:px-4 min-w-0 flex-1'>
-        <p className='truncate text-sm sm:text-base'>{name}</p>
+        <p className='truncate text-xs sm:text-base'>{name}</p>
         <div className='min-w-12 hidden xl:block'>
           <div
             onClick={() => {}}
