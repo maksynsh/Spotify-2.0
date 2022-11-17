@@ -24,7 +24,11 @@ const COLORS = [
 
 export const getRandomGradientColor = () => shuffle(COLORS).pop() as string
 
-export const GradientBackground = () => {
+interface GradientBackgroundProps {
+  opacity?: number
+}
+
+export const GradientBackground = ({ opacity = 100 }: GradientBackgroundProps) => {
   const { asPath: currentPath } = useRouter()
   const [color, setColor] = useRecoilState<string>(backgroundGradientState)
 
@@ -34,8 +38,9 @@ export const GradientBackground = () => {
 
   return (
     <section
-      className={`absolute left-0 top-0 z-0 bg-gradient-to-b ${color}
-      to-dark h-[29.5rem] md:h-[35rem] w-full text-white transition-all ease-in duration-200`}
+      className={`transition-all ease duration-200 absolute left-0 top-0 z-0
+      opacity-${opacity} bg-gradient-to-b ${color} to-dark text-white
+      h-[29.5rem] md:h-[35rem] w-full`}
     />
   )
 }

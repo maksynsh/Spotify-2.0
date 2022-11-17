@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
 
 import { isPlayingState } from 'atoms/song'
+import { getRandomGradientColor } from 'components/Layout/components/Content/GradientBackground'
+import { backgroundGradientState } from 'atoms/background'
 
 interface SimplifiedPlaylistCardProps {
   id: string
@@ -11,16 +13,29 @@ interface SimplifiedPlaylistCardProps {
   url: string
 }
 
+//TODO: make smooth gradient transition
+
 export const SimplifiedPlaylistCard = ({ id, name, imageUrl }: SimplifiedPlaylistCardProps) => {
   const [hover, setHover] = useState(false)
   const [isPlaying] = useRecoilState(isPlayingState)
+  const [_, setBackgroundGradient] = useRecoilState(backgroundGradientState)
+  const mainColor = useMemo(() => getRandomGradientColor(), [getRandomGradientColor])
+
+  const handleMouseEnter = () => {
+    setHover(true)
+    setBackgroundGradient(mainColor)
+  }
+
+  const handleMouseLeave = () => {
+    setHover(false)
+  }
 
   return (
     <figure
       className='flex h-20 rounded-lg overflow-hidden font-bold cursor-pointer
         bg-dark bg-opacity-75 hover:bg-opacity-60 transition-colors ease duration-300'
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <img
         aria-hidden='false'
