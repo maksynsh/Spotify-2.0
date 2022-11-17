@@ -31,7 +31,7 @@ export const RecommendsSection = () => {
   return (
     <section className='flex flex-col gap-6'>
       <h2 className='text-3xl font-bold'>Hello!</h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full gap-4'>
+      <div className='grid grid-cols-2 xl:grid-cols-3 w-full gap-2 sm:gap-4'>
         <SimplifiedPlaylistCard
           id={'liked'}
           imageUrl={'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'}

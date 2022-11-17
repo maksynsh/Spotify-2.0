@@ -32,7 +32,7 @@ export const SimplifiedPlaylistCard = ({ id, name, imageUrl }: SimplifiedPlaylis
 
   return (
     <figure
-      className='flex h-20 rounded-lg overflow-hidden font-bold cursor-pointer
+      className='flex h-14 sm:h-20 rounded-lg overflow-hidden font-bold cursor-pointer
         bg-dark bg-opacity-75 hover:bg-opacity-60 transition-colors ease duration-300'
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -45,8 +45,8 @@ export const SimplifiedPlaylistCard = ({ id, name, imageUrl }: SimplifiedPlaylis
         data-testid='shortcut-image'
         alt=''
       />
-      <figcaption className='flex items-center justify-between px-4 min-w-0 flex-1'>
-        <p className='truncate'>{name}</p>
+      <figcaption className='flex items-center justify-between px-2 pr-0 sm:px-4 min-w-0 flex-1'>
+        <p className='truncate text-sm sm:text-base'>{name}</p>
         <div className='min-w-12 hidden xl:block'>
           <div
             onClick={() => {}}
