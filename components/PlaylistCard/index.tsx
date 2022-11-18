@@ -1,12 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
-import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
 
 import { currentContextUriState, isPlayingState } from 'atoms/song'
-import { getRandomGradientColor } from 'components/Layout/components/Content/GradientBackground'
-import { backgroundGradientState } from 'atoms/background'
 import { usePlay } from 'hooks'
+import { PlayButton } from 'components'
 
 interface SimplifiedPlaylistCardProps {
   uri: string
@@ -33,7 +31,8 @@ export const PlaylistCard = ({
 
   const play = usePlay()
 
-  const handlePlay = () => {
+  const handlePlay = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
     play({ contextUri: uri })
   }
 
@@ -56,19 +55,12 @@ export const PlaylistCard = ({
             alt=''
           />
           <div
-            onClick={handlePlay}
-            className={`hover:scale-105 transition-all ease duration-200 
-            w-12 h-12 min-w-12 absolute bottom-2 right-2
-           bg-green text-dark rounded-full cursor-default 
-            hidden xl:flex items-center justify-center 
+            className={`absolute bottom-2 right-2
+            hidden xl:block transition-all ease duration-200
             group-hover:translate-y-0 group-hover:opacity-100 
             ${isPlalistPlaying ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
-            {isPlalistPlaying ? (
-              <PauseIcon className='w-8 h-8' />
-            ) : (
-              <PlayIcon className='w-[29px] h-[29px] ml-0.5' />
-            )}
+            <PlayButton isPlaying={isPlalistPlaying} handleClick={handlePlay} />
           </div>
         </div>
         <figcaption className='min-w-0 flex flex-col flex-1 gap-1'>

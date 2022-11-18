@@ -31,7 +31,8 @@ export const Player = () => {
         .getMyCurrentPlaybackState()
         .then((data) => {
           if (!data?.body) return setCurrentTrackId(null)
-          setCurrentTrackId(data?.body?.item?.id || null)
+
+          if (data?.body?.item?.id) setCurrentTrackId(data.body.item.id)
           setIsPlaying(data.body.is_playing)
           setRepeatMode(data.body.repeat_state || 'off')
           setShuffleMode(data.body.shuffle_state || false)

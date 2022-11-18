@@ -7,6 +7,7 @@ import { currentContextUriState, isPlayingState } from 'atoms/song'
 import { getRandomGradientColor } from 'components/Layout/components/Content/GradientBackground'
 import { backgroundGradientState } from 'atoms/background'
 import { usePlay } from 'hooks'
+import { PlayButton } from 'components'
 
 interface SimplifiedPlaylistCardProps {
   uri: string
@@ -36,7 +37,8 @@ export const SimplifiedPlaylistCard = ({
 
   const play = usePlay()
 
-  const handlePlay = () => {
+  const handlePlay = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
     play({ contextUri: uri })
   }
 
@@ -69,19 +71,12 @@ export const SimplifiedPlaylistCard = ({
           <p className='truncate text-xs sm:text-base'>{name}</p>
           <div className='min-w-12 hidden xl:block'>
             <div
-              onClick={handlePlay}
-              className={`hover:scale-105 transition-all ease duration-200 p-0 ml-2 w-12 h-12 min-w-12
-           bg-green text-dark rounded-full cursor-default 
-            flex items-center justify-center 
+              className={`transition-all ease duration-200
             ${
-              hover || isPlalistPlaying ? 'opacity-100 translate-x-0' : 'opacity-0 translate-y-12'
+              hover || isPlalistPlaying ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}
             >
-              {isPlalistPlaying ? (
-                <PauseIcon className='w-8 h-8' />
-              ) : (
-                <PlayIcon className='w-[29px] h-[29px] ml-0.5' />
-              )}
+              <PlayButton isPlaying={isPlalistPlaying} handleClick={handlePlay} />
             </div>
           </div>
         </figcaption>

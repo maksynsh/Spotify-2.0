@@ -1,5 +1,6 @@
 export * from './BaseButton'
 export * from './Button'
+export * from './PlayButton'
 export * from './Layout'
 export * from './SongsTable'
 export * from './Player'
