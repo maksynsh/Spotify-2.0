@@ -23,7 +23,6 @@ export const PlaylistCard = ({
   description,
   url,
 }: SimplifiedPlaylistCardProps) => {
-  const [hover, setHover] = useState(false)
   const [isPlaying] = useRecoilState(isPlayingState)
   const [currentContextUri] = useRecoilState(currentContextUriState)
 
@@ -38,27 +37,17 @@ export const PlaylistCard = ({
     play({ contextUri: uri })
   }
 
-  const handleMouseEnter = () => {
-    setHover(true)
-  }
-
-  const handleMouseLeave = () => {
-    setHover(false)
-  }
-
   return (
     <Link href={url}>
       <figure
         className='flex flex-col shrink-0 w-32 md:w-48 h-44 md:h-[17rem] rounded-lg overflow-hidden font-bold cursor-pointer 
-        p-0 md:p-3 gap-3
+        p-0 md:p-3 gap-3 group
         md:bg-dark md:hover:bg-[#282828] transition-colors ease duration-300'
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         <div className='relative'>
           <img
             className={`h-32 md:h-[10.5rem] w-32 md:w-[10.5rem] object-cover rounded-md mx-auto md:mx-0
-          ${hover && 'bg-no-repeat brightness-75'} transition-all ease duration-300`}
+          group-hover:bg-no-repeat group-hover:brightness-75 transition-all ease duration-300`}
             aria-hidden='false'
             draggable='false'
             loading='lazy'
@@ -71,8 +60,9 @@ export const PlaylistCard = ({
             className={`hover:scale-105 transition-all ease duration-200 
             w-12 h-12 min-w-12 absolute bottom-2 right-2
            bg-green text-dark rounded-full cursor-default 
-            hidden xl:flex items-center justify-center
-            ${hover || isPlalistPlaying ? 'opacity-100 translate-x-0' : 'opacity-0 translate-y-4'}`}
+            hidden xl:flex items-center justify-center 
+            group-hover:translate-y-0 group-hover:opacity-100 
+            ${isPlalistPlaying ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             {isPlalistPlaying ? (
               <PauseIcon className='w-8 h-8' />
