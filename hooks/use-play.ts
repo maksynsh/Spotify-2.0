@@ -35,10 +35,11 @@ export const usePlay = () => {
         setSongContextUri(contextUri)
       })
       .catch((err) => {
-        if (!availableDevices?.length) {
+        if (!availableDevices?.length || err.reason === 'NO_ACTIVE_DEVICE') {
           toast.warn('No available devices. Play any song on one of your devices first.', {
             toastId: 'no-devices-error',
           })
+          return
         }
         toast.error(err.message, {
           toastId: 'play-api-error',
