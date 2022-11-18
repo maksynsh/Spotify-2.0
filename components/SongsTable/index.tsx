@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   createColumnHelper,
   flexRender,
@@ -12,11 +12,9 @@ import { ClockIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, ChevronUpIcon, PlayIcon } from '@heroicons/react/24/solid'
 
 import { Track } from 'types/spotify'
-import { useDimensions, usePlay } from 'hooks'
+import { useDimensions } from 'hooks'
 import { duration } from 'lib/utils'
 import { SongRow } from './components/SongRow'
-import { useRecoilState } from 'recoil'
-import { currentContextUriState, isPlayingState } from 'atoms/song'
 import { PlayButton } from 'components/PlayButton'
 
 export interface Song extends Track {
@@ -86,21 +84,6 @@ interface SongsTableProps {
 export const SongsTable = ({ data, playlistUri }: SongsTableProps) => {
   const [sorting, setSorting] = useState<SortingState>([])
 
-  const [isPlaying] = useRecoilState(isPlayingState)
-  const [currentContextUri] = useRecoilState(currentContextUriState)
-
-  const isPlalistPlaying = useMemo(
-    () => isPlaying && currentContextUri === playlistUri,
-    [isPlaying, currentContextUri, playlistUri],
-  )
-
-  const play = usePlay()
-
-  const handlePlay = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    play({ contextUri: playlistUri })
-  }
-
   const { width } = useDimensions()
 
   const { getHeaderGroups, getRowModel, getAllLeafColumns } = useReactTable({
@@ -132,7 +115,7 @@ export const SongsTable = ({ data, playlistUri }: SongsTableProps) => {
   return (
     <div className='text-white bg-dark bg-opacity-30 backdrop-blur-md px-2 md:px-8'>
       <div className='flex items-center py-4'>
-        <PlayButton size='large' isPlaying={isPlalistPlaying} handleClick={handlePlay} />
+        <PlayButton size='large' uri={playlistUri} />
       </div>
 
       <table className='text-sm w-full table-fixed overflow-auto select-none'>

@@ -1,9 +1,6 @@
-import React, { useMemo } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { useRecoilState } from 'recoil'
 
-import { currentContextUriState, isPlayingState } from 'atoms/song'
-import { usePlay } from 'hooks'
 import { PlayButton } from 'components'
 
 interface SimplifiedPlaylistCardProps {
@@ -21,20 +18,7 @@ export const PlaylistCard = ({
   description,
   url,
 }: SimplifiedPlaylistCardProps) => {
-  const [isPlaying] = useRecoilState(isPlayingState)
-  const [currentContextUri] = useRecoilState(currentContextUriState)
-
-  const isPlalistPlaying = useMemo(
-    () => isPlaying && currentContextUri === uri,
-    [isPlaying, currentContextUri, uri],
-  )
-
-  const play = usePlay()
-
-  const handlePlay = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    play({ contextUri: uri })
-  }
+  const [hover, setHover] = useState(false)
 
   return (
     <Link href={url}>
@@ -42,6 +26,8 @@ export const PlaylistCard = ({
         className='flex flex-col shrink-0 w-32 md:w-48 h-44 md:h-[17rem] rounded-lg overflow-hidden font-bold cursor-pointer 
         p-0 md:p-3 gap-3 group
         md:bg-dark md:hover:bg-[#282828] transition-colors ease duration-300'
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
       >
         <div className='relative'>
           <img
@@ -56,11 +42,9 @@ export const PlaylistCard = ({
           />
           <div
             className={`absolute bottom-2 right-2
-            hidden xl:block transition-all ease duration-200
-            group-hover:translate-y-0 group-hover:opacity-100 
-            ${isPlalistPlaying ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            hidden xl:block`}
           >
-            <PlayButton isPlaying={isPlalistPlaying} handleClick={handlePlay} />
+            <PlayButton uri={uri} transition={'slideInShort'} show={hover} />
           </div>
         </div>
         <figcaption className='min-w-0 flex flex-col flex-1 gap-1'>

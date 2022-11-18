@@ -1,12 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
-import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
 
-import { currentContextUriState, isPlayingState } from 'atoms/song'
 import { getRandomGradientColor } from 'components/Layout/components/Content/GradientBackground'
 import { backgroundGradientState } from 'atoms/background'
-import { usePlay } from 'hooks'
 import { PlayButton } from 'components'
 
 interface SimplifiedPlaylistCardProps {
@@ -25,22 +22,9 @@ export const SimplifiedPlaylistCard = ({
   url,
 }: SimplifiedPlaylistCardProps) => {
   const [hover, setHover] = useState(false)
-  const [isPlaying] = useRecoilState(isPlayingState)
-  const [currentContextUri] = useRecoilState(currentContextUriState)
   const [_, setBackgroundGradient] = useRecoilState(backgroundGradientState)
 
   const mainColor = useMemo(() => getRandomGradientColor(), [getRandomGradientColor])
-  const isPlalistPlaying = useMemo(
-    () => isPlaying && currentContextUri === uri,
-    [isPlaying, currentContextUri, uri],
-  )
-
-  const play = usePlay()
-
-  const handlePlay = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    play({ contextUri: uri })
-  }
 
   const handleMouseEnter = () => {
     setHover(true)
@@ -70,14 +54,7 @@ export const SimplifiedPlaylistCard = ({
         <figcaption className='flex items-center justify-between px-2 pr-0 sm:px-4 min-w-0 flex-1'>
           <p className='truncate text-xs sm:text-base'>{name}</p>
           <div className='min-w-12 hidden xl:block'>
-            <div
-              className={`transition-all ease duration-200
-            ${
-              hover || isPlalistPlaying ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-            }`}
-            >
-              <PlayButton isPlaying={isPlalistPlaying} handleClick={handlePlay} />
-            </div>
+            <PlayButton uri={uri} transition={'slideIn'} show={hover} />
           </div>
         </figcaption>
       </figure>
