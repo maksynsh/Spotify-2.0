@@ -43,7 +43,11 @@ export const Player = () => {
             setVolume(data.body.device.volume_percent)
           }
         })
-        .catch((err) => toast.error(err.message))
+        .catch((err) =>
+          toast.error('Couldnt fetch player state. Try reloading page', {
+            toastId: 'player-error',
+          }),
+        )
     }
   }
 
@@ -74,7 +78,7 @@ export const Player = () => {
           setTimeout(() => fetchCurrentPlaybackState(), 50)
         })
         .catch((err) => {
-          console.error(err)
+          toast.error(err.message, { toastId: 'next-song-error' })
           setCurrentTrackId(null)
         })
     }
@@ -88,7 +92,7 @@ export const Player = () => {
           setTimeout(() => fetchCurrentPlaybackState(), 50)
         })
         .catch((err) => {
-          console.error(err)
+          toast.error(err.message, { toastId: 'prev-song-error' })
           setCurrentTrackId(null)
         })
     }
@@ -108,7 +112,7 @@ export const Player = () => {
         }
         spotifyApi.play().then(() => setIsPlaying(true))
       })
-      .catch((err) => console.error(err))
+      .catch((err) => toast.error(err.message, { toastId: 'play-pause-error' }))
   }
 
   const toggleRepeatMode = () => {
@@ -125,7 +129,7 @@ export const Player = () => {
         }
         spotifyApi.setRepeat('off').then(() => setRepeatMode('off'))
       })
-      .catch((err) => console.error(err))
+      .catch((err) => toast.error(err.message, { toastId: 'repeat-error' }))
   }
 
   const toggleShuffleMode = () => {
@@ -138,7 +142,7 @@ export const Player = () => {
         }
         spotifyApi.setShuffle(true).then(() => setShuffleMode(true))
       })
-      .catch((err) => console.error(err))
+      .catch((err) => toast.error(err.message, { toastId: 'shuffle-error' }))
   }
 
   return (
