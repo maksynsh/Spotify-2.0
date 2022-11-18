@@ -1,0 +1,48 @@
+import { useRecoilState } from 'recoil'
+
+import { useSpotify } from './use-spotify'
+import { availableDevicesState } from 'atoms/devices'
+import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
+
+interface PlayParams {
+  contextUri: string
+  songUri?: string
+  songId?: string
+}
+
+export const usePlay = () => {
+  const spotifyApi = useSpotify()
+  const [, setCurrentTrackId] = useRecoilState(currentTrackIdState)
+  const [, setSongContextUri] = useRecoilState(currentContextUriState)
+  const [, setIsPlaying] = useRecoilState(isPlayingState)
+  const [availableDevices] = useRecoilState(availableDevicesState)
+
+  return ({ contextUri, songUri, songId }: PlayParams) => {
+    try {
+      if (!availableDevices?.length) {
+        throw Error('No available devices. Play any song on one of your devices first.')
+      }
+
+      spotifyApi
+        .play({
+          context_uri: contextUri,
+          offset: songUri ? { uri: songUri } : undefined,
+          //uris: [row.original.uri || ''],
+          device_id:
+            availableDevices?.find((d) => d.is_active)?.id ||
+            (availableDevices && availableDevices[0]?.id) ||
+            '',
+        })
+        .then(() => {
+          setCurrentTrackId(songId || '')
+          setIsPlaying(true)
+          setSongContextUri(contextUri)
+        })
+        .catch((err) => {
+          throw Error(String(err))
+        })
+    } catch (err: any) {
+      alert(err.message)
+    }
+  }
+}

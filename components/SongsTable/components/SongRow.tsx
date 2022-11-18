@@ -1,11 +1,9 @@
 import { flexRender, Row } from '@tanstack/react-table'
 import { useRecoilState } from 'recoil'
 
-import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
-import { useSpotify } from 'hooks'
+import { currentTrackIdState, isPlayingState } from 'atoms/song'
+import { usePlay } from 'hooks'
 import { Song } from '..'
-import { availableDevicesState } from 'atoms/devices'
-import { PauseIcon } from '@heroicons/react/24/solid'
 
 interface SongRowProps {
   row: Row<Song>
@@ -13,28 +11,12 @@ interface SongRowProps {
 }
 
 export const SongRow = ({ row, contextUri }: SongRowProps) => {
-  const spotifyApi = useSpotify()
-  const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
-  const setSongContextUri = useRecoilState(currentContextUriState)[1]
-  const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
-  const [availableDevices] = useRecoilState(availableDevicesState)
+  const [currentTrackId] = useRecoilState(currentTrackIdState)
+  const [isPlaying] = useRecoilState(isPlayingState)
 
-  const playSong = () => {
-    spotifyApi
-      .play({
-        context_uri: contextUri,
-        offset: { uri: row.original.uri as string },
-        //uris: [row.original.uri || ''],
-        device_id:
-          availableDevices?.find((d) => d.is_active)?.id ||
-          (availableDevices && availableDevices[0]?.id) ||
-          '',
-      })
-      .then(() => {
-        setCurrentTrackId(row.original.id || ''), setIsPlaying(true)
-        setSongContextUri(contextUri)
-      })
-  }
+  const play = usePlay()
+
+  const playSong = () => play({ contextUri, songUri: row.original.uri, songId: row.original.id })
 
   return (
     <tr
