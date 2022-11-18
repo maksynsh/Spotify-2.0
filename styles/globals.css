@@ -16,6 +16,10 @@
   box-sizing: border-box;
 }
 
+.Toastify__toast-body { 
+  font-family: 'Montserrat'; 
+}
+
 table td:first-child {
   border-radius: 4px 0 0 4px;
 }

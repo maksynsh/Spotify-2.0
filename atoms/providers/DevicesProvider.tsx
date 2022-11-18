@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
+import { toast } from 'react-toastify'
 
 import { availableDevicesState } from 'atoms/devices'
 import { useSpotify } from 'hooks'
@@ -17,7 +18,7 @@ export const DevicesProvider = ({ children }: DevicesProviderProps) => {
       spotifyApi
         .getMyDevices()
         .then((data) => setAvailableDevices(data.body.devices))
-        .catch((err) => console.error(err))
+        .catch((err) => toast.error(err.message))
     }
   }, [])
 

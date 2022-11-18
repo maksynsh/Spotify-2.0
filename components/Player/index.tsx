@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
+import { toast } from 'react-toastify'
 import {
   ArrowPathRoundedSquareIcon,
   ArrowsRightLeftIcon,
@@ -41,7 +42,7 @@ export const Player = () => {
             setVolume(data.body.device.volume_percent)
           }
         })
-        .catch((err) => console.error('Could not fetch current track', err))
+        .catch((err) => toast.error(err.message))
     }
   }
 

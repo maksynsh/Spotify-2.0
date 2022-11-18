@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil'
+import { toast } from 'react-toastify'
 
 import { useSpotify } from './use-spotify'
 import { availableDevicesState } from 'atoms/devices'
@@ -20,7 +21,7 @@ export const usePlay = () => {
   return ({ contextUri, songUri, songId }: PlayParams) => {
     spotifyApi
       .play({
-        context_uri: 'contextUri',
+        context_uri: contextUri,
         offset: songUri ? { uri: songUri } : undefined,
         //uris: [row.original.uri || ''],
         device_id:
@@ -35,9 +36,13 @@ export const usePlay = () => {
       })
       .catch((err) => {
         if (!availableDevices?.length) {
-          throw Error('No available devices. Play any song on one of your devices first.')
+          toast.error('No available devices. Play any song on one of your devices first.', {
+            toastId: 'no-devices-error',
+          })
         }
-        throw Error(String(err.message))
+        toast.error(err.message, {
+          toastId: 'play-api-error',
+        })
       })
   }
 }
