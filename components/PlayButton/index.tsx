@@ -3,14 +3,20 @@ import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
 interface PlayButtonProps {
   isPlaying: boolean
   handleClick?: (e: React.MouseEvent<HTMLElement>) => void
+  size?: keyof typeof SIZES
 }
 
-export const PlayButton = ({ isPlaying, handleClick }: PlayButtonProps) => {
+const SIZES = {
+  default: 'w-12 h-12',
+  large: 'w-14 h-14',
+}
+
+export const PlayButton = ({ isPlaying, handleClick, size = 'default' }: PlayButtonProps) => {
   return (
     <div
       onClick={handleClick}
       className={`hover:scale-105 transition-all ease duration-200 
-            w-12 h-12 min-w-12
+            ${SIZES[size]} min-w-12
            bg-green text-dark rounded-full cursor-default 
             flex items-center justify-center`}
     >
