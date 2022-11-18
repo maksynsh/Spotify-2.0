@@ -46,7 +46,7 @@ export const SimplifiedPlaylistCard = ({ uri, name, imageUrl }: SimplifiedPlayli
   return (
     <figure
       className='flex h-14 sm:h-20 rounded-lg overflow-hidden font-bold cursor-pointer
-        bg-dark bg-opacity-75 hover:bg-opacity-60 transition-colors ease duration-300'
+        bg-zinc-800 bg-opacity-70 hover:bg-opacity-60 transition-colors ease duration-300'
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

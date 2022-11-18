@@ -39,7 +39,7 @@ export const GradientBackground = ({ opacity = 100 }: GradientBackgroundProps) =
   return (
     <section
       className={`transition-all ease duration-200 absolute left-0 top-0 z-0
-      opacity-${opacity} bg-gradient-to-b ${color} to-dark text-white
+      opacity-${opacity} bg-gradient-to-b ${color} to-dragonstone text-white
       h-[29.5rem] md:h-[35rem] w-full`}
     />
   )

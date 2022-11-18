@@ -32,7 +32,7 @@ export const RecommendsSection = () => {
 
   return (
     <section className='flex flex-col gap-3 sm:gap-6'>
-      <h2 className='text-base sm:text-3xl font-bold'>{title ?? 'Hello!'}</h2>
+      <h2 className='text-base sm:text-3xl font-extrabold'>{title ?? 'Hello!'}</h2>
       <div className='grid grid-cols-2 xl:grid-cols-3 w-full gap-2 sm:gap-4'>
         <SimplifiedPlaylistCard
           uri={`spotify:user:${session?.user?.id as string}:collection`}

@@ -13,7 +13,7 @@ export const Layout: React.FC<LayoutProps> = ({ isLoading = false, gradientOpaci
   const { height } = useDimensions()
 
   return (
-    <div className='bg-dark' style={{ height: height + 'px' }}>
+    <div className='bg-dragonstone' style={{ height: height + 'px' }}>
       <main className='flex flex-col-reverse md:flex-row'>
         <Sidebar />
         <Content gradientOpacity={gradientOpacity}>{!isLoading && children}</Content>

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.10",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@tanstack/react-table": "^8.5.15",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",

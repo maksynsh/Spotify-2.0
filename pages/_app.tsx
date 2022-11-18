@@ -23,6 +23,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ ses
           </DevicesProvider>
           <ToastContainer
             autoClose={6000}
+            limit={3}
             position='bottom-left'
             theme='dark'
             transition={Flip}

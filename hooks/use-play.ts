@@ -36,7 +36,7 @@ export const usePlay = () => {
       })
       .catch((err) => {
         if (!availableDevices?.length) {
-          toast.error('No available devices. Play any song on one of your devices first.', {
+          toast.warn('No available devices. Play any song on one of your devices first.', {
             toastId: 'no-devices-error',
           })
         }
