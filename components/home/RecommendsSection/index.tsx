@@ -35,15 +35,15 @@ export const RecommendsSection = () => {
       <h2 className='text-base sm:text-3xl font-bold'>{title ?? 'Hello!'}</h2>
       <div className='grid grid-cols-2 xl:grid-cols-3 w-full gap-2 sm:gap-4'>
         <SimplifiedPlaylistCard
-          id={'liked'}
+          uri={`spotify:user:${session?.user?.id as string}:collection`}
           imageUrl={'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'}
           name={'Liked songs'}
           url={`/liked`}
         />
-        {playlists?.map(({ id, images, name }) => (
+        {playlists?.map(({ uri, id, images, name }) => (
           <SimplifiedPlaylistCard
             key={id}
-            id={id}
+            uri={uri}
             imageUrl={images[0].url}
             name={name}
             url={`/playlist/${id}`}

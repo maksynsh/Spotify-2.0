@@ -18,31 +18,26 @@ export const usePlay = () => {
   const [availableDevices] = useRecoilState(availableDevicesState)
 
   return ({ contextUri, songUri, songId }: PlayParams) => {
-    try {
-      if (!availableDevices?.length) {
-        throw Error('No available devices. Play any song on one of your devices first.')
-      }
-
-      spotifyApi
-        .play({
-          context_uri: contextUri,
-          offset: songUri ? { uri: songUri } : undefined,
-          //uris: [row.original.uri || ''],
-          device_id:
-            availableDevices?.find((d) => d.is_active)?.id ||
-            (availableDevices && availableDevices[0]?.id) ||
-            '',
-        })
-        .then(() => {
-          setCurrentTrackId(songId || '')
-          setIsPlaying(true)
-          setSongContextUri(contextUri)
-        })
-        .catch((err) => {
-          throw Error(String(err))
-        })
-    } catch (err: any) {
-      alert(err.message)
-    }
+    spotifyApi
+      .play({
+        context_uri: 'contextUri',
+        offset: songUri ? { uri: songUri } : undefined,
+        //uris: [row.original.uri || ''],
+        device_id:
+          availableDevices?.find((d) => d.is_active)?.id ||
+          (availableDevices && availableDevices[0]?.id) ||
+          '',
+      })
+      .then(() => {
+        setCurrentTrackId(songId || '')
+        setIsPlaying(true)
+        setSongContextUri(contextUri)
+      })
+      .catch((err) => {
+        if (!availableDevices?.length) {
+          throw Error('No available devices. Play any song on one of your devices first.')
+        }
+        throw Error(String(err.message))
+      })
   }
 }
