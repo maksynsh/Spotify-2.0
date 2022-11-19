@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { useSpotify } from './use-spotify'
 import { availableDevicesState } from 'atoms/devices'
 import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
+import { useFetchPlayerState } from './use-fetch-player-state'
 
 interface PlayParams {
   contextUri: string
@@ -17,6 +18,8 @@ export const usePlay = () => {
   const [, setSongContextUri] = useRecoilState(currentContextUriState)
   const [, setIsPlaying] = useRecoilState(isPlayingState)
   const [availableDevices] = useRecoilState(availableDevicesState)
+
+  const fetchCurrentPlaybackState = useFetchPlayerState()
 
   return ({ contextUri, songUri, songId }: PlayParams) => {
     spotifyApi
@@ -33,6 +36,8 @@ export const usePlay = () => {
         setCurrentTrackId(songId || '')
         setIsPlaying(true)
         setSongContextUri(contextUri)
+
+        setTimeout(() => fetchCurrentPlaybackState(), 500)
       })
       .catch((err) => {
         if (!availableDevices?.length || err.reason === 'NO_ACTIVE_DEVICE') {

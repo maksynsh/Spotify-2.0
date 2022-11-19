@@ -27,12 +27,13 @@ export const Player = () => {
   const fetchCurrentPlaybackState = useFetchPlayerState()
 
   useEffect(() => {
+    if (!spotifyApi.getAccessToken()) return
     fetchCurrentPlaybackState()
 
     const refreshInterval = setInterval(() => fetchCurrentPlaybackState(), 10000)
 
     return () => clearInterval(refreshInterval)
-  }, [])
+  }, [spotifyApi.getAccessToken()])
 
   useEffect(() => {
     if (volume < 100) {
