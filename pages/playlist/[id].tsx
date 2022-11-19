@@ -1,22 +1,47 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
+import { useRecoilState } from 'recoil'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { getSession } from 'next-auth/react'
 
-import { Layout, Song, SongsTable } from 'components'
+import { Layout, PlayButton, Song, SongsTable } from 'components'
 import { useSpotify } from 'hooks'
+import { backgroundGradientState } from 'atoms/background'
 
 const Playlist: NextPage = ({}) => {
   const spotifyApi = useSpotify()
   const router = useRouter()
   const { id } = router.query
 
+  const [backgroundGradient] = useRecoilState<string>(backgroundGradientState)
   const [playlist, setPlaylist] = useState<{
     info: SpotifyApi.SinglePlaylistResponse
     tracks: Song[]
   }>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [headerOpacity, setHeaderOpacity] = useState(0)
+
+  const headerBackground = useMemo(
+    () => backgroundGradient.replace('from', 'bg'),
+    [backgroundGradient],
+  )
+
+  const handleScroll = () => {
+    const opacity = Math.floor(window.pageYOffset / 3.5) / 100
+
+    if (opacity > 1) {
+      return setHeaderOpacity(1)
+    }
+
+    setHeaderOpacity(opacity)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
@@ -46,6 +71,21 @@ const Playlist: NextPage = ({}) => {
 
   return (
     <Layout isLoading={isLoading}>
+      <div
+        className={`fixed top-0 w-full px-8 py-2 z-40 ${headerBackground ? headerBackground : ''}
+          flex flex-row-reverse sm:flex-row
+          transition-all duration-200 ease`}
+        style={{ opacity: headerOpacity, backgroundImage: 'linear-gradient(rgb(0 0 0/65%) 0 0)' }}
+      >
+        <div
+          className={`${
+            headerOpacity >= 1 ? 'opacity-100' : 'opacity-0'
+          } transition-all duration-300 ease`}
+        >
+          <PlayButton uri={playlist?.info.uri ?? `spotify:playlist:${id}`} />
+        </div>
+      </div>
+
       <div className='flex flex-col sm:flex-row -mt-11 sm:mt-0 align-center gap-4 mx-2 md:mx-8 py-2 md:my-5 h-fit'>
         <div className='w-36 h-36 sm:w-40 sm:h-40 md:w-56 md:h-56 shadow-2xl shadow-dark relative mx-auto sm:mx-0'>
           <Image
