@@ -15,6 +15,9 @@ import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useFetchPlayerState, useLocalStorage, useSongInfo, useSpotify } from 'hooks'
 import { debounce } from 'lodash'
 
+const UPDATE_DELAY = 200
+const REFRESH_PLAYER_INTERVAL = 10000
+
 export const Player = () => {
   const spotifyApi = useSpotify()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
@@ -30,7 +33,7 @@ export const Player = () => {
     if (!spotifyApi.getAccessToken()) return
     fetchCurrentPlaybackState()
 
-    const refreshInterval = setInterval(() => fetchCurrentPlaybackState(), 10000)
+    const refreshInterval = setInterval(() => fetchCurrentPlaybackState(), REFRESH_PLAYER_INTERVAL)
 
     return () => clearInterval(refreshInterval)
   }, [spotifyApi.getAccessToken()])
@@ -51,7 +54,7 @@ export const Player = () => {
       spotifyApi
         .skipToNext()
         .then(() => {
-          setTimeout(() => fetchCurrentPlaybackState(), 50)
+          setTimeout(() => fetchCurrentPlaybackState(), UPDATE_DELAY)
         })
         .catch((err) => {
           toast.error(err.message, { toastId: 'next-song-error' })
@@ -65,7 +68,7 @@ export const Player = () => {
       spotifyApi
         .skipToPrevious()
         .then(() => {
-          setTimeout(() => fetchCurrentPlaybackState(), 50)
+          setTimeout(() => fetchCurrentPlaybackState(), UPDATE_DELAY)
         })
         .catch((err) => {
           toast.error(err.message, { toastId: 'prev-song-error' })
