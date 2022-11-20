@@ -133,7 +133,7 @@ export const Player = () => {
       z-50 text-gray border-carbon md:border-t-[1px] grid grid-cols-[1fr_50px] md:grid-cols-3 items-center`}
     >
       {/* Left */}
-      <div className='flex gap-4'>
+      <div className='flex gap-4 min-w-0'>
         <img
           className='h-10 w-10 md:h-14 md:w-14'
           src={songInfo?.album.images.at(-1)?.url}
