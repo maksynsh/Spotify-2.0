@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 
-import { getRandomGradientColor } from 'components/Layout/components/Content/GradientBackground'
+import { getRandomGradientColor } from 'components/Layout/components/Content/components/GradientBackground'
 import { backgroundGradientState } from 'atoms/background'
 import { PlayButton } from 'components'
 

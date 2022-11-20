@@ -5,7 +5,7 @@ import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 import { useRecoilState } from 'recoil'
 
 import { MenuItem } from './components/MenuItem'
-import { menu } from 'lib/menu'
+import { sidebar } from 'lib/sidebar'
 import { useResizable, useSpotify } from 'hooks'
 import { playlistListState } from 'atoms/playlist'
 import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
@@ -60,7 +60,7 @@ export const Sidebar = () => {
         <section className={`flex flex-col`}>
           {/* Main menu items */}
           <div className='flex md:flex-col justify-center md:justify-start md:py-3'>
-            {menu.main.map(({ id, title, path, Icon }) => (
+            {sidebar.main.map(({ id, title, path, Icon }) => (
               <MenuItem
                 key={id}
                 id={id}
@@ -74,7 +74,7 @@ export const Sidebar = () => {
           <hr className='text-dark mx-4 hidden md:block' />
           {/* Secondary menu items */}
           <div className='flex-col py-3 hidden md:flex'>
-            {menu.secondary.map(({ id, title, path, Icon }) => (
+            {sidebar.secondary.map(({ id, title, path, Icon }) => (
               <MenuItem
                 key={id}
                 id={id}
@@ -113,8 +113,9 @@ export const Sidebar = () => {
         onDrag={onDrag}
       />
       <div
-        className={`w-6 h-6 hover:brightness-90 box-content ease-in duration-150 bg-green text-white rounded-full border-4 
-      border-black cursor-pointer absolute top-4 -right-3 z-20 hidden md:flex justify-center items-center 
+        className={`w-6 h-6 hover:brightness-90 box-content ease-in duration-150 bg-green text-white 
+        rounded-full border-4 border-black cursor-pointer absolute top-4 -right-3 z-20 
+        hidden md:flex justify-center items-center 
         ${hidden && 'rotate-180 -right-4 border-0 top-[20px] bg-dark bg-opacity-60'}`}
         onClick={toggleSidebar}
       >

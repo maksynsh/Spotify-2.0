@@ -78,7 +78,7 @@ const Playlist: NextPage = ({}) => {
     <Layout isLoading={isLoading}>
       <div
         className={`fixed w-full top-0 px-8 py-2 z-40 ${headerBackground ? headerBackground : ''}
-          flex flex-row-reverse sm:flex-row gap-4 items-center
+          flex flex-row-reverse sm:flex-row gap-4 items-center ${!headerOpacity && 'hidden'}
           `}
         style={{ opacity: headerOpacity, backgroundImage: 'linear-gradient(rgb(0 0 0/65%) 0 0)' }}
       >

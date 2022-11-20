@@ -1,9 +1,9 @@
 import React from 'react'
 import { BaseButton } from 'components'
-import { MenuItemType } from 'lib/menu'
+import { SidebarItemType } from 'lib/sidebar'
 import { SpeakerWaveIcon } from '@heroicons/react/24/outline'
 
-export interface MenuItemProps extends MenuItemType {
+export interface MenuItemProps extends SidebarItemType {
   active: boolean
   isPlaying?: boolean
 }
