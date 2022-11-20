@@ -1,3 +1,5 @@
+export * from './home'
+export * from './playlist'
 export * from './BaseButton'
 export * from './Button'
 export * from './PlayButton'
