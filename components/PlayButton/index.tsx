@@ -7,20 +7,34 @@ import { usePlayPause } from 'hooks'
 
 interface PlayButtonProps {
   uri: string
-  size?: keyof typeof SIZES
-  transition?: keyof typeof TRANSITIONS
+  size?: keyof typeof buttonConfig['sizes']
+  transition?: keyof typeof buttonConfig['transitions']
   show?: boolean
 }
 
-const SIZES = {
-  default: 'w-12 h-12',
-  large: 'w-14 h-14',
-}
-
-const TRANSITIONS = {
-  none: '',
-  slideIn: 'translate-y-12',
-  slideInShort: 'translate-y-4',
+const buttonConfig = {
+  sizes: {
+    small: {
+      bg: 'w-10 h-10',
+      pauseIcon: 'w-7 h-7',
+      playIcon: 'w-[25px] h-[25px] ml-0.5',
+    },
+    default: {
+      bg: 'w-12 h-12',
+      pauseIcon: 'w-8 h-8',
+      playIcon: 'w-[29px] h-[29px] ml-0.5',
+    },
+    large: {
+      bg: 'w-14 h-14',
+      pauseIcon: 'w-8 h-8',
+      playIcon: 'w-[29px] h-[29px] ml-0.5',
+    },
+  },
+  transitions: {
+    none: '',
+    slideIn: 'translate-y-12',
+    slideInShort: 'translate-y-4',
+  },
 }
 
 export const PlayButton = ({
@@ -53,19 +67,19 @@ export const PlayButton = ({
     <div
       onClick={handleClick}
       className={`hover:scale-105 transition-all ease duration-200 
-            ${SIZES[size]} min-w-12
+            ${buttonConfig.sizes[size].bg} min-w-12
            bg-green text-dark rounded-full cursor-default 
             flex items-center justify-center
             ${
               show || isCurrentPlaying
                 ? 'opacity-100 translate-y-0'
-                : `opacity-0 ${TRANSITIONS[transition]}`
+                : `opacity-0 ${buttonConfig.transitions[transition]}`
             }`}
     >
       {isCurrentPlaying ? (
-        <PauseIcon className='w-8 h-8' />
+        <PauseIcon className={buttonConfig.sizes[size].pauseIcon} />
       ) : (
-        <PlayIcon className='w-[29px] h-[29px] ml-0.5' />
+        <PlayIcon className={buttonConfig.sizes[size].playIcon} />
       )}
     </div>
   )

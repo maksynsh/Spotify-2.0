@@ -6,13 +6,16 @@ import Image from 'next/image'
 import { getSession } from 'next-auth/react'
 
 import { Layout, PlayButton, Song, SongsTable } from 'components'
-import { useSpotify } from 'hooks'
+import { useDimensions, useSpotify } from 'hooks'
 import { backgroundGradientState } from 'atoms/background'
+
+const HEADER_OFFSET_START = 100 //px
 
 const Playlist: NextPage = ({}) => {
   const spotifyApi = useSpotify()
   const router = useRouter()
   const { id } = router.query
+  const { width } = useDimensions()
 
   const [backgroundGradient] = useRecoilState<string>(backgroundGradientState)
   const [playlist, setPlaylist] = useState<{
@@ -28,12 +31,14 @@ const Playlist: NextPage = ({}) => {
   )
 
   const handleScroll = () => {
-    const opacity = Math.floor((window.pageYOffset - 100) / 3) / 100
+    const opacity = Math.floor((window.pageYOffset - HEADER_OFFSET_START) / 3) / 100
 
     if (opacity > 1) {
       return setHeaderOpacity(1)
     }
-
+    if (opacity < 0) {
+      return setHeaderOpacity(0)
+    }
     setHeaderOpacity(opacity)
   }
 
@@ -80,9 +85,12 @@ const Playlist: NextPage = ({}) => {
         <div
           className={`${
             headerOpacity >= 1 ? 'opacity-100' : 'opacity-0'
-          } transition-all duration-400 ease`}
+          } transition-all duration-400 ease-in`}
         >
-          <PlayButton uri={playlist?.info.uri ?? `spotify:playlist:${id}`} />
+          <PlayButton
+            size={width < 640 ? 'small' : 'default'}
+            uri={playlist?.info.uri ?? `spotify:playlist:${id}`}
+          />
         </div>
         <h2 className='text-lg sm:text-xl font-bold truncate'>{playlist?.info?.name}</h2>
       </div>
