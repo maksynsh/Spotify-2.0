@@ -72,8 +72,8 @@ const Playlist: NextPage = ({}) => {
   return (
     <Layout isLoading={isLoading}>
       <div
-        className={`fixed top-0 w-full px-8 py-2 z-40 ${headerBackground ? headerBackground : ''}
-          flex flex-row-reverse sm:flex-row
+        className={`fixed w-full top-0 px-8 py-2 z-40 ${headerBackground ? headerBackground : ''}
+          flex flex-row-reverse sm:flex-row gap-4 items-center
           transition-all duration-200 ease`}
         style={{ opacity: headerOpacity, backgroundImage: 'linear-gradient(rgb(0 0 0/65%) 0 0)' }}
       >
@@ -84,6 +84,7 @@ const Playlist: NextPage = ({}) => {
         >
           <PlayButton uri={playlist?.info.uri ?? `spotify:playlist:${id}`} />
         </div>
+        <h2 className='text-lg sm:text-xl font-bold truncate'>{playlist?.info?.name}</h2>
       </div>
 
       <div className='flex flex-col sm:flex-row -mt-11 sm:mt-0 align-center gap-4 mx-2 md:mx-8 py-2 md:my-5 h-fit'>
