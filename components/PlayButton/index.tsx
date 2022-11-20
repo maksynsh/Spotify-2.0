@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil'
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
 
 import { currentContextUriState, isPlayingState } from 'atoms/song'
-import { usePlay } from 'hooks'
+import { usePlayPause } from 'hooks'
 
 interface PlayButtonProps {
   uri: string
@@ -32,7 +32,7 @@ export const PlayButton = ({
   const [isPlaying] = useRecoilState(isPlayingState)
   const [currentContextUri] = useRecoilState(currentContextUriState)
 
-  const play = usePlay()
+  const { play, pause } = usePlayPause()
 
   const isCurrentPlaying = useMemo(
     () => isPlaying && currentContextUri === uri,
@@ -41,6 +41,11 @@ export const PlayButton = ({
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
+
+    if (isCurrentPlaying) {
+      pause()
+      return
+    }
     play({ contextUri: uri })
   }
 

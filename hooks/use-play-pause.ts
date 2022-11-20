@@ -12,7 +12,7 @@ interface PlayParams {
   songId?: string
 }
 
-export const usePlay = () => {
+export const usePlayPause = () => {
   const spotifyApi = useSpotify()
   const [, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [, setSongContextUri] = useRecoilState(currentContextUriState)
@@ -21,7 +21,8 @@ export const usePlay = () => {
 
   const fetchCurrentPlaybackState = useFetchPlayerState()
 
-  return ({ contextUri, songUri, songId }: PlayParams) => {
+  const play = ({ contextUri, songUri, songId }: PlayParams) => {
+    //TODO: if currentContextUri === contextUri, than continue playing
     spotifyApi
       .play({
         context_uri: contextUri,
@@ -51,4 +52,19 @@ export const usePlay = () => {
         })
       })
   }
+
+  const pause = () => {
+    spotifyApi
+      .pause()
+      .then(() => {
+        setIsPlaying(false)
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          toastId: 'pause-api-error',
+        })
+      })
+  }
+
+  return { play, pause }
 }

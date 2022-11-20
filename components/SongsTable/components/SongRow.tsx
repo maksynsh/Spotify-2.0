@@ -2,7 +2,7 @@ import { flexRender, Row } from '@tanstack/react-table'
 import { useRecoilState } from 'recoil'
 
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
-import { usePlay } from 'hooks'
+import { usePlayPause } from 'hooks'
 import { Song } from '..'
 
 interface SongRowProps {
@@ -14,7 +14,7 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
   const [currentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying] = useRecoilState(isPlayingState)
 
-  const play = usePlay()
+  const { play } = usePlayPause()
 
   const playSong = () => play({ contextUri, songUri: row.original.uri, songId: row.original.id })
 
