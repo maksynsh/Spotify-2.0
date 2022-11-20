@@ -28,7 +28,7 @@ const Playlist: NextPage = ({}) => {
   )
 
   const handleScroll = () => {
-    const opacity = Math.floor(window.pageYOffset / 3.5) / 100
+    const opacity = Math.floor((window.pageYOffset - 100) / 3) / 100
 
     if (opacity > 1) {
       return setHeaderOpacity(1)
@@ -74,13 +74,13 @@ const Playlist: NextPage = ({}) => {
       <div
         className={`fixed w-full top-0 px-8 py-2 z-40 ${headerBackground ? headerBackground : ''}
           flex flex-row-reverse sm:flex-row gap-4 items-center
-          transition-all duration-200 ease`}
+          `}
         style={{ opacity: headerOpacity, backgroundImage: 'linear-gradient(rgb(0 0 0/65%) 0 0)' }}
       >
         <div
           className={`${
             headerOpacity >= 1 ? 'opacity-100' : 'opacity-0'
-          } transition-all duration-300 ease`}
+          } transition-all duration-400 ease`}
         >
           <PlayButton uri={playlist?.info.uri ?? `spotify:playlist:${id}`} />
         </div>
