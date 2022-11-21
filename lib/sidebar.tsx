@@ -49,7 +49,7 @@ export const sidebar: SidebarSectionType = {
     {
       id: 'liked',
       title: 'Liked songs',
-      path: '/liked',
+      path: '/playlist/liked',
       Icon: <HeartIcon />,
     },
     {

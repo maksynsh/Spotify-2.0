@@ -46,6 +46,7 @@ const PlaylistSlug: NextPage = ({}) => {
   return (
     <PlaylistContainer
       id={id}
+      uri={playlist?.info?.uri ?? `spotify:playlist:${id}`}
       info={playlist?.info}
       tracks={playlist?.tracks}
       isLoading={isLoading}

@@ -38,7 +38,7 @@ export const RecommendsSection = () => {
           uri={`spotify:user:${session?.user?.id as string}:collection`}
           imageUrl={'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png'}
           name={'Liked songs'}
-          url={`/liked`}
+          url={`/playlist/liked`}
         />
         {playlists?.map(({ uri, id, images, name }) => (
           <SimplifiedPlaylistCard
