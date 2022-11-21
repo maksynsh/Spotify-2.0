@@ -66,6 +66,7 @@ const PlaylistLiked: NextPage = ({}) => {
       uri={`spotify:user:${session?.user?.id as string}:collection`}
       total={pagination?.total}
       tracks={tracks}
+      creator={session?.user?.name}
       isLoading={isLoading}
     />
   )

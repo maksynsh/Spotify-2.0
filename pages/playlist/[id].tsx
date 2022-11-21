@@ -49,6 +49,7 @@ const PlaylistSlug: NextPage = ({}) => {
       uri={playlist?.info?.uri ?? `spotify:playlist:${id}`}
       info={playlist?.info}
       tracks={playlist?.tracks}
+      creator={playlist?.info?.owner?.display_name}
       isLoading={isLoading}
     />
   )

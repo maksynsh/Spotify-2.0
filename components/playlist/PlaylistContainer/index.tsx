@@ -21,10 +21,19 @@ interface PlaylistProps {
   info?: PlaylistInfo
   tracks?: Song[]
   total?: number
+  creator?: string
   isLoading: boolean
 }
 
-export const PlaylistContainer = ({ id, uri, info, tracks, total, isLoading }: PlaylistProps) => {
+export const PlaylistContainer = ({
+  id,
+  uri,
+  creator,
+  info,
+  tracks,
+  total,
+  isLoading,
+}: PlaylistProps) => {
   const { width } = useDimensions()
 
   const [backgroundGradient] = useRecoilState<string>(backgroundGradientState)
@@ -101,7 +110,7 @@ export const PlaylistContainer = ({ id, uri, info, tracks, total, isLoading }: P
             {title}
           </h2>
           <p className='mt-auto text-sm'>
-            <span className='font-semibold'>{info?.owner?.display_name}</span>
+            <span className='font-semibold'>{creator}</span>
             <wbr />
             <span className='mx-1'>•</span>
             {total ? total : tracks?.length} songs

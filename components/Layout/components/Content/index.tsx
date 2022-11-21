@@ -15,8 +15,8 @@ export const Content: React.FC<LayoutProps> = ({ gradientOpacity, children }) =>
   return (
     <div className='flex flex-col flex-grow min-h-screen overflow-hidden text-white relative mb-14 md:mb-24'>
       <GradientBackground opacity={gradientOpacity} />
-      <header className='flex items-center justify-between h-16 p-2 px-2 md:px-6 absolute left-0 right-0 top-0 z-40'>
-        <ArrowLeftIcon className='w-6 h-6' />
+      <header className='flex items-center justify-between h-auto md:h-16 p-2 px-2 md:px-6 absolute left-0 right-0 top-0 z-40'>
+        <ArrowLeftIcon className='clickable p-1 w-8 h-8' />
 
         <Menu imageUrl={session?.user?.image} userName={session?.user?.name} />
       </header>

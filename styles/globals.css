@@ -30,12 +30,16 @@ table td:last-child {
 }
 
 body {
-  @apply bg-dragonstone;
+  @apply bg-dragonstone text-white;
 }
 
 @layer components {
   .player-btn {
     @apply w-5 h-5 box-content p-1 cursor-pointer hover:scale-95 transition transform duration-100 ease-out;
+  }
+
+  .clickable {
+    @apply cursor-pointer hover:scale-95 ease-in-out duration-100
   }
 
   .btn {

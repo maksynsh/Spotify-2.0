@@ -63,14 +63,14 @@ export const Menu = ({ userName, imageUrl }: MenuProps) => {
   return (
     <div className='relative' id='menu' aria-label='Menu'>
       <div
-        className='flex items-center gap-2 max-w-[12rem] bg-black rounded-full h-11 w-11 md:w-auto p-1 md:p-0.5 
+        className='flex items-center gap-2 max-w-[12rem] bg-black rounded-full p-1 md:p-0.5 
         cursor-pointer group'
         ref={menuRef}
         onClick={handleMenuClick}
       >
         {imageUrl ? (
           <img
-            className='rounded-full object-cover h-full md:w-10 md:h-10'
+            className='rounded-full object-cover w-7 h-7 md:w-9 md:h-9'
             src={imageUrl ?? '/user.svg'}
             alt='userImage'
           />
