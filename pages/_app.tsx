@@ -8,6 +8,7 @@ import { RecoilRoot } from 'recoil'
 import { ToastContainer, Flip } from 'react-toastify'
 
 import { DevicesProvider } from 'atoms/providers'
+import { AppHistoryProvider } from 'providers'
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
   return (
@@ -18,9 +19,11 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ ses
       </Head>
       <SessionProvider session={session}>
         <RecoilRoot>
-          <DevicesProvider>
-            <Component {...pageProps} />
-          </DevicesProvider>
+          <AppHistoryProvider>
+            <DevicesProvider>
+              <Component {...pageProps} />
+            </DevicesProvider>
+          </AppHistoryProvider>
           <ToastContainer
             autoClose={6000}
             limit={3}
