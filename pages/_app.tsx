@@ -7,8 +7,7 @@ import { SessionProvider } from 'next-auth/react'
 import { RecoilRoot } from 'recoil'
 import { ToastContainer, Flip } from 'react-toastify'
 
-import { DevicesProvider } from 'atoms/providers'
-import { AppHistoryProvider } from 'providers'
+import { AppHistoryProvider, DevicesProvider } from 'providers'
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
   return (

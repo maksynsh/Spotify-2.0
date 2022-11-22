@@ -24,22 +24,13 @@ const PlaylistLiked: NextPage = ({}) => {
           return newPagination
         })
 
-        setTracks((prev) => {
-          const newTracks = []
-          if (prev) {
-            newTracks.push(...prev)
-          }
-
-          newTracks.push(
-            ...(data?.body?.items?.map((song) => ({
-              added_at: song.added_at,
-              image: song.track?.album.images.at(-1)?.url ?? '',
-              ...song.track,
-            })) ?? []),
-          )
-
-          return [...new Set([...newTracks])]
-        })
+        setTracks(
+          data?.body?.items?.map((song) => ({
+            added_at: song.added_at,
+            image: song.track?.album.images.at(-1)?.url ?? '',
+            ...song.track,
+          })) ?? [],
+        )
       })
       .catch((err) => {
         console.error('Something went wrong!', err)

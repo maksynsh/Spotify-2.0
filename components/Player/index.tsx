@@ -39,7 +39,7 @@ export const Player = () => {
   }, [spotifyApi.getAccessToken()])
 
   useEffect(() => {
-    if (volume < 100) {
+    if (volume < 100 && currentTrackId) {
       debounceAdjustedVolume(volume)
     }
   }, [volume])
