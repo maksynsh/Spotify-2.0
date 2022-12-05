@@ -15,7 +15,7 @@ const AppHistoryContext = createContext<ProviderValue>(defaultState)
 
 export const AppHistoryProvider: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
-  const [history, setHistory] = useState<string[]>([])
+  const [history, setHistory] = useState<string[]>([router.asPath])
 
   useEffect(() => {
     const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
