@@ -5,18 +5,22 @@ import { Sidebar } from './components/Sidebar'
 
 interface LayoutProps {
   isLoading?: boolean
-  gradientOpacity?: number
+  gradientBrightness?: number
   children: React.ReactNode
 }
 
-export const Layout: React.FC<LayoutProps> = ({ isLoading = false, gradientOpacity, children }) => {
+export const Layout: React.FC<LayoutProps> = ({
+  isLoading = false,
+  gradientBrightness,
+  children,
+}) => {
   const { height } = useDimensions()
 
   return (
     <div className='bg-dragonstone' style={{ height: height + 'px' }}>
       <main className='flex flex-col-reverse md:flex-row'>
         <Sidebar />
-        <Content gradientOpacity={gradientOpacity}>{!isLoading && children}</Content>
+        <Content gradientBrightness={gradientBrightness}>{!isLoading && children}</Content>
       </main>
 
       <Player />

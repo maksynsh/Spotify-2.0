@@ -8,18 +8,18 @@ import { useHistory } from 'providers'
 import { BaseButton } from 'components/BaseButton'
 
 interface LayoutProps {
-  gradientOpacity?: number
+  gradientBrightness?: number
   children: React.ReactNode
 }
 
-export const Content: React.FC<LayoutProps> = ({ gradientOpacity, children }) => {
+export const Content: React.FC<LayoutProps> = ({ gradientBrightness, children }) => {
   const { data: session } = useSession()
   const router = useRouter()
   const history = useHistory()
 
   return (
     <div className='flex flex-col flex-grow min-h-screen overflow-hidden text-white relative mb-14 md:mb-24'>
-      <GradientBackground opacity={gradientOpacity} />
+      <GradientBackground brightness={gradientBrightness} />
       <header className='flex items-center justify-between h-auto md:h-16 p-2 px-2 md:px-6 absolute left-0 right-0 top-0 z-40'>
         <BaseButton
           className='clickable p-1 w-8 h-8'

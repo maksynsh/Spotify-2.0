@@ -3,21 +3,14 @@ import Link from 'next/link'
 
 import { PlayButton } from 'components'
 
-interface SimplifiedPlaylistCardProps {
+interface ArtistCardProps {
   uri: string
   name: string
   imageUrl: string
   url: string
-  description: string | null
 }
 
-export const PlaylistCard = ({
-  uri,
-  name,
-  imageUrl,
-  description,
-  url,
-}: SimplifiedPlaylistCardProps) => {
+export const ArtistCard = ({ uri, name, imageUrl, url }: ArtistCardProps) => {
   const [hover, setHover] = useState(false)
 
   return (
@@ -31,7 +24,7 @@ export const PlaylistCard = ({
       >
         <div className='relative'>
           <img
-            className={`h-32 md:h-[10.5rem] w-32 md:w-[10.5rem] object-cover rounded-md mx-auto md:mx-0 shadow-lg
+            className={`h-32 md:h-[10.5rem] w-32 md:w-[10.5rem] object-cover rounded-full mx-auto md:mx-0 shadow-lg
               group-hover:bg-no-repeat group-hover:brightness-75 transition-all ease duration-300`}
             aria-hidden='false'
             draggable='false'
@@ -50,7 +43,7 @@ export const PlaylistCard = ({
         <figcaption className='min-w-0 flex flex-col flex-1 gap-1'>
           <p className='truncate text-center md:text-left text-xs sm:text-base'>{name}</p>
           <p className='opacity-0 md:opacity-100 line-clamp-2 text-gray text-sm font-normal'>
-            {description}
+            Artist
           </p>
         </figcaption>
       </figure>

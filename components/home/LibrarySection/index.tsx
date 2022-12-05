@@ -15,7 +15,7 @@ export const LibrarySection = () => {
       </div>
       <div
         className='flex md:flex-wrap justify-between scrollbar-hidden overflow-x-auto md:overflow-hidden
-                    w-full gap-2 md:gap-4 h-72'
+                    w-full gap-2 md:gap-4 md:h-72'
       >
         {playlists?.slice(0, 10).map(({ uri, id, images, name, description }) => (
           <PlaylistCard
