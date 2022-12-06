@@ -6,7 +6,7 @@ import { availableDevicesState } from 'atoms/devices'
 import { useSpotify } from 'hooks'
 
 interface DevicesProviderProps {
-  children: JSX.Element
+  children: React.ReactNode
 }
 
 export const DevicesProvider = ({ children }: DevicesProviderProps) => {
@@ -22,5 +22,5 @@ export const DevicesProvider = ({ children }: DevicesProviderProps) => {
     }
   }, [])
 
-  return children
+  return <>{children}</>
 }

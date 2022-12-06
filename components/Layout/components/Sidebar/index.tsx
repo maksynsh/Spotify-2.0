@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 import { useRecoilState } from 'recoil'
@@ -12,9 +11,9 @@ import { currentContextUriState, currentTrackIdState, isPlayingState } from 'ato
 
 export const Sidebar = () => {
   const spotifyApi = useSpotify()
-  const { asPath: currentPath } = useRouter()
   const { data: session } = useSession()
   const { onDragStart, onDrag } = useResizable({ elementId: 'resizable', min: 200, max: 356 })
+
   const [hidden, setHidden] = useState(false)
   const [playlists, setPlaylists] =
     useRecoilState<SpotifyApi.PlaylistObjectSimplified[]>(playlistListState)
@@ -60,28 +59,18 @@ export const Sidebar = () => {
         <section className={`flex flex-col`}>
           {/* Main menu items */}
           <div className='flex md:flex-col justify-center md:justify-start md:py-3'>
-            {sidebar.main.map(({ id, title, path, Icon }) => (
-              <MenuItem
-                key={id}
-                id={id}
-                title={title}
-                path={path}
-                active={currentPath === path}
-                Icon={Icon}
-              />
+            {sidebar.main.map(({ id, ...item }) => (
+              <MenuItem {...item} key={id} id={id} />
             ))}
           </div>
           <hr className='text-dark mx-4 hidden md:block' />
           {/* Secondary menu items */}
           <div className='flex-col py-3 hidden md:flex'>
-            {sidebar.secondary.map(({ id, title, path, Icon }) => (
+            {sidebar.secondary.map(({ id, ...item }) => (
               <MenuItem
+                {...item}
                 key={id}
                 id={id}
-                title={title}
-                path={path}
-                active={currentPath === path}
-                Icon={Icon}
                 isPlaying={
                   id === 'liked' &&
                   //@ts-ignore
@@ -99,7 +88,7 @@ export const Sidebar = () => {
                 id={id}
                 title={name}
                 path={`/playlist/${id}`}
-                active={currentPath === `/playlist/${id}`}
+                exact
                 isPlaying={uri === currentContextUri && isPlaying}
               />
             ))}

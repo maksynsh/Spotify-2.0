@@ -9,7 +9,9 @@ import { PlusCircleIcon, RssIcon } from '@heroicons/react/24/solid'
 export interface SidebarItemType {
   id: string
   title: string
-  path?: string
+  path: string
+  href?: string
+  exact: boolean
   Icon?: JSX.Element
 }
 
@@ -24,18 +26,22 @@ export const sidebar: SidebarSectionType = {
       id: 'home',
       title: 'Home',
       path: '/',
+      exact: true,
       Icon: <HomeIcon />,
     },
     {
       id: 'search',
       title: 'Search',
       path: '/search',
+      exact: true,
       Icon: <MagnifyingGlassIcon />,
     },
     {
       id: 'library',
       title: 'Your library',
       path: '/library',
+      href: '/library/playlists',
+      exact: false,
       Icon: <QueueListIcon />,
     },
   ],
@@ -44,18 +50,21 @@ export const sidebar: SidebarSectionType = {
       id: 'create-playlist',
       title: 'Create playlist',
       path: '/playlist/create',
+      exact: true,
       Icon: <PlusCircleIcon />,
     },
     {
       id: 'liked',
       title: 'Liked songs',
       path: '/playlist/liked',
+      exact: true,
       Icon: <HeartIcon />,
     },
     {
       id: 'top',
       title: 'Your favorites',
       path: '/top',
+      exact: true,
       Icon: <RssIcon />,
     },
   ],

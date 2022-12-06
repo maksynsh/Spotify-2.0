@@ -31,7 +31,7 @@ export const PlaylistCard = ({
       >
         <div className='relative'>
           <img
-            className={`h-32 md:h-[10.5rem] w-32 md:w-[10.5rem] object-cover rounded-md mx-auto md:mx-0 shadow-lg
+            className={`h-32 md:h-[10.5rem] w-32 md:w-[10.5rem] object-cover md:rounded-md mx-auto md:mx-0 shadow-lg
               group-hover:bg-no-repeat group-hover:brightness-75 transition-all ease duration-300`}
             aria-hidden='false'
             draggable='false'

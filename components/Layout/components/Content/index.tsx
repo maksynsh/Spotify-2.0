@@ -32,7 +32,7 @@ export const Content: React.FC<LayoutProps> = ({ gradientBrightness, children })
         <Menu imageUrl={session?.user?.image} userName={session?.user?.name} />
       </header>
 
-      <div className='pt-16 relative'>{children}</div>
+      <div className='pt-14 md:pt-16 relative'>{children}</div>
     </div>
   )
 }

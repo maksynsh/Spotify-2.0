@@ -1,7 +1,9 @@
 import '../styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
+import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { ReactElement, ReactNode } from 'react'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { RecoilRoot } from 'recoil'
@@ -9,7 +11,20 @@ import { ToastContainer, Flip } from 'react-toastify'
 
 import { AppHistoryProvider, DevicesProvider } from 'providers'
 
-function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ session: Session }>) {
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout<T> = AppProps<T> & {
+  Component: NextPageWithLayout
+}
+
+function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout<{ session: Session }>) {
+  const getLayout = Component.getLayout || ((page) => page)
+
   return (
     <>
       <Head>
@@ -19,9 +34,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps<{ ses
       <SessionProvider session={session}>
         <RecoilRoot>
           <AppHistoryProvider>
-            <DevicesProvider>
-              <Component {...pageProps} />
-            </DevicesProvider>
+            <DevicesProvider>{getLayout(<Component {...pageProps} />)}</DevicesProvider>
           </AppHistoryProvider>
           <ToastContainer
             autoClose={6000}
