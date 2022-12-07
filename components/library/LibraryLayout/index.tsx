@@ -8,6 +8,7 @@ const config = {
   buttons: [
     { id: 'library-playlists', title: 'Playlists', url: '/library/playlists' },
     { id: 'library-artists', title: 'Artists', url: '/library/artists' },
+    { id: 'library-albums', title: 'Albums', url: '/library/albums' },
   ],
 }
 
