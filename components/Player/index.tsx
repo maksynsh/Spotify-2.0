@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { useRecoilState } from 'recoil'
 import { toast } from 'react-toastify'
 import {
@@ -134,11 +135,15 @@ export const Player = () => {
     >
       {/* Left */}
       <div className='flex gap-4 min-w-0'>
-        <img
-          className='h-10 w-10 md:h-14 md:w-14'
-          src={songInfo?.album.images.at(-1)?.url}
-          alt='song'
-        />
+        <div className='relative h-10 w-10 md:h-14 md:w-14'>
+          <Image
+            layout='fill'
+            src={songInfo?.album.images.at(-1)?.url || ''}
+            loader={() => songInfo?.album.images.at(-1)?.url || ''}
+            alt='song'
+          />
+        </div>
+
         <div className='flex flex-col min-w-0 justify-center'>
           <h3 className='font-semibold text-white text-sm truncate'>{songInfo?.name}</h3>
           <div className='truncate'>{songInfo?.artists[0].name}</div>

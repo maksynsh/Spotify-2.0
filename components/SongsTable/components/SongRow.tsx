@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { flexRender, Row } from '@tanstack/react-table'
 import { useRecoilState } from 'recoil'
 
@@ -37,7 +38,9 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
             }`}
           >
             {cell.column.id === 'id' && cell.row.original.id === currentTrackId && isPlaying ? (
-              <img className='w-3 h-3' src={'/images/equaliser-animated.gif'} alt='eq' />
+              <div className='relative w-3 h-3'>
+                <Image layout='fill' src={'/images/equaliser-animated.gif'} alt='eq' />
+              </div>
             ) : (
               flexRender(cell.column.columnDef.cell, { ...cell.getContext() })
             )}

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
 import { UserIcon } from 'assets'
@@ -69,11 +70,15 @@ export const Menu = ({ userName, imageUrl }: MenuProps) => {
         onClick={handleMenuClick}
       >
         {imageUrl ? (
-          <img
-            className='rounded-full object-cover w-7 h-7 md:w-9 md:h-9'
-            src={imageUrl ?? '/user.svg'}
-            alt='userImage'
-          />
+          <div className='relative w-7 h-7 md:w-9 md:h-9'>
+            <Image
+              className='rounded-full'
+              src={imageUrl ?? '/user.svg'}
+              loader={() => imageUrl ?? '/user.svg'}
+              layout='fill'
+              alt='userImage'
+            />
+          </div>
         ) : (
           <UserIcon className='rounded-full object-cover h-full md:w-10 md:h-10 text-white border-2 border-white p-1.5' />
         )}

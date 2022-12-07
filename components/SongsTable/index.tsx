@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 import {
   createColumnHelper,
   flexRender,
@@ -40,7 +41,17 @@ const columns = [
     id: 'title',
     cell: (info) => (
       <div className='flex gap-4 min-w-0'>
-        <img className='w-10 h-10' src={info.row.original.image} alt='album' />
+        <div className='relative w-10 h-10'>
+          <Image
+            src={info.row.original.image}
+            loader={() => info.row.original.image}
+            layout='fill'
+            width={40}
+            height={40}
+            alt='album'
+          />
+        </div>
+
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <h3 className='font-semibold leading-none text-inherit'>{info.getValue()}</h3>
           <div className='leading-none text-gray'>{info.row.original.artists?.at(0)?.name}</div>
