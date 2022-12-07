@@ -36,6 +36,7 @@ export const ArtistCard = ({ uri, name, imageUrl, url }: ArtistCardProps) => {
               loading='lazy'
               src={imageUrl}
               layout='fill'
+              objectFit='cover'
               loader={() => imageUrl}
               data-testid='shortcut-image'
               alt=''

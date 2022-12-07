@@ -72,10 +72,11 @@ export const Menu = ({ userName, imageUrl }: MenuProps) => {
         {imageUrl ? (
           <div className='relative w-7 h-7 md:w-9 md:h-9'>
             <Image
-              className='rounded-full'
+              className='rounded-full '
               src={imageUrl ?? '/user.svg'}
               loader={() => imageUrl ?? '/user.svg'}
               layout='fill'
+              objectFit='cover'
               alt='userImage'
             />
           </div>

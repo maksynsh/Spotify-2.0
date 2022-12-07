@@ -42,6 +42,7 @@ export const PlaylistCard = ({
               loading='lazy'
               src={imageUrl}
               layout='fill'
+              objectFit='cover'
               loader={() => imageUrl}
               data-testid='shortcut-image'
               alt=''
