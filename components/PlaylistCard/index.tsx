@@ -23,7 +23,7 @@ export const PlaylistCard = ({
   return (
     <Link href={url}>
       <figure
-        className='flex flex-col shrink-0 w-32 md:w-48 h-44 md:h-[17rem] rounded-lg overflow-hidden font-bold cursor-pointer 
+        className='flex flex-col shrink-0 w-32 md:w-48 h-44 md:h-[17rem] md:rounded-lg overflow-hidden font-bold cursor-pointer 
         p-0 md:p-3 gap-3 group
         md:bg-dark md:hover:bg-[#282828] transition-colors ease duration-300'
         onMouseEnter={() => setHover(true)}

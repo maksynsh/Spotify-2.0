@@ -16,8 +16,8 @@ export const LibraryLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <Layout gradientBrightness={0}>
-      <div className='mx-2 md:mx-8'>
-        <div className='flex items-center gap-4 mb-3 md:mb-6'>
+      <div className='mb-4 mx-2 md:mx-8'>
+        <div className='flex items-center gap-4 mb-4 md:mb-6'>
           {config.buttons.map(({ id, title, url }) => (
             <Link key={id} href={url}>
               <button

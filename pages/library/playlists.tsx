@@ -1,12 +1,29 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement } from 'react'
 import type { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
+import { useRecoilState } from 'recoil'
 
 import type { NextPageWithLayout } from 'pages/_app'
-import { LibraryLayout } from 'components'
+import { LibraryLayout, PlaylistCard } from 'components'
+import { playlistListState } from 'atoms/playlist'
 
 const LibraryPlaylists: NextPageWithLayout = ({}) => {
-  return <>Your playlists page</>
+  const [playlists] = useRecoilState<SpotifyApi.PlaylistObjectSimplified[]>(playlistListState)
+
+  return (
+    <div className='flex flex-wrap justify-between w-full gap-2 md:gap-4'>
+      {playlists?.map(({ uri, id, images, name, description }) => (
+        <PlaylistCard
+          key={id}
+          uri={uri}
+          imageUrl={images[0].url}
+          name={name}
+          description={description}
+          url={`/playlist/${id}`}
+        />
+      ))}
+    </div>
+  )
 }
 
 LibraryPlaylists.getLayout = function getLayout(page: ReactElement) {
