@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 
 import { PlaylistCard } from 'components'
@@ -11,7 +12,9 @@ export const LibrarySection = () => {
     <section className='flex flex-col gap-3 sm:gap-6'>
       <div className='flex items-center justify-between'>
         <h2 className='text-base sm:text-2xl font-extrabold'>Your library</h2>
-        <div className='uppercase text-sm font-extrabold text-gray'>See all</div>
+        <Link href='/library/playlists'>
+          <div className='clickable uppercase text-sm font-extrabold text-gray'>See all</div>
+        </Link>
       </div>
       <div
         className='flex md:flex-wrap justify-between scrollbar-hidden overflow-x-auto md:overflow-hidden
