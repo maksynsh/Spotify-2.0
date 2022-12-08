@@ -9,14 +9,9 @@ import { Track } from 'types/spotify'
 import { duration } from 'lib/utils'
 import { PlayButton, ColumnsType, ColumnBreakpoints, Table } from 'components'
 
-export interface Song extends Track {
-  added_at: string
-  image: string
-}
+const columnHelper = createColumnHelper<SpotifyApi.TrackObjectSimplified>()
 
-const columnHelper = createColumnHelper<Song>()
-
-const columns: ColumnsType<Song> = [
+const columns: ColumnsType<SpotifyApi.TrackObjectSimplified> = [
   columnHelper.accessor('id', {
     cell: (info) =>
       info.cell.row.getIsSelected() ? (
@@ -32,17 +27,6 @@ const columns: ColumnsType<Song> = [
     id: 'title',
     cell: (info) => (
       <div className='flex gap-4 min-w-0'>
-        <div className='relative w-10 h-10'>
-          <Image
-            src={info.row.original.image}
-            loader={() => info.row.original.image}
-            layout='fill'
-            width={40}
-            height={40}
-            alt='album'
-          />
-        </div>
-
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <h3 className='font-semibold leading-none text-inherit'>{info.getValue()}</h3>
           <div className='leading-none text-gray'>{info.row.original.artists?.at(0)?.name}</div>
@@ -50,16 +34,6 @@ const columns: ColumnsType<Song> = [
       </div>
     ),
     header: () => 'Title',
-  }),
-  columnHelper.accessor('album.name', {
-    id: 'album',
-    cell: (info) => info.getValue(),
-    header: () => 'Album',
-  }),
-  columnHelper.accessor('added_at', {
-    id: 'added-at',
-    cell: (info) => moment(info.getValue()).fromNow(),
-    header: () => <span>Date added</span>,
   }),
   columnHelper.accessor('duration_ms', {
     id: 'duration',
@@ -69,17 +43,15 @@ const columns: ColumnsType<Song> = [
 ]
 
 const COLUMN_BREAKPOINTS: ColumnBreakpoints = {
-  1280: ['added-at'],
-  768: ['added-at', 'album'],
-  640: ['added-at', 'album', 'id'],
+  640: ['id'],
 }
 
-interface SongsTableProps {
-  data: Song[]
+interface AlbumTableProps {
+  data: SpotifyApi.TrackObjectSimplified[]
   playlistUri: string
 }
 
-export const SongsTable = ({ data, playlistUri }: SongsTableProps) => {
+export const AlbumTable = ({ data, playlistUri }: AlbumTableProps) => {
   return (
     <div className='text-white bg-dark bg-opacity-30 backdrop-blur-md px-2 md:px-8'>
       <div className='flex items-center py-4'>

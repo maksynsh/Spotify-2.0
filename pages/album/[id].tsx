@@ -3,17 +3,17 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
 
-import { PlaylistContainer, Song, SongsTable } from 'components'
+import { AlbumTable, PlaylistContainer } from 'components'
 import { useSpotify } from 'hooks'
 
-const PlaylistSlug: NextPage = ({}) => {
+const AlbumSlug: NextPage = ({}) => {
   const spotifyApi = useSpotify()
   const router = useRouter()
   const { id } = router.query
 
-  const [playlist, setPlaylist] = useState<{
-    info: SpotifyApi.SinglePlaylistResponse
-    tracks: Song[]
+  const [album, setAlbum] = useState<{
+    info: SpotifyApi.SingleAlbumResponse
+    tracks: SpotifyApi.TrackObjectSimplified[]
   }>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -22,16 +22,11 @@ const PlaylistSlug: NextPage = ({}) => {
       setIsLoading(true)
 
       spotifyApi
-        .getPlaylist(id as string)
+        .getAlbum(id as string)
         .then((data) => {
-          setPlaylist({
+          setAlbum({
             info: data?.body,
-            tracks:
-              data?.body?.tracks?.items?.map((song) => ({
-                added_at: song.added_at,
-                image: song.track?.album.images.at(-1)?.url ?? '',
-                ...song.track,
-              })) ?? [],
+            tracks: data?.body?.tracks?.items ?? [],
           })
         })
         .catch((err) => {
@@ -46,15 +41,15 @@ const PlaylistSlug: NextPage = ({}) => {
   return (
     <PlaylistContainer
       id={id}
-      uri={playlist?.info?.uri ?? `spotify:playlist:${id}`}
-      info={playlist?.info}
-      total={playlist?.tracks.length}
-      creator={playlist?.info?.owner?.display_name}
+      uri={album?.info?.uri ?? `spotify:playlist:${id}`}
+      info={album?.info}
+      total={album?.tracks.length}
+      creator={album?.info?.artists[0].name}
       isLoading={isLoading}
     >
-      <SongsTable
-        data={playlist?.tracks || []}
-        playlistUri={playlist?.info?.uri ?? `spotify:playlist:${id}`}
+      <AlbumTable
+        data={album?.tracks || []}
+        playlistUri={album?.info?.uri ?? `spotify:playlist:${id}`}
       />
     </PlaylistContainer>
   )
@@ -68,4 +63,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-export default PlaylistSlug
+export default AlbumSlug

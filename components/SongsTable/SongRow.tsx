@@ -4,10 +4,9 @@ import { useRecoilState } from 'recoil'
 
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { usePlayPause } from 'hooks'
-import { Song } from '..'
 
 interface SongRowProps {
-  row: Row<Song>
+  row: Row<any>
   contextUri: string
 }
 

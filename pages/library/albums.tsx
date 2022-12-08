@@ -39,7 +39,7 @@ const LibraryAlbums: NextPageWithLayout = ({}) => {
           imageUrl={images[0].url}
           name={name}
           description={artists[0].name}
-          url={`/playlist/${id}`}
+          url={`/album/${id}`}
         />
       ))}
     </div>

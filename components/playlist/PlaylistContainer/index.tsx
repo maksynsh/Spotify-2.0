@@ -1,25 +1,19 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { ReactNode, useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import { useRecoilState } from 'recoil'
 
-import { Layout, PlayButton, SongsTable, Song } from 'components'
+import { Layout, PlayButton } from 'components'
 import { useDimensions } from 'hooks'
 import { backgroundGradientState } from 'atoms/background'
+import moment from 'moment'
 
 const HEADER_OFFSET_START = 100 //px
-
-interface PlaylistInfo {
-  name?: string
-  public?: boolean | null
-  owner?: SpotifyApi.UserObjectPublic
-  images?: SpotifyApi.ImageObject[]
-}
 
 interface PlaylistProps {
   uri: string
   id?: string | string[]
-  info?: PlaylistInfo
-  tracks?: Song[]
+  info?: SpotifyApi.SinglePlaylistResponse | SpotifyApi.SingleAlbumResponse
+  children: ReactNode
   total?: number
   creator?: string
   isLoading: boolean
@@ -30,7 +24,7 @@ export const PlaylistContainer = ({
   uri,
   creator,
   info,
-  tracks,
+  children,
   total,
   isLoading,
 }: PlaylistProps) => {
@@ -101,7 +95,9 @@ export const PlaylistContainer = ({
           />
         </div>
         <div className='flex flex-col'>
-          <p className='uppercase hidden sm:block'>{info?.public && 'public'} Playlist</p>
+          <p className='uppercase hidden sm:block'>
+            {info && 'public' in info && info.public && 'public'} {info?.type}
+          </p>
           <h2
             className={`whitespace-nowrap h-auto sm:h-28 md:h-36 overflow-hidden text-ellipsis sm:whitespace-normal 
               font-bold text-2xl md:text-4xl xl:text-6xl playlist-header
@@ -110,15 +106,21 @@ export const PlaylistContainer = ({
           >
             {title}
           </h2>
-          <p className='mt-auto text-sm'>
+          <p className='mt-auto text-sm md:text-base'>
             <span className='font-semibold'>{creator}</span>
+            {info?.type === 'album' && (
+              <>
+                <span className='mx-1'>•</span>
+                {moment(info?.release_date).format('YYYY')}
+              </>
+            )}
             <wbr />
             <span className='mx-1'>•</span>
-            {total ? total : tracks?.length} songs
+            {total} songs
           </p>
         </div>
       </div>
-      <SongsTable data={tracks || []} playlistUri={uri} />
+      {children}
     </Layout>
   )
 }

@@ -33,13 +33,7 @@ const LibraryArtists: NextPageWithLayout = ({}) => {
   return (
     <div className='flex flex-wrap justify-between w-full gap-2 md:gap-4'>
       {artists?.map(({ uri, id, images, name }) => (
-        <ArtistCard
-          key={id}
-          uri={uri}
-          imageUrl={images[0].url}
-          name={name}
-          url={`/playlist/${id}`}
-        />
+        <ArtistCard key={id} uri={uri} imageUrl={images[0].url} name={name} url={`/artist/${id}`} />
       ))}
     </div>
   )

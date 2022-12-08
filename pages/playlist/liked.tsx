@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession, useSession } from 'next-auth/react'
 
-import { PlaylistContainer, Song } from 'components'
+import { PlaylistContainer, Song, SongsTable } from 'components'
 import { useSpotify } from 'hooks'
 
 const SONGS_LIMIT = 50
@@ -56,10 +56,14 @@ const PlaylistLiked: NextPage = ({}) => {
       id={'liked'}
       uri={`spotify:user:${session?.user?.id as string}:collection`}
       total={pagination?.total}
-      tracks={tracks}
       creator={session?.user?.name}
       isLoading={isLoading}
-    />
+    >
+      <SongsTable
+        data={tracks || []}
+        playlistUri={`spotify:user:${session?.user?.id as string}:collection`}
+      />
+    </PlaylistContainer>
   )
 }
 
