@@ -7,7 +7,7 @@ import { ArtistsSection, LibrarySection, RecommendsSection } from 'components/ho
 
 const Home: NextPage = () => {
   return (
-    <Layout gradientBrightness={0.45}>
+    <Layout headerOpacityOffset={0} gradientBrightness={0.45}>
       <div className='flex flex-col align-center gap-10 mx-2 md:mx-8 my-2 md:my-5 h-fit'>
         <RecommendsSection />
         <LibrarySection />

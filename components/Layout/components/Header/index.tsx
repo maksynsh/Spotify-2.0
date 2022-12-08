@@ -4,19 +4,19 @@ import { useRouter } from 'next/router'
 import { useRecoilState } from 'recoil'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 
-import { useDimensions } from 'hooks'
 import { useHistory } from 'providers'
 import { BaseButton } from 'components'
 import { Menu } from './components/Menu'
 import { backgroundGradientState } from 'atoms/background'
 
-const HEADER_OFFSET_START = 100 //px
+const OPACITY_TRANSITION_OFFSET = 100 //px
 
 interface HeaderProps {
+  opacityOffset?: number
   Controller?: React.FC<{ headerOpacity: number }>
 }
 
-export const Header = ({ Controller }: HeaderProps) => {
+export const Header = ({ opacityOffset = OPACITY_TRANSITION_OFFSET, Controller }: HeaderProps) => {
   const { data: session } = useSession()
   const router = useRouter()
   const history = useHistory()
@@ -30,7 +30,7 @@ export const Header = ({ Controller }: HeaderProps) => {
   )
 
   const handleScroll = () => {
-    const opacity = Math.floor((window.pageYOffset - HEADER_OFFSET_START) / 3) / 100
+    const opacity = Math.floor((window.pageYOffset - opacityOffset) / 3) / 100
 
     if (opacity > 1) {
       return setHeaderOpacity(1)

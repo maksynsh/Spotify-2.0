@@ -36,12 +36,18 @@ export const GradientBackground = ({ brightness = 1 }: GradientBackgroundProps) 
     setColor(getRandomGradientColor())
   }, [currentPath])
 
+  useEffect(() => {
+    if (!brightness) {
+      setColor('from-dragonstone')
+    }
+  }, [brightness])
+
   return (
     <section
       className={`transition-all ease duration-200 absolute left-0 top-0 z-0
-      bg-gradient-to-b ${brightness ? color : 'from-transparent'} to-transparent text-white
+      bg-gradient-to-b ${color} to-transparent text-white
       h-[29.5rem] md:h-[35rem] w-full`}
-      style={{ filter: `brightness(${brightness})` }}
+      style={{ filter: brightness ? `brightness(${brightness})` : '' }}
     />
   )
 }
