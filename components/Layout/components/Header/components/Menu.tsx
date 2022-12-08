@@ -95,7 +95,7 @@ export const Menu = ({ userName, imageUrl }: MenuProps) => {
         className={`${
           !open ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'
         } transition-all ease-out duration-200
-          absolute right-0 w-48 p-1 bg-dark text-base z-50 
+          fixed right-0 w-48 p-1 bg-dark text-base z-50 
           list-none divide-y divide-carbon rounded-md shadow-xl mt-2`}
         ref={dropdownRef}
         id='dropdown'

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRecoilState } from 'recoil'
 
-import { getRandomGradientColor } from 'components/Layout/components/Content/components/GradientBackground'
+import { getRandomGradientColor } from 'components/Layout/components/GradientBackground'
 import { backgroundGradientState } from 'atoms/background'
 import { PlayButton } from 'components'
 

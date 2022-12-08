@@ -1,7 +1,9 @@
 import { Player } from 'components'
 import { useDimensions } from 'hooks'
-import { Content } from './components/Content'
 import { Sidebar } from './components/Sidebar'
+import { Content } from './components/Content'
+import { GradientBackground } from './components/GradientBackground'
+import { Header } from './components/Header'
 
 interface LayoutProps {
   isLoading?: boolean
@@ -20,7 +22,11 @@ export const Layout: React.FC<LayoutProps> = ({
     <div className='bg-dragonstone' style={{ height: height + 'px' }}>
       <main className='flex flex-col-reverse md:flex-row'>
         <Sidebar />
-        <Content gradientBrightness={gradientBrightness}>{!isLoading && children}</Content>
+        <div className='flex flex-col'>
+          <GradientBackground brightness={gradientBrightness} />
+          <Header />
+          <Content>{!isLoading && children}</Content>
+        </div>
       </main>
 
       <Player />
