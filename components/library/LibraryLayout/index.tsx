@@ -36,10 +36,11 @@ export const LibraryLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <Layout
       headerOpacityOffset={0}
+      headerOpacityDistance={150}
       Controller={() => (width >= 1080 ? <NavButtons /> : null)}
       gradientBrightness={0}
     >
-      <div className='mx-2 md:mx-8'>
+      <div className='mx-3 md:mx-8'>
         {width < 1080 && <NavButtons />}
         <div className='mt-4 md:mt-6 mb-4'>{children}</div>
       </div>

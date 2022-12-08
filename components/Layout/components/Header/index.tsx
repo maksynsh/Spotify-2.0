@@ -10,13 +10,19 @@ import { Menu } from './components/Menu'
 import { backgroundGradientState } from 'atoms/background'
 
 const OPACITY_TRANSITION_OFFSET = 100 //px
+const OPACITY_TRANSITION_DISTANCE = 300 //px
 
 interface HeaderProps {
   opacityOffset?: number
+  opacityDistance?: number
   Controller?: React.FC<{ headerOpacity: number }>
 }
 
-export const Header = ({ opacityOffset = OPACITY_TRANSITION_OFFSET, Controller }: HeaderProps) => {
+export const Header = ({
+  opacityDistance = OPACITY_TRANSITION_DISTANCE,
+  opacityOffset = OPACITY_TRANSITION_OFFSET,
+  Controller,
+}: HeaderProps) => {
   const { data: session } = useSession()
   const router = useRouter()
   const history = useHistory()
@@ -30,7 +36,7 @@ export const Header = ({ opacityOffset = OPACITY_TRANSITION_OFFSET, Controller }
   )
 
   const handleScroll = () => {
-    const opacity = Math.floor((window.pageYOffset - opacityOffset) / 3) / 100
+    const opacity = Math.floor((window.pageYOffset - opacityOffset) / (opacityDistance / 100)) / 100
 
     if (opacity > 1) {
       return setHeaderOpacity(1)

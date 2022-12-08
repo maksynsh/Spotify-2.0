@@ -9,6 +9,7 @@ interface LayoutProps {
   isLoading?: boolean
   gradientBrightness?: number
   headerOpacityOffset?: number
+  headerOpacityDistance?: number
   children: React.ReactNode
   Controller?: React.FC<{ headerOpacity: number }>
 }
@@ -17,6 +18,7 @@ export const Layout: React.FC<LayoutProps> = ({
   isLoading = false,
   gradientBrightness,
   headerOpacityOffset,
+  headerOpacityDistance,
   children,
   Controller,
 }) => {
@@ -28,7 +30,11 @@ export const Layout: React.FC<LayoutProps> = ({
         <Sidebar />
         <div className='flex flex-col w-full'>
           <GradientBackground brightness={gradientBrightness} />
-          <Header Controller={Controller} opacityOffset={headerOpacityOffset} />
+          <Header
+            Controller={Controller}
+            opacityDistance={headerOpacityDistance}
+            opacityOffset={headerOpacityOffset}
+          />
           <Content>{!isLoading && children}</Content>
         </div>
       </main>
