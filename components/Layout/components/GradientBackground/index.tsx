@@ -33,14 +33,11 @@ export const GradientBackground = ({ brightness = 1 }: GradientBackgroundProps) 
   const [color, setColor] = useRecoilState<string>(backgroundGradientState)
 
   useEffect(() => {
-    setColor(getRandomGradientColor())
-  }, [currentPath])
-
-  useEffect(() => {
     if (!brightness) {
-      setColor('from-dragonstone')
+      return setColor('from-dragonstone')
     }
-  }, [brightness])
+    setColor(getRandomGradientColor())
+  }, [currentPath, brightness])
 
   return (
     <section
