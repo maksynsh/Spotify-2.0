@@ -9,12 +9,14 @@ interface LayoutProps {
   isLoading?: boolean
   gradientBrightness?: number
   children: React.ReactNode
+  Controller?: React.FC<{ headerOpacity: number }>
 }
 
 export const Layout: React.FC<LayoutProps> = ({
   isLoading = false,
   gradientBrightness,
   children,
+  Controller,
 }) => {
   const { height } = useDimensions()
 
@@ -22,9 +24,9 @@ export const Layout: React.FC<LayoutProps> = ({
     <div className='bg-dragonstone' style={{ height: height + 'px' }}>
       <main className='flex flex-col-reverse md:flex-row'>
         <Sidebar />
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-full'>
           <GradientBackground brightness={gradientBrightness} />
-          <Header />
+          <Header Controller={Controller} />
           <Content>{!isLoading && children}</Content>
         </div>
       </main>

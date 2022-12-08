@@ -25,14 +25,14 @@ const columns: ColumnsType<Song> = [
         <div>{info.row.index + 1}</div>
       ),
     header: () => '#',
-    size: 1,
+    size: 40,
     enableSorting: false,
   }),
   columnHelper.accessor((row) => row.name, {
     id: 'title',
     cell: (info) => (
       <div className='flex gap-4 min-w-0'>
-        <div className='relative w-10 h-10'>
+        <div className='relative w-10 h-10 shrink-0'>
           <Image
             src={info.row.original.image}
             loader={() => info.row.original.image}

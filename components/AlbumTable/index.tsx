@@ -1,11 +1,8 @@
 import React from 'react'
-import Image from 'next/image'
 import { createColumnHelper } from '@tanstack/react-table'
-import moment from 'moment'
 import { ClockIcon } from '@heroicons/react/24/outline'
 import { PlayIcon } from '@heroicons/react/24/solid'
 
-import { Track } from 'types/spotify'
 import { duration } from 'lib/utils'
 import { PlayButton, ColumnsType, ColumnBreakpoints, Table } from 'components'
 
@@ -20,8 +17,8 @@ const columns: ColumnsType<SpotifyApi.TrackObjectSimplified> = [
         <div>{info.row.index + 1}</div>
       ),
     header: () => '#',
-    size: 1,
     enableSorting: false,
+    size: 40,
   }),
   columnHelper.accessor((row) => row.name, {
     id: 'title',
@@ -42,9 +39,7 @@ const columns: ColumnsType<SpotifyApi.TrackObjectSimplified> = [
   }),
 ]
 
-const COLUMN_BREAKPOINTS: ColumnBreakpoints = {
-  640: ['id'],
-}
+const COLUMN_BREAKPOINTS: ColumnBreakpoints = {}
 
 interface AlbumTableProps {
   data: SpotifyApi.TrackObjectSimplified[]

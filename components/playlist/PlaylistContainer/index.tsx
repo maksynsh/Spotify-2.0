@@ -1,13 +1,9 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react'
+import React, { ReactNode } from 'react'
 import Image from 'next/image'
-import { useRecoilState } from 'recoil'
 
 import { Layout, PlayButton } from 'components'
 import { useDimensions } from 'hooks'
-import { backgroundGradientState } from 'atoms/background'
 import moment from 'moment'
-
-const HEADER_OFFSET_START = 100 //px
 
 interface PlaylistProps {
   uri: string
@@ -30,53 +26,28 @@ export const PlaylistContainer = ({
 }: PlaylistProps) => {
   const { width } = useDimensions()
 
-  const [backgroundGradient] = useRecoilState<string>(backgroundGradientState)
-  const [headerOpacity, setHeaderOpacity] = useState(0)
-
-  const headerBackground = useMemo(
-    () => backgroundGradient.replace('from', 'bg'),
-    [backgroundGradient],
-  )
-
-  const handleScroll = () => {
-    const opacity = Math.floor((window.pageYOffset - HEADER_OFFSET_START) / 3) / 100
-
-    if (opacity > 1) {
-      return setHeaderOpacity(1)
-    }
-    if (opacity < 0) {
-      return setHeaderOpacity(0)
-    }
-    setHeaderOpacity(opacity)
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const title = id === 'liked' ? 'Liked Songs' : info?.name
 
   return (
-    <Layout isLoading={isLoading}>
-      <div
-        className={`fixed w-full top-0 px-8 py-2 z-40 ${headerBackground ? headerBackground : ''}
-          flex flex-row-reverse sm:flex-row gap-4 items-center ${!headerOpacity && 'hidden'}
-          `}
-        style={{ opacity: headerOpacity, backgroundImage: 'linear-gradient(rgb(0 0 0/65%) 0 0)' }}
-      >
+    <Layout
+      Controller={({ headerOpacity }) => (
         <div
-          className={`${
-            headerOpacity >= 1 ? 'opacity-100' : 'opacity-0'
-          } transition-all duration-400 ease-in`}
+          className='flex items-center truncate min-w-0 gap-4'
+          style={{ opacity: headerOpacity }}
         >
-          <PlayButton size={width < 640 ? 'small' : 'default'} uri={uri} />
+          <div
+            className={`hidden sm:block
+            ${headerOpacity >= 1 ? 'opacity-100' : 'opacity-0'}
+            transition-all duration-400 ease-in`}
+          >
+            <PlayButton size={width < 640 ? 'small' : 'default'} uri={uri} />
+          </div>
+          <h2 className='text-base sm:text-lg md:text-xl font-bold truncate'>{title}</h2>
         </div>
-        <h2 className='text-lg sm:text-xl font-bold truncate'>{title}</h2>
-      </div>
-
-      <div className='flex flex-col sm:flex-row -mt-11 sm:mt-0 align-center gap-4 mx-2 md:mx-8 py-2 md:my-5 h-fit'>
+      )}
+      isLoading={isLoading}
+    >
+      <div className='flex flex-col sm:flex-row -mt-1 sm:mt-0 align-center gap-4 mx-2 md:mx-8 py-2 md:my-5 h-fit'>
         <div className='shrink-0 w-36 h-36 sm:w-40 sm:h-40 md:w-56 md:h-56 shadow-2xl shadow-dark relative mx-auto sm:mx-0'>
           <Image
             priority

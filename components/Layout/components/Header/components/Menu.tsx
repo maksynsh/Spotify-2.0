@@ -62,7 +62,7 @@ export const Menu = ({ userName, imageUrl }: MenuProps) => {
   }, [dropdownRef, handleOutsideClick])
 
   return (
-    <div className='relative' id='menu' aria-label='Menu'>
+    <div className='relative ml-auto' id='menu' aria-label='Menu'>
       <div
         className='flex items-center gap-2 max-w-[12rem] bg-black rounded-full p-1 md:p-0.5 
         cursor-pointer group'
@@ -93,9 +93,9 @@ export const Menu = ({ userName, imageUrl }: MenuProps) => {
       </div>
       <div
         className={`${
-          !open ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'
-        } transition-all ease-out duration-200
-          fixed right-0 w-48 p-1 bg-dark text-base z-50 
+          !open ? 'translate-x-80 opacity-0' : 'translate-x-0 opacity-100'
+        } transition-all ease duration-300
+          fixed right-0 md:right-6 w-48 p-1 bg-dark text-base z-50 
           list-none divide-y divide-carbon rounded-md shadow-xl mt-2`}
         ref={dropdownRef}
         id='dropdown'

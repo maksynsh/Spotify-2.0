@@ -71,8 +71,9 @@ export const Table = <T extends object>({
               return (
                 <th
                   key={header.id}
-                  className='text-start uppercase font-normal sm:first-of-type:w-10 first-of-type:pr-0 
+                  className='text-start uppercase font-normal first-of-type:min-w-fit first-of-type:pr-0 
                     last-of-type:w-12 last-of-type:px-1 px-4'
+                  style={{ width: header.column.id === 'id' ? header.getSize() : '' }}
                 >
                   <div
                     className={`flex gap-1 ${
