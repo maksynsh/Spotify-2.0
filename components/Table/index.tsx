@@ -81,13 +81,7 @@ export const Table = <T extends object>({
                     }`}
                     onClick={header.column.getToggleSortingHandler()}
                   >
-                    <div
-                      style={{
-                        userSelect: 'none',
-                      }}
-                      className='text-trim'
-                      id='column_title'
-                    >
+                    <div className='text-trim select-none' id='column_title'>
                       {header.isPlaceholder
                         ? null
                         : flexRender(header.column.columnDef.header, header.getContext())}

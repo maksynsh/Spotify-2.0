@@ -2,6 +2,7 @@
 export * from './home'
 export * from './playlist'
 export * from './library'
+export * from './search'
 
 //  common components
 export * from './BaseButton'
