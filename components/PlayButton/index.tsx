@@ -72,7 +72,7 @@ export const PlayButton = ({
             flex items-center justify-center
             ${
               show || isCurrentPlaying
-                ? 'opacity-100 translate-y-0'
+                ? 'opacity-100 translate-y-0 shadow-sm'
                 : `opacity-0 ${buttonConfig.transitions[transition]}`
             }`}
     >

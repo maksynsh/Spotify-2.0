@@ -33,7 +33,7 @@ export const sidebar: SidebarSectionType = {
       id: 'search',
       title: 'Search',
       path: '/search',
-      exact: true,
+      exact: false,
       Icon: <MagnifyingGlassIcon />,
     },
     {

@@ -10,7 +10,7 @@ import {
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 
 import { useDimensions } from 'hooks'
-import { SongRow } from '../SongsTable/SongRow'
+import { SongRow } from '../playlist/SongsTable/SongRow'
 
 export interface ColumnBreakpoints {
   [key: number]: string[]

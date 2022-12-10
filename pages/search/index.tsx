@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
 
 import { useSearch } from 'hooks'
-import { SearchLayout } from 'components'
+import { PlaylistCard, SearchLayout } from 'components'
 import { NextPageWithLayout } from 'pages/_app'
 import { SearchType } from 'types/spotify'
 
@@ -16,7 +16,25 @@ const Search: NextPageWithLayout = ({}) => {
 
   const { data, isLoading, error } = useSearch(query as string, searchTypes)
 
-  return <div>Search {query}</div>
+  return (
+    <div>
+      <div className='flex flex-wrap'>
+        <section className='flex flex-col gap-3 sm:gap-6'>
+          <h2 className='text-base sm:text-3xl font-extrabold'>Top result</h2>
+          {data?.playlists?.items[0] && (
+            <PlaylistCard
+              uri={data.playlists.items[0].uri}
+              imageUrl={data.playlists.items[0].images[0].url}
+              name={data.playlists.items[0].name}
+              description={data.playlists.items[0].description}
+              url={`/playlist/${data.playlists.items[0].id}`}
+            />
+          )}
+        </section>
+        <section className='flex flex-col'></section>
+      </div>
+    </div>
+  )
 }
 
 Search.getLayout = function getLayout(page: ReactElement) {
