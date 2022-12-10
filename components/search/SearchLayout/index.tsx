@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 
 import { Button, Layout, SearchBar } from 'components'
-import { debounce } from 'lodash'
+import { useDebounce } from 'hooks'
 
 const config = {
   buttons: [
@@ -39,18 +39,20 @@ export const SearchLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter()
   const { query } = router.query
 
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(query || '')
 
-  const debounceFn = useCallback(
-    debounce((debouncedValue) => {
-      router.push({ pathname: '/search', query: { query: debouncedValue } })
-    }, 700),
-    [],
-  )
+  const debouncedValue = useDebounce(value, 700)
+
+  useEffect(() => {
+    if (!debouncedValue) {
+      router.push('/search')
+      return
+    }
+    router.push({ pathname: '/search', query: { query: debouncedValue } })
+  }, [debouncedValue])
 
   const handleChange = (v: string) => {
     setValue(v)
-    debounceFn(v)
   }
 
   const handleClear = () => {
