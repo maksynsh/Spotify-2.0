@@ -1,5 +1,6 @@
 export * from './use-debounce'
 export * from './use-dimensions'
+export * from './use-search'
 export * from './use-spotify'
 export * from './use-play-pause'
 export * from './use-resizable'

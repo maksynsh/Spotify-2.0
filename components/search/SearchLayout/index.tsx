@@ -9,6 +9,7 @@ const config = {
   buttons: [
     { id: 'all', title: 'All', url: '/search' },
     { id: 'playlists', title: 'Playlists', url: '/search/playlists' },
+    { id: 'songs', title: 'Songs', url: '/search/songs' },
     { id: 'artists', title: 'Artists', url: '/search/artists' },
     { id: 'albums', title: 'Albums', url: '/search/albums' },
   ],
