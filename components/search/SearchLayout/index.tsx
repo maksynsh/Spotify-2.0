@@ -20,11 +20,11 @@ const NavButtons = () => {
   const { query } = router.query
 
   return (
-    <div className='flex flex-wrap items-center md:gap-4'>
+    <div className='flex items-center overflow-x-scroll scrollbar-hidden md:gap-4'>
       {config.buttons.map(({ id, title, url }) => (
         <Link key={id} href={{ pathname: url, query: { query } }}>
           <Button
-            className={`btn-base py-1 rounded-full ${
+            className={`btn-base py-0 md:py-1 rounded-full ${
               router.pathname === url && 'text-black bg-white'
             }`}
           >
@@ -74,9 +74,9 @@ export const SearchLayout: React.FC<PropsWithChildren> = ({ children }) => {
       )}
       gradientBrightness={0}
     >
-      <div className='mx-3 md:mx-8'>
+      <div className='mx-3 md:mx-8 mt-2 md:mt-5 mb-4'>
         {query && <NavButtons />}
-        <div className='mt-4 md:mt-6 mb-4'>{children}</div>
+        <div className='mt-2 md:mt-5 mb-4'>{children}</div>
       </div>
     </Layout>
   )
