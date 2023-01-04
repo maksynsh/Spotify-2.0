@@ -64,32 +64,30 @@ const Search: NextPageWithLayout = ({}) => {
     )
 
   return (
-    <div>
-      <div className='flex flex-wrap gap-3 sm:gap-6'>
-        <section className='flex flex-col gap-3 sm:gap-6'>
-          <h2 className='text-base sm:text-3xl font-extrabold'>Top result</h2>
-          <div className='min-w-min md:min-w-[24rem] max-w-lg'>
-            {data?.playlists?.items[0] && (
-              <Card
-                variant='large'
-                uri={data.playlists.items[0].uri}
-                imageUrl={data.playlists.items[0].images[0].url}
-                name={data.playlists.items[0].name}
-                caption={data.playlists.items[0].description}
-                url={`/playlist/${data.playlists.items[0].id}`}
-              />
-            )}
-          </div>
-        </section>
-        <section className='flex flex-col gap-3 sm:gap-6 flex-1'>
-          <h2 className='text-base sm:text-3xl font-extrabold'>Songs</h2>
-          <div className=''>
-            {data?.tracks?.items.slice(0, 5).map((song) => (
-              <Song key={song.id} {...song} />
-            ))}
-          </div>
-        </section>
-      </div>
+    <div className='flex flex-wrap gap-3 sm:gap-6'>
+      <section className='flex flex-col gap-3 sm:gap-6'>
+        <h2 className='text-base sm:text-3xl font-extrabold'>Top result</h2>
+        <div className='min-w-min md:min-w-[24rem] max-w-lg'>
+          {data?.playlists?.items[0] && (
+            <Card
+              variant='large'
+              uri={data.playlists.items[0].uri}
+              imageUrl={data.playlists.items[0].images[0].url}
+              name={data.playlists.items[0].name}
+              caption={data.playlists.items[0].description}
+              url={`/playlist/${data.playlists.items[0].id}`}
+            />
+          )}
+        </div>
+      </section>
+      <section className='flex flex-col gap-3 sm:gap-6 flex-1'>
+        <h2 className='text-base sm:text-3xl font-extrabold'>Songs</h2>
+        <div className=''>
+          {data?.tracks?.items.slice(0, 5).map((song) => (
+            <Song key={song.id} {...song} />
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

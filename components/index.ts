@@ -3,6 +3,7 @@ export * from './home'
 export * from './playlist'
 export * from './library'
 export * from './search'
+export * from './album'
 
 //  common components
 export * from './Card'
