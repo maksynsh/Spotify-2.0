@@ -25,7 +25,7 @@ const NavButtons = () => {
         <Link key={id} href={{ pathname: url, query: { query } }}>
           <Button
             className={`btn-base py-0 md:py-1 rounded-full ${
-              router.pathname === url && 'text-black bg-white'
+              router.pathname === url && 'text-black bg-white hover:text-black'
             }`}
           >
             {title}
