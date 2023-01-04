@@ -3,7 +3,7 @@ import type { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 
 import type { NextPageWithLayout } from 'pages/_app'
-import { ArtistCard, LibraryLayout } from 'components'
+import { Card, LibraryLayout } from 'components'
 import { useSpotify } from 'hooks'
 
 const LibraryArtists: NextPageWithLayout = ({}) => {
@@ -31,9 +31,17 @@ const LibraryArtists: NextPageWithLayout = ({}) => {
   }, [spotifyApi])
 
   return (
-    <div className='flex flex-wrap justify-between w-full gap-2 md:gap-4'>
+    <div className='card-grid'>
       {artists?.map(({ uri, id, images, name }) => (
-        <ArtistCard key={id} uri={uri} imageUrl={images[0].url} name={name} url={`/artist/${id}`} />
+        <Card
+          key={id}
+          uri={uri}
+          imageUrl={images[0].url}
+          name={name}
+          caption='Artist'
+          url={`/artist/${id}`}
+          roundedImage
+        />
       ))}
     </div>
   )

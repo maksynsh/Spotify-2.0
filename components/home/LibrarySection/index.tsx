@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 
-import { PlaylistCard } from 'components'
+import { Card } from 'components'
 import { playlistListState } from 'atoms/playlist'
 
 export const LibrarySection = () => {
@@ -16,17 +16,14 @@ export const LibrarySection = () => {
           <div className='clickable uppercase text-sm font-extrabold text-gray'>See all</div>
         </Link>
       </div>
-      <div
-        className='flex md:flex-wrap justify-between scrollbar-hidden overflow-x-auto md:overflow-hidden
-                    w-full gap-2 md:gap-4 md:h-72'
-      >
+      <div className='max-md:card-grid-carousel md:card-grid-row'>
         {playlists?.slice(0, 10).map(({ uri, id, images, name, description }) => (
-          <PlaylistCard
+          <Card
             key={id}
             uri={uri}
             imageUrl={images[0].url}
             name={name}
-            description={description}
+            caption={description}
             url={`/playlist/${id}`}
           />
         ))}

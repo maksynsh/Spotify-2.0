@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { useSpotify } from 'hooks'
-import { ArtistCard } from 'components'
+import { Card } from 'components'
 
 export const ArtistsSection = () => {
   const spotifyApi = useSpotify()
@@ -38,17 +38,16 @@ export const ArtistsSection = () => {
           <div className='clickable uppercase text-sm font-extrabold text-gray'>See all</div>
         </Link>
       </div>
-      <div
-        className='flex md:flex-wrap justify-between scrollbar-hidden overflow-x-auto md:overflow-hidden
-                    w-full gap-2 md:gap-4 md:h-72'
-      >
+      <div className='max-md:card-grid-carousel md:card-grid-row'>
         {artists?.map(({ uri, id, images, name }) => (
-          <ArtistCard
+          <Card
             key={id}
             uri={uri}
             imageUrl={images[0].url}
             name={name}
+            caption={'Artist'}
             url={`/playlist/${id}`}
+            roundedImage
           />
         ))}
       </div>

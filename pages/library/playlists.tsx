@@ -4,21 +4,21 @@ import { getSession } from 'next-auth/react'
 import { useRecoilState } from 'recoil'
 
 import type { NextPageWithLayout } from 'pages/_app'
-import { LibraryLayout, PlaylistCard } from 'components'
+import { Card, LibraryLayout } from 'components'
 import { playlistListState } from 'atoms/playlist'
 
 const LibraryPlaylists: NextPageWithLayout = ({}) => {
   const [playlists] = useRecoilState<SpotifyApi.PlaylistObjectSimplified[]>(playlistListState)
 
   return (
-    <div className='flex flex-wrap justify-between w-full gap-2 md:gap-4'>
+    <div className='card-grid'>
       {playlists?.map(({ uri, id, images, name, description }) => (
-        <PlaylistCard
+        <Card
           key={id}
           uri={uri}
           imageUrl={images[0].url}
           name={name}
-          description={description}
+          caption={description}
           url={`/playlist/${id}`}
         />
       ))}

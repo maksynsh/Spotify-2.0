@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
 
 import { useSearch } from 'hooks'
-import { PlaylistCard, SearchLayout } from 'components'
+import { Card, SearchLayout } from 'components'
 import { NextPageWithLayout } from 'pages/_app'
 import { SearchType } from 'types/spotify'
 
@@ -23,23 +23,14 @@ const Search: NextPageWithLayout = ({}) => {
           <h2 className='text-base sm:text-3xl font-extrabold'>Top result</h2>
           <div>
             {data?.playlists?.items[0] && (
-              <PlaylistCard
+              <Card
                 uri={data.playlists.items[0].uri}
                 imageUrl={data.playlists.items[0].images[0].url}
                 name={data.playlists.items[0].name}
-                description={data.playlists.items[0].description}
+                caption={data.playlists.items[0].description}
                 url={`/playlist/${data.playlists.items[0].id}`}
               />
             )}
-            {/* {data?.playlists?.items[1] && (
-              <PlaylistCard
-                uri={data.playlists.items[1].uri}
-                imageUrl={data.playlists.items[1].images[0].url}
-                name={data.playlists.items[1].name}
-                description={data.playlists.items[1].description}
-                url={`/playlist/${data.playlists.items[1].id}`}
-              />
-            )} */}
           </div>
         </section>
         <section className='flex flex-col'></section>
