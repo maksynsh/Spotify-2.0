@@ -84,12 +84,12 @@ body {
   
   .card-grid-row {
     @apply grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] 
-      grid-rows-[1fr] auto-rows-[0] overflow-y-hidden w-full gap-2 md:gap-4
+      grid-rows-[96%] auto-rows-[0] overflow-y-hidden w-full gap-2 md:gap-4
   }
 
   .card-grid-carousel {
-    @apply
-      grid grid-flow-col columns-[minmax(200px,1fr)] scrollbar-hidden overflow-x-auto overflow-y-hidden w-full gap-2 md:gap-4
+    @apply grid grid-flow-col columns-[minmax(200px,1fr)] scrollbar-hidden 
+    overflow-x-auto overflow-y-hidden w-full gap-2 md:gap-4
   }
 
   .scrollbar-hidden::-webkit-scrollbar {

@@ -51,9 +51,9 @@ const columns: ColumnsType<Song> = [
     ),
     header: () => 'Title',
   }),
-  columnHelper.accessor('album.name', {
+  columnHelper.accessor('album', {
     id: 'album',
-    cell: (info) => info.getValue(),
+    cell: (info) => info.getValue()?.name,
     header: () => 'Album',
   }),
   columnHelper.accessor('added_at', {

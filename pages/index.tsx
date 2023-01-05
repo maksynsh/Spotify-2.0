@@ -8,7 +8,7 @@ import { ArtistsSection, LibrarySection, RecommendsSection } from 'components/ho
 const Home: NextPage = () => {
   return (
     <Layout headerOpacityOffset={0} headerOpacityDistance={150} gradientBrightness={0.45}>
-      <div className='flex flex-col align-center gap-10 mx-2 md:mx-8 my-2 md:my-5 h-fit'>
+      <div className='flex flex-col align-center gap-5 md:gap-10 mx-2 md:mx-8 my-2 md:my-5 h-fit'>
         <RecommendsSection />
         <LibrarySection />
         <ArtistsSection />

@@ -9,7 +9,7 @@ interface CardProps {
   name: string
   imageUrl: string
   url: string
-  caption: string | null
+  caption: React.ReactElement | string | null
   variant?: keyof Styles
   roundedImage?: boolean
 }
@@ -19,6 +19,7 @@ interface Variant {
   imageStyles: string
   titleStyles: string
   buttonStyles: string
+  captionStyles: string
 }
 
 interface Styles {
@@ -28,16 +29,18 @@ interface Styles {
 
 const styles: Styles = {
   default: {
-    wrapperStyles: 'gap-3 p-0 md:p-3 mx-auto opacity-0 md:opacity-100',
-    imageStyles: 'w-full',
-    titleStyles: 'text-center md:text-left text-xs sm:text-base',
+    wrapperStyles: 'gap-3 p-0 md:p-3 mx-auto',
+    imageStyles: 'w-full md:rounded-md',
+    titleStyles: 'text-center md:text-left text-xs sm:text-base truncate',
+    captionStyles: 'opacity-0 md:opacity-100',
     buttonStyles: 'bottom-2 right-2',
   },
   large: {
-    wrapperStyles: 'bg-dark hover:bg-[#282828] rounded-lg gap-5 p-2 md:p-5 relative',
+    wrapperStyles: 'bg-dark hover:bg-[#282828] rounded-lg gap-6 p-2 md:p-5 relative',
     imageStyles: 'w-24',
-    titleStyles: 'font-extrabold text-left text-lg sm:text-2xl mb-1',
-    buttonStyles: 'bottom-4 right-4',
+    titleStyles: 'font-extrabold line-clamp-1 text-left text-lg sm:text-2xl mb-1',
+    captionStyles: '',
+    buttonStyles: 'bottom-5 right-5',
   },
 }
 
@@ -64,11 +67,13 @@ export const Card = ({
       >
         <div className={variant === 'default' ? 'relative' : ''}>
           <div
-            className={`${styles[variant].imageStyles} relative aspect-square object-cover md:rounded-md  md:mx-0 shadow-lg
-              group-hover:bg-no-repeat group-hover:brightness-75 transition-all ease duration-300`}
+            className={`${styles[variant].imageStyles} ${
+              roundedImage ? 'md:rounded-full rounded-full' : ''
+            }
+              relative aspect-square object-cover md:mx-0 shadow-lg shadow-dragonstone
+              group-hover:bg-no-repeat group-hover:brightness-75 transition-all ease duration-300 overflow-hidden`}
           >
             <Image
-              className={roundedImage ? 'rounded-full' : ''}
               aria-hidden='false'
               draggable='false'
               loading='lazy'
@@ -85,10 +90,15 @@ export const Card = ({
           </div>
         </div>
         <figcaption className='min-w-0 flex flex-col flex-1 gap-1'>
-          <p title={name} className={`${styles[variant].titleStyles} line-clamp-1`}>
+          <p title={name} className={`${styles[variant].titleStyles} break-words`}>
             {name}
           </p>
-          <p className='min-h-[2.5rem] line-clamp-2 text-gray text-sm font-normal'>{caption}</p>
+          <p
+            className={`${styles[variant].captionStyles} 
+            min-h-[2.5rem] line-clamp-2 text-gray text-sm font-normal`}
+          >
+            {caption}
+          </p>
         </figcaption>
       </figure>
     </Link>
