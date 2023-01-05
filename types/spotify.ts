@@ -30,9 +30,4 @@ export interface Track {
   uri?: string
 }
 
-export interface SongData {
-  added_at: string
-  track: Track
-}
-
 export type SearchType = 'album' | 'artist' | 'playlist' | 'track'

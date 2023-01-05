@@ -5,15 +5,12 @@ import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
 import { useRecoilState } from 'recoil'
 
-import { usePlayPause, useSearch } from 'hooks'
+import { usePlayPause } from 'hooks'
 import { Card, SearchLayout } from 'components'
 import { NextPageWithLayout } from 'pages/_app'
-import { SearchType } from 'types/spotify'
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { duration } from 'lib/utils'
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
-
-const searchTypes: SearchType[] = ['album', 'artist', 'playlist', 'track']
 
 const Song = ({ id, name, uri, album, duration_ms, artists }: SpotifyApi.TrackObjectFull) => {
   const [currentTrackId] = useRecoilState(currentTrackIdState)
@@ -72,22 +69,11 @@ const Song = ({ id, name, uri, album, duration_ms, artists }: SpotifyApi.TrackOb
   )
 }
 
-const Search: NextPageWithLayout = ({}) => {
-  const router = useRouter()
-  const { query } = router.query
+interface SearchProps {
+  data: SpotifyApi.SearchResponse
+}
 
-  const { data, isLoading, error } = useSearch(query as string, searchTypes)
-
-  if (isLoading) return <div className='text-2xl text-green'>Loading...</div>
-
-  if (!data)
-    return (
-      <div>
-        <div className='text-2xl'>Search anything</div>
-        <div className='text-lg'>Here you can find any song, playlist, album and so much more!</div>
-      </div>
-    )
-
+const Search: NextPageWithLayout<SearchProps> = ({ data }) => {
   return (
     <div className='flex flex-col gap-3 md:gap-6'>
       <div className='flex flex-wrap gap-3 sm:gap-6'>
@@ -131,7 +117,7 @@ const Search: NextPageWithLayout = ({}) => {
             <Card
               key={id}
               uri={uri}
-              imageUrl={images[0].url}
+              imageUrl={images[0]?.url}
               name={name}
               caption={'Artist'}
               url={`/playlist/${id}`}
@@ -149,7 +135,7 @@ const Search: NextPageWithLayout = ({}) => {
             <Card
               key={id}
               uri={uri}
-              imageUrl={images[0].url}
+              imageUrl={images[0]?.url}
               name={name}
               caption={artists[0].name}
               url={`/album/${id}`}
@@ -166,7 +152,7 @@ const Search: NextPageWithLayout = ({}) => {
             <Card
               key={id}
               uri={uri}
-              imageUrl={images[0].url}
+              imageUrl={images[0]?.url}
               name={name}
               caption={description}
               url={`/playlist/${id}`}
