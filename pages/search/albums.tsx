@@ -16,7 +16,7 @@ const SearchAlbums: NextPageWithLayout<SearchAlbumsProps> = ({ data }) => {
         <Card
           key={id}
           uri={uri}
-          imageUrl={images[0].url}
+          imageUrl={images[0]?.url}
           name={name}
           caption={artists[0]?.name}
           url={`/album/${id}`}

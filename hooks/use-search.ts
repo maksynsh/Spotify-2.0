@@ -18,7 +18,7 @@ export const useSearch = (query: string | undefined, types: SearchType[]) => {
       setIsLoading(true)
 
       spotifyApi
-        .search(query, types)
+        .search(query, types, { limit: types.length > 1 ? 10 : 50 })
         .then((data) => setData(data.body))
         .catch((err) => setError(err.message))
         .finally(() => setIsLoading(false))

@@ -44,8 +44,10 @@ const columns: ColumnsType<Song> = [
         </div>
 
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
-          <h3 className='font-semibold leading-none text-inherit'>{info.getValue()}</h3>
-          <div className='leading-none text-gray'>{info.row.original.artists?.at(0)?.name}</div>
+          <h3 className='font-semibold leading-none text-inherit truncate'>{info.getValue()}</h3>
+          <div className='leading-none text-gray truncate'>
+            {info.row.original.artists?.at(0)?.name}
+          </div>
         </div>
       </div>
     ),

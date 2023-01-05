@@ -5,28 +5,28 @@ import { getSession } from 'next-auth/react'
 import { Card, SearchLayout } from 'components'
 import { NextPageWithLayout } from 'pages/_app'
 
-interface SearchPlaylistsProps {
+interface SearchArtistssProps {
   data: SpotifyApi.SearchResponse
 }
 
-const SearchPlaylists: NextPageWithLayout<SearchPlaylistsProps> = ({ data }) => {
+const SearchArtists: NextPageWithLayout<SearchArtistssProps> = ({ data }) => {
   return (
     <div className='card-grid'>
-      {data.playlists?.items.map(({ uri, id, images, name, description }) => (
+      {data.artists?.items.map(({ uri, id, images, name }) => (
         <Card
           key={id}
           uri={uri}
           imageUrl={images[0]?.url}
           name={name}
-          caption={description}
-          url={`/playlist/${id}`}
+          caption={'Artist'}
+          url={`/artist/${id}`}
         />
       ))}
     </div>
   )
 }
 
-SearchPlaylists.getLayout = function getLayout(page: ReactElement) {
+SearchArtists.getLayout = function getLayout(page: ReactElement) {
   return <SearchLayout>{page}</SearchLayout>
 }
 
@@ -38,4 +38,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-export default SearchPlaylists
+export default SearchArtists
