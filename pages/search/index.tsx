@@ -19,9 +19,17 @@ const Song = ({ id, name, uri, album, duration_ms, artists }: SpotifyApi.TrackOb
   const [currentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying] = useRecoilState(isPlayingState)
 
-  const { play } = usePlayPause()
+  const isCurrentSongPlaying = currentTrackId === id && isPlaying
 
-  const playSong = () => play({ contextUri: album.uri, songUri: uri, songId: id })
+  const { play, pause } = usePlayPause()
+
+  const playPause = () => {
+    if (isCurrentSongPlaying) {
+      pause()
+      return
+    }
+    play({ contextUri: album.uri, songUri: uri, songId: id })
+  }
 
   return (
     <div
@@ -44,10 +52,10 @@ const Song = ({ id, name, uri, album, duration_ms, artists }: SpotifyApi.TrackOb
         </div>
         <div
           className={`absolute top-0 left-0 w-full h-full flex items-center justify-center
-          opacity-0 ${currentTrackId === id && isPlaying && 'opacity-100'} group-hover:opacity-100`}
-          onClick={playSong}
+          opacity-0 ${isCurrentSongPlaying && 'opacity-100'} group-hover:opacity-100`}
+          onClick={playPause}
         >
-          {currentTrackId === id && isPlaying ? (
+          {isCurrentSongPlaying ? (
             <PauseIcon className='w-5 h-5' />
           ) : (
             <PlayIcon className='w-5 h-5' />

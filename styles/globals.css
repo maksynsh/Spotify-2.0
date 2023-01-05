@@ -79,7 +79,8 @@ body {
   }
 
   .card-grid {
-    @apply grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] w-full gap-2 md:gap-4
+    @apply grid grid-cols-[repeat(auto-fit,minmax(124px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(190px,1fr))] 
+    w-full gap-2 md:gap-4
   }
   
   .card-grid-row {
