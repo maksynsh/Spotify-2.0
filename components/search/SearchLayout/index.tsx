@@ -59,12 +59,14 @@ export const SearchLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
   const debouncedValue = useDebounce(value, 700)
 
+  //  if we emptied query, then return to default page
+  //  else, push query to url params
   useEffect(() => {
     if (!debouncedValue) {
       router.push('/search')
       return
     }
-    router.push({ pathname: '/search', query: { query: debouncedValue } })
+    router.push({ pathname: router.pathname, query: { query: debouncedValue } })
   }, [debouncedValue])
 
   const handleChange = (v: string) => {
