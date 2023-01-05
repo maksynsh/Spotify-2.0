@@ -7,7 +7,7 @@ import { usePlayPause } from 'hooks'
 
 interface SongRowProps {
   row: Row<any>
-  contextUri: string
+  contextUri?: string
 }
 
 export const SongRow = ({ row, contextUri }: SongRowProps) => {
@@ -16,7 +16,12 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
 
   const { play } = usePlayPause()
 
-  const playSong = () => play({ contextUri, songUri: row.original.uri, songId: row.original.id })
+  const playSong = () =>
+    play({
+      contextUri: contextUri || row.original.album.uri,
+      songUri: row.original.uri,
+      songId: row.original.id,
+    })
 
   return (
     <tr

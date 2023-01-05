@@ -38,8 +38,8 @@ const Song = ({ id, name, uri, album, duration_ms, artists }: SpotifyApi.TrackOb
           group-hover:brightness-50 ${currentTrackId === id && isPlaying && 'brightness-50'}`}
         >
           <Image
-            src={album.images[0].url}
-            loader={() => album.images[0].url}
+            src={(album.images.at(-1) || album.images[0]).url}
+            loader={() => (album.images.at(-1) || album.images[0]).url}
             layout='fill'
             width={40}
             height={40}

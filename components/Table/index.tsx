@@ -22,7 +22,7 @@ export interface TableProps<T> {
   data: T[]
   columns: ColumnsType<T>
   columnBreakpoints: ColumnBreakpoints
-  playlistUri: string
+  playlistUri?: string
 }
 
 export const Table = <T extends object>({
