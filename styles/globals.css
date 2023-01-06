@@ -93,6 +93,36 @@ body {
     overflow-x-auto overflow-y-hidden w-full gap-2 md:gap-4
   }
 
+  .card-grid > *:only-child {
+    max-width: 200px !important
+  }
+  .card-grid-carousel > *:only-child {
+    max-width: 200px !important
+  }
+  .card-grid-row > *:only-child {
+    max-width: 200px !important
+  }
+
+  .stick {
+    width: 10px;
+    height: 8px;
+    animation: up-down .75s infinite;
+
+    @apply bg-green
+  }
+
+  @keyframes up-down {
+    0% {
+      height: 8px;
+    }
+    50% {
+      height: 100%;
+    }
+    100% {
+      height: 8px;
+    }
+  }
+
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
     width: 0px;

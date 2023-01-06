@@ -1,4 +1,4 @@
-import { Player } from 'components'
+import { Player, Preloader } from 'components'
 import { useDimensions } from 'hooks'
 import { Sidebar } from './components/Sidebar'
 import { Content } from './components/Content'
@@ -35,7 +35,15 @@ export const Layout: React.FC<LayoutProps> = ({
             opacityDistance={headerOpacityDistance}
             opacityOffset={headerOpacityOffset}
           />
-          <Content>{!isLoading && children}</Content>
+          <Content>
+            {!isLoading ? (
+              children
+            ) : (
+              <div className='h-[65vh] w-full flex items-center justify-center'>
+                <Preloader />
+              </div>
+            )}
+          </Content>
         </div>
       </main>
 

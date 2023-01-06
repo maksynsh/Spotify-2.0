@@ -6,6 +6,7 @@ export * from './search'
 export * from './album'
 
 //  common components
+export * from './Preloader'
 export * from './Card'
 export * from './Song'
 export * from './BaseButton'

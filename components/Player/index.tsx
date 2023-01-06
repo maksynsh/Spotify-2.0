@@ -17,7 +17,7 @@ import { useFetchPlayerState, useLocalStorage, useSongInfo, useSpotify } from 'h
 import { debounce } from 'lodash'
 
 const UPDATE_DELAY = 200
-const REFRESH_PLAYER_INTERVAL = 10000
+const REFRESH_INTERVAL = 10000
 
 export const Player = () => {
   const spotifyApi = useSpotify()
@@ -35,7 +35,7 @@ export const Player = () => {
 
     fetchCurrentPlaybackState()
 
-    const refreshInterval = setInterval(() => fetchCurrentPlaybackState(), REFRESH_PLAYER_INTERVAL)
+    const refreshInterval = setInterval(() => fetchCurrentPlaybackState(), REFRESH_INTERVAL)
 
     return () => clearInterval(refreshInterval)
   }, [spotifyApi.getAccessToken()])

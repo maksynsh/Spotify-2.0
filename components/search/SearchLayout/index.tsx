@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 
-import { BaseButton, Button, Layout, NoResults, SearchBar } from 'components'
+import { BaseButton, Button, Layout, NoResults, Preloader, SearchBar } from 'components'
 import { useDebounce, useSearch } from 'hooks'
 import { SearchType } from 'types/spotify'
 
@@ -89,7 +89,12 @@ export const SearchLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
     if (error) return <div className='text-2xl text-red-700'>{error}</div>
 
-    if (isLoading) return <div className='flex items-center text-2xl text-green'>Loading...</div>
+    if (isLoading)
+      return (
+        <div className='flex items-center justify-center h-[70vh] w-full text-2xl text-green'>
+          <Preloader />
+        </div>
+      )
 
     if (!data)
       return (
