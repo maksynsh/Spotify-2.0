@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { PropsWithChildren } from 'react'
 
-import { Layout } from 'components'
+import { BaseButton, Layout } from 'components'
 import { useDimensions } from 'hooks'
 
 const config = {
@@ -18,13 +17,13 @@ const NavButtons = () => {
   return (
     <div className='flex items-center md:gap-4'>
       {config.buttons.map(({ id, title, url }) => (
-        <Link key={id} href={url}>
-          <button
-            className={`btn-base rounded ${router.pathname === url && 'text-white bg-carbon'}`}
-          >
-            {title}
-          </button>
-        </Link>
+        <BaseButton
+          key={id}
+          to={url}
+          className={`btn-base rounded ${router.pathname === url && 'text-white bg-carbon'}`}
+        >
+          {title}
+        </BaseButton>
       ))}
     </div>
   )

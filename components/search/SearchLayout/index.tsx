@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 
-import { Button, Layout, NoResults, SearchBar } from 'components'
+import { BaseButton, Button, Layout, NoResults, SearchBar } from 'components'
 import { useDebounce, useSearch } from 'hooks'
 import { SearchType } from 'types/spotify'
 
@@ -31,13 +31,13 @@ const NavButtons = () => {
     <div className='flex items-center overflow-x-scroll scrollbar-hidden md:gap-4'>
       {config.nav.map(({ id, title, url }) => (
         <Link key={id} href={{ pathname: url, query: { query } }}>
-          <Button
+          <BaseButton
             className={`btn-base py-0 md:py-1 rounded-full ${
               router.pathname === url && 'text-black bg-white hover:text-black'
             }`}
           >
             {title}
-          </Button>
+          </BaseButton>
         </Link>
       ))}
     </div>

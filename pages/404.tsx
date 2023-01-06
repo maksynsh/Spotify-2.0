@@ -13,9 +13,9 @@ export default function PageNotFound() {
       </h1>
       <hr className='bg-white w-24 mb-4' />
       <Link href='/'>
-        <a className='btn-base btn-secondary'>
+        <div className='btn-base btn-secondary cursor-pointer'>
           <ArrowLeftOnRectangleIcon className='w-6 h-6' /> Go back home
-        </a>
+        </div>
       </Link>
     </div>
   )
