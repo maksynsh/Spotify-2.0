@@ -32,9 +32,10 @@ export const useFetchPlayerState = () => {
             setVolume(data.body.device.volume_percent)
           }
         })
-        .catch((err) =>
-          toast.error('Couldnt fetch player state. Try reloading page', {
+        .catch(() =>
+          toast.error('Check your internet connection or try reloading page.', {
             toastId: 'player-error',
+            autoClose: 11000,
           }),
         )
     }

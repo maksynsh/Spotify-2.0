@@ -32,6 +32,7 @@ export const Player = () => {
 
   useEffect(() => {
     if (!spotifyApi.getAccessToken()) return
+
     fetchCurrentPlaybackState()
 
     const refreshInterval = setInterval(() => fetchCurrentPlaybackState(), REFRESH_PLAYER_INTERVAL)
@@ -57,8 +58,8 @@ export const Player = () => {
         .then(() => {
           setTimeout(() => fetchCurrentPlaybackState(), UPDATE_DELAY)
         })
-        .catch((err) => {
-          toast.error(err.message, { toastId: 'next-song-error' })
+        .catch(() => {
+          toast.error('Next song error', { toastId: 'next-song-error' })
           setCurrentTrackId(null)
         })
     }
@@ -71,8 +72,8 @@ export const Player = () => {
         .then(() => {
           setTimeout(() => fetchCurrentPlaybackState(), UPDATE_DELAY)
         })
-        .catch((err) => {
-          toast.error(err.message, { toastId: 'prev-song-error' })
+        .catch(() => {
+          toast.error('Prev song error', { toastId: 'prev-song-error' })
           setCurrentTrackId(null)
         })
     }
