@@ -22,7 +22,7 @@ export const DevicesProvider = ({ children }: DevicesProviderProps) => {
     spotifyApi
       .getMyDevices()
       .then((data) => setAvailableDevices(data.body.devices))
-      .catch((err) => console.error(err.message))
+      .catch((err) => console.error(err))
 
     const refreshInterval = setInterval(() => {
       spotifyApi

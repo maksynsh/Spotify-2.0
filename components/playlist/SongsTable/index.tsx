@@ -9,14 +9,14 @@ import { Track } from 'types/spotify'
 import { duration } from 'lib/utils'
 import { PlayButton, ColumnsType, ColumnBreakpoints, Table } from 'components'
 
-export interface Song extends Track {
+export interface SongType extends Track {
   added_at: string
   image: string
 }
 
-const columnHelper = createColumnHelper<Song>()
+const columnHelper = createColumnHelper<SongType>()
 
-const columns: ColumnsType<Song> = [
+const columns: ColumnsType<SongType> = [
   columnHelper.accessor('id', {
     cell: (info) =>
       info.cell.row.getIsSelected() ? (
@@ -77,7 +77,7 @@ const COLUMN_BREAKPOINTS: ColumnBreakpoints = {
 }
 
 interface SongsTableProps {
-  data: Song[]
+  data: SongType[]
   playlistUri: string
 }
 

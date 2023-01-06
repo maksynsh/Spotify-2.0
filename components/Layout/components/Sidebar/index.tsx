@@ -12,7 +12,7 @@ import { currentContextUriState, currentTrackIdState, isPlayingState } from 'ato
 export const Sidebar = () => {
   const spotifyApi = useSpotify()
   const { data: session } = useSession()
-  const { onDragStart, onDrag } = useResizable({ elementId: 'resizable', min: 200, max: 356 })
+  const { onDragStart, onDrag } = useResizable({ elementId: 'resizable', min: 125, max: 356 })
 
   const [hidden, setHidden] = useState(false)
   const [playlists, setPlaylists] =

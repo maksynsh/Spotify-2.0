@@ -7,6 +7,7 @@ export * from './album'
 
 //  common components
 export * from './Card'
+export * from './Song'
 export * from './BaseButton'
 export * from './Button'
 export * from './PlayButton'

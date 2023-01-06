@@ -28,7 +28,7 @@ export const MenuItem = memo(
         to={href || path}
       >
         {Icon && (
-          <div className='w-5 h-5 md:w-6 md:h-6' id='nav-icon'>
+          <div className='w-5 h-5 md:w-6 md:h-6 shrink-0' id='nav-icon'>
             {Icon}
           </div>
         )}

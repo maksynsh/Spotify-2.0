@@ -39,7 +39,7 @@ function App({
           <ToastContainer
             autoClose={6000}
             limit={3}
-            position='bottom-left'
+            position='bottom-right'
             theme='dark'
             transition={Flip}
             closeOnClick={false}

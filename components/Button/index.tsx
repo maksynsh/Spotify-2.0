@@ -20,6 +20,11 @@ const COLORS = {
   secondary: 'btn-secondary',
 }
 
-export const Button = ({ size = 'default', color = 'primary', ...props }: ButtonProps) => {
-  return <BaseButton className={`${COLORS[color]} ${SIZES[size]}`} {...props} />
+export const Button = ({
+  size = 'default',
+  color = 'primary',
+  className,
+  ...props
+}: ButtonProps) => {
+  return <BaseButton className={`${COLORS[color]} ${SIZES[size]} ${className}`} {...props} />
 }

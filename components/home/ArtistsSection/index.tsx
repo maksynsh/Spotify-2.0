@@ -46,7 +46,7 @@ export const ArtistsSection = () => {
             imageUrl={images[0].url}
             name={name}
             caption={'Artist'}
-            url={`/playlist/${id}`}
+            url={`/artist/${id}`}
             roundedImage
           />
         ))}
