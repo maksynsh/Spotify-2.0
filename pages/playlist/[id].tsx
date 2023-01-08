@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
-import { PlaylistContainer, Song, SongsTable } from 'components'
+import { PlaylistContainer, Preloader, SongsTable, SongType } from 'components'
 import { useSpotify } from 'hooks'
 
 const PlaylistSlug: NextPage = ({}) => {
@@ -13,9 +14,34 @@ const PlaylistSlug: NextPage = ({}) => {
 
   const [playlist, setPlaylist] = useState<{
     info: SpotifyApi.SinglePlaylistResponse
-    tracks: Song[]
+    tracks: SongType[]
   }>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const fetchTracks = () => {
+    const offset = playlist?.tracks.length || 0
+
+    spotifyApi
+      .getPlaylistTracks(id as string, { offset, limit: 100 })
+      .then((data) => {
+        const { items } = data.body
+        setPlaylist((prev) => ({
+          tracks: [
+            ...(prev?.tracks || []),
+            ...(items?.map((song) => ({
+              added_at: song.added_at,
+              image: song.track?.album.images.at(-1)?.url ?? '',
+              ...song.track,
+            })) || []),
+          ],
+          //@ts-ignore
+          info: prev.info,
+        }))
+      })
+      .catch((err) => {
+        console.error('Something went wrong!', err)
+      })
+  }
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
@@ -24,10 +50,11 @@ const PlaylistSlug: NextPage = ({}) => {
       spotifyApi
         .getPlaylist(id as string)
         .then((data) => {
+          const { tracks } = data.body
           setPlaylist({
             info: data?.body,
             tracks:
-              data?.body?.tracks?.items?.map((song) => ({
+              tracks?.items?.map((song) => ({
                 added_at: song.added_at,
                 image: song.track?.album.images.at(-1)?.url ?? '',
                 ...song.track,
@@ -52,10 +79,21 @@ const PlaylistSlug: NextPage = ({}) => {
       creator={playlist?.info?.owner?.display_name}
       isLoading={isLoading}
     >
-      <SongsTable
-        data={playlist?.tracks || []}
-        playlistUri={playlist?.info?.uri ?? `spotify:playlist:${id}`}
-      />
+      <InfiniteScroll
+        next={fetchTracks}
+        hasMore={(playlist?.tracks?.length || 0) < (playlist?.info?.tracks?.total || 0)}
+        dataLength={playlist?.tracks.length || 0}
+        loader={
+          <div className='w-full flex justify-center'>
+            <Preloader />
+          </div>
+        }
+      >
+        <SongsTable
+          data={playlist?.tracks || []}
+          playlistUri={playlist?.info?.uri ?? `spotify:playlist:${id}`}
+        />
+      </InfiniteScroll>
     </PlaylistContainer>
   )
 }

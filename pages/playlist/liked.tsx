@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession, useSession } from 'next-auth/react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
-import { PlaylistContainer, Song, SongsTable } from 'components'
+import { PlaylistContainer, Preloader, SongsTable, SongType } from 'components'
 import { useSpotify } from 'hooks'
 
 const SONGS_LIMIT = 50
@@ -11,26 +12,29 @@ const PlaylistLiked: NextPage = ({}) => {
   const spotifyApi = useSpotify()
   const { data: session } = useSession()
 
-  const [tracks, setTracks] = useState<Song[]>()
+  const [tracks, setTracks] = useState<SongType[]>([])
   const [pagination, setPagination] = useState<Omit<SpotifyApi.UsersSavedTracksResponse, 'items'>>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const fetchLikedTracks = (offset = 0) => {
-    return spotifyApi
-      .getMySavedTracks({ limit: SONGS_LIMIT, offset: offset })
+  const fetchLikedTracks = () => {
+    const offset = tracks.length || 0
+
+    spotifyApi
+      .getMySavedTracks({ limit: SONGS_LIMIT, offset })
       .then((data) => {
         setPagination(() => {
           const { items, ...newPagination } = data.body
           return newPagination
         })
 
-        setTracks(
-          data?.body?.items?.map((song) => ({
+        setTracks((prev) => [
+          ...prev,
+          ...(data?.body?.items?.map((song) => ({
             added_at: song.added_at,
             image: song.track?.album.images.at(-1)?.url ?? '',
             ...song.track,
-          })) ?? [],
-        )
+          })) ?? []),
+        ])
       })
       .catch((err) => {
         console.error('Something went wrong!', err)
@@ -41,14 +45,10 @@ const PlaylistLiked: NextPage = ({}) => {
   }
 
   useEffect(() => {
-    if (!spotifyApi.getAccessToken()) {
-      return
-    }
-    ;(async () => {
+    if (spotifyApi.getAccessToken()) {
       setIsLoading(true)
-      await fetchLikedTracks()
-      setIsLoading(false)
-    })()
+      fetchLikedTracks()
+    }
   }, [spotifyApi])
 
   return (
@@ -59,10 +59,21 @@ const PlaylistLiked: NextPage = ({}) => {
       creator={session?.user?.name}
       isLoading={isLoading}
     >
-      <SongsTable
-        data={tracks || []}
-        playlistUri={`spotify:user:${session?.user?.id as string}:collection`}
-      />
+      <InfiniteScroll
+        next={fetchLikedTracks}
+        hasMore={tracks.length < (pagination?.total || 0)}
+        dataLength={tracks.length}
+        loader={
+          <div className='w-full flex justify-center'>
+            <Preloader />
+          </div>
+        }
+      >
+        <SongsTable
+          data={tracks || []}
+          playlistUri={`spotify:user:${session?.user?.id as string}:collection`}
+        />
+      </InfiniteScroll>
     </PlaylistContainer>
   )
 }
