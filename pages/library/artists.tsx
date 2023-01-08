@@ -32,7 +32,7 @@ const LibraryArtists: NextPageWithLayout = ({}) => {
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center w-full h-full'>
+      <div className='flex items-center justify-center w-full h-3/4'>
         <Preloader />
       </div>
     )
