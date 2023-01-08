@@ -39,9 +39,9 @@ export const LibraryLayout: React.FC<PropsWithChildren> = ({ children }) => {
       Controller={() => (width >= 1080 ? <NavButtons /> : null)}
       gradientBrightness={0}
     >
-      <div className='mx-3 md:mx-8'>
+      <div className='mx-3 md:mx-8 h-full'>
         {width < 1080 && <NavButtons />}
-        <div className='mt-4 md:mt-6 mb-4'>{children}</div>
+        <div className='mt-4 md:mt-6 mb-4 h-full'>{children}</div>
       </div>
     </Layout>
   )

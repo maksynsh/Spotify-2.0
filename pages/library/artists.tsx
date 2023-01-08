@@ -3,7 +3,7 @@ import type { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 
 import type { NextPageWithLayout } from 'pages/_app'
-import { Card, LibraryLayout } from 'components'
+import { Card, LibraryLayout, Preloader } from 'components'
 import { useSpotify } from 'hooks'
 
 const LibraryArtists: NextPageWithLayout = ({}) => {
@@ -29,6 +29,14 @@ const LibraryArtists: NextPageWithLayout = ({}) => {
         })
     }
   }, [spotifyApi])
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center w-full h-full'>
+        <Preloader />
+      </div>
+    )
+  }
 
   return (
     <div className='card-grid'>

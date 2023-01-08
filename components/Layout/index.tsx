@@ -39,7 +39,7 @@ export const Layout: React.FC<LayoutProps> = ({
             {!isLoading ? (
               children
             ) : (
-              <div className='h-[65vh] w-full flex items-center justify-center'>
+              <div className='h-3/4 w-full flex items-center justify-center'>
                 <Preloader />
               </div>
             )}
