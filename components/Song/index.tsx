@@ -5,6 +5,7 @@ import { usePlayPause } from 'hooks'
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { duration } from 'lib/utils'
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
+import { LinkList } from 'components'
 
 export const Song = ({
   id,
@@ -37,7 +38,7 @@ export const Song = ({
       <div className='relative'>
         <div
           className={`relative w-10 h-10 shrink-0 group-hover:bg-no-repeat 
-          group-hover:brightness-50 ${currentTrackId === id && isPlaying && 'brightness-50'}`}
+          group-hover:brightness-50 ${currentTrackId === id && 'brightness-50'}`}
         >
           <Image
             src={(album.images.at(-1) || album.images[0]).url}
@@ -49,8 +50,8 @@ export const Song = ({
           />
         </div>
         <div
-          className={`absolute top-0 left-0 w-full h-full flex items-center justify-center
-          opacity-0 ${isCurrentSongPlaying && 'opacity-100'} group-hover:opacity-100`}
+          className={`absolute top-0 left-0 w-full h-full flex items-center justify-center text-white
+          ${currentTrackId === id ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100`}
           onClick={playPause}
         >
           {isCurrentSongPlaying ? (
@@ -62,8 +63,16 @@ export const Song = ({
       </div>
 
       <div className='flex flex-col flex-1 min-w-0 h-full justify-center md:justify-between'>
-        <h3 className='font-semibold leading-none text-inherit line-clamp-1'>{name}</h3>
-        <div className='leading-tight text-gray line-clamp-1'>{artists[0].name}</div>
+        <h3
+          className={`font-semibold leading-none line-clamp-1 ${
+            isCurrentSongPlaying ? 'text-green' : 'text-white'
+          }`}
+        >
+          {name}
+        </h3>
+        <div className='leading-tight text-gray line-clamp-1'>
+          <LinkList type='artist' array={artists} />
+        </div>
       </div>
       <div className='w-11'>{duration(duration_ms)}</div>
     </div>

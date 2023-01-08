@@ -111,6 +111,25 @@ body {
     @apply bg-green
   }
 
+  .marquee {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .marquee > * {
+    display: inline-block;
+    min-width: 100%; /* this is to prevent shorter text animate to right */
+    white-space: nowrap;
+    animation: marquee 6s ease-in-out infinite;
+  }
+  
+  @keyframes marquee {
+    0% {transform: translateX(0);     margin-left: 0;}
+    10% {transform: translateX(0);     margin-left: 0;}
+    80% {transform: translateX(-100%); margin-left: 100%; }
+    100% {transform: translateX(-100%); margin-left: 100%; }
+  }
+
   @keyframes up-down {
     0% {
       height: 8px;

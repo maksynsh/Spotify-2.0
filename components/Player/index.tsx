@@ -15,6 +15,8 @@ import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline'
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useFetchPlayerState, useLocalStorage, useSongInfo, useSpotify } from 'hooks'
 import { debounce } from 'lodash'
+import { LinkList } from 'components/LinkList'
+import Link from 'next/link'
 
 const UPDATE_DELAY = 200
 const REFRESH_INTERVAL = 10000
@@ -136,7 +138,7 @@ export const Player = () => {
     >
       {/* Left */}
       <div className='flex gap-4 min-w-0'>
-        <div className='relative h-10 w-10 md:h-14 md:w-14'>
+        <div className='relative shrink-0 h-10 w-10 md:h-14 md:w-14'>
           <Image
             layout='fill'
             src={songInfo?.album.images.at(-1)?.url || ''}
@@ -146,8 +148,14 @@ export const Player = () => {
         </div>
 
         <div className='flex flex-col min-w-0 justify-center'>
-          <h3 className='font-semibold text-white text-sm truncate'>{songInfo?.name}</h3>
-          <div className='truncate'>{songInfo?.artists[0].name}</div>
+          <Link href={`/album/${songInfo?.album.id}`}>
+            <h3 className='font-semibold text-white text-sm cursor-pointer hover:underline marquee truncate'>
+              {songInfo?.name}
+            </h3>
+          </Link>
+          <div className='marquee truncate'>
+            <LinkList type='artist' array={songInfo?.artists || []} />
+          </div>
         </div>
       </div>
 

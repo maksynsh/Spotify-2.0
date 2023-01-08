@@ -4,7 +4,7 @@ import { ClockIcon } from '@heroicons/react/24/outline'
 import { PlayIcon } from '@heroicons/react/24/solid'
 
 import { duration } from 'lib/utils'
-import { PlayButton, ColumnsType, ColumnBreakpoints, Table } from 'components'
+import { PlayButton, ColumnsType, ColumnBreakpoints, Table, LinkList } from 'components'
 
 const columnHelper = createColumnHelper<SpotifyApi.TrackObjectSimplified>()
 
@@ -26,7 +26,9 @@ const columns: ColumnsType<SpotifyApi.TrackObjectSimplified> = [
       <div className='flex gap-4 min-w-0'>
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <h3 className='font-semibold leading-none text-inherit'>{info.getValue()}</h3>
-          <div className='leading-none text-gray'>{info.row.original.artists?.at(0)?.name}</div>
+          <div className='leading-none text-gray'>
+            <LinkList type='artist' array={info.row.original.artists || []} />
+          </div>
         </div>
       </div>
     ),

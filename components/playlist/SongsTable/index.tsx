@@ -7,7 +7,7 @@ import { PlayIcon } from '@heroicons/react/24/solid'
 
 import { Track } from 'types/spotify'
 import { duration } from 'lib/utils'
-import { PlayButton, ColumnsType, ColumnBreakpoints, Table } from 'components'
+import { PlayButton, ColumnsType, ColumnBreakpoints, Table, LinkList } from 'components'
 
 export interface SongType extends Track {
   added_at: string
@@ -46,7 +46,7 @@ const columns: ColumnsType<SongType> = [
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <h3 className='font-semibold leading-none text-inherit truncate'>{info.getValue()}</h3>
           <div className='leading-none text-gray truncate'>
-            {info.row.original.artists?.at(0)?.name}
+            <LinkList type='artist' array={info.row.original.artists || []} />
           </div>
         </div>
       </div>
