@@ -111,6 +111,10 @@ body {
     @apply bg-green
   }
 
+  .link {
+    @apply cursor-pointer hover:underline
+  }
+
   .marquee {
     position: relative;
     overflow: hidden;

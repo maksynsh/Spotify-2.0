@@ -11,7 +11,7 @@ export const LinkList = ({ array, type = 'artist' }: LinkListProps) => {
       {array.map(({ id, name }, i) => [
         i > 0 && ', ',
         <Link key={id} href={`/${type}/${id}`}>
-          <span className='hover:underline cursor-pointer'>{name}</span>
+          <span className='link'>{name}</span>
         </Link>,
       ])}
     </>

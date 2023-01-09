@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { createColumnHelper } from '@tanstack/react-table'
 import moment from 'moment'
 import { ClockIcon } from '@heroicons/react/24/outline'
@@ -44,8 +45,15 @@ const columns: ColumnsType<SongType> = [
         </div>
 
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
-          <h3 className='font-semibold leading-none text-inherit truncate'>{info.getValue()}</h3>
-          <div className='leading-none text-gray truncate'>
+          <Link href={`/album/${info.row.original.album?.id}`}>
+            <h3
+              className='font-semibold leading-none text-inherit link truncate'
+              onClick={(e) => e.stopPropagation()}
+            >
+              {info.getValue()}
+            </h3>
+          </Link>
+          <div className='leading-none text-gray truncate' onClick={(e) => e.stopPropagation()}>
             <LinkList type='artist' array={info.row.original.artists || []} />
           </div>
         </div>
@@ -55,7 +63,13 @@ const columns: ColumnsType<SongType> = [
   }),
   columnHelper.accessor('album', {
     id: 'album',
-    cell: (info) => info.getValue()?.name,
+    cell: (info) => (
+      <Link href={`/album/${info.getValue()?.id}`}>
+        <div className='link' onClick={(e) => e.stopPropagation()}>
+          {info.getValue()?.name}
+        </div>
+      </Link>
+    ),
     header: () => 'Album',
   }),
   columnHelper.accessor('added_at', {

@@ -75,7 +75,7 @@ const PlaylistSlug: NextPage = ({}) => {
       id={id}
       uri={playlist?.info?.uri ?? `spotify:playlist:${id}`}
       info={playlist?.info}
-      total={playlist?.tracks.length}
+      total={playlist?.info.tracks.total}
       creator={playlist?.info?.owner?.display_name}
       isLoading={isLoading}
     >

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { getSession } from 'next-auth/react'
 
 import { AlbumTable, PlaylistContainer } from 'components'
@@ -44,7 +45,11 @@ const AlbumSlug: NextPage = ({}) => {
       uri={album?.info?.uri ?? `spotify:playlist:${id}`}
       info={album?.info}
       total={album?.tracks.length}
-      creator={album?.info?.artists[0].name}
+      creator={
+        <Link href={`/artist/${album?.info?.artists[0].id}`}>
+          <span className='link'>{album?.info?.artists[0].name}</span>
+        </Link>
+      }
       isLoading={isLoading}
     >
       <AlbumTable

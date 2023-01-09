@@ -149,7 +149,7 @@ export const Player = () => {
 
         <div className='flex flex-col min-w-0 justify-center'>
           <Link href={`/album/${songInfo?.album.id}`}>
-            <h3 className='font-semibold text-white text-sm cursor-pointer hover:underline marquee truncate'>
+            <h3 className='font-semibold text-white text-sm link marquee truncate'>
               {songInfo?.name}
             </h3>
           </Link>

@@ -11,7 +11,7 @@ interface PlaylistProps {
   info?: SpotifyApi.SinglePlaylistResponse | SpotifyApi.SingleAlbumResponse
   children: ReactNode
   total?: number
-  creator?: string
+  creator?: React.ReactNode
   isLoading: boolean
 }
 

@@ -3,9 +3,10 @@ import Image from 'next/image'
 import { createColumnHelper } from '@tanstack/react-table'
 import { ClockIcon } from '@heroicons/react/24/outline'
 import { PlayIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link'
 
 import { duration } from 'lib/utils'
-import { ColumnsType, ColumnBreakpoints, Table } from 'components'
+import { ColumnsType, ColumnBreakpoints, Table, LinkList } from 'components'
 
 const columnHelper = createColumnHelper<SpotifyApi.TrackObjectFull>()
 
@@ -39,9 +40,16 @@ const columns: ColumnsType<SpotifyApi.TrackObjectFull> = [
         </div>
 
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
-          <h3 className='font-semibold leading-none text-inherit truncate'>{info.getValue()}</h3>
-          <div className='leading-none text-gray truncate'>
-            {info.row.original.artists?.at(0)?.name}
+          <Link href={`/album/${info.row.original.album?.id}`}>
+            <h3
+              className='font-semibold leading-none text-inherit link truncate'
+              onClick={(e) => e.stopPropagation()}
+            >
+              {info.getValue()}
+            </h3>
+          </Link>
+          <div className='leading-none text-gray truncate' onClick={(e) => e.stopPropagation()}>
+            <LinkList type='artist' array={info.row.original.artists || []} />
           </div>
         </div>
       </div>
@@ -50,7 +58,13 @@ const columns: ColumnsType<SpotifyApi.TrackObjectFull> = [
   }),
   columnHelper.accessor('album', {
     id: 'album',
-    cell: (info) => info.getValue()?.name,
+    cell: (info) => (
+      <Link href={`/album/${info.getValue()?.id}`}>
+        <div className='link' onClick={(e) => e.stopPropagation()}>
+          {info.getValue()?.name}
+        </div>
+      </Link>
+    ),
     header: () => 'Album',
   }),
   columnHelper.accessor('duration_ms', {
