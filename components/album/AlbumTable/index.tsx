@@ -25,7 +25,7 @@ const columns: ColumnsType<SpotifyApi.TrackObjectSimplified> = [
     cell: (info) => (
       <div className='flex gap-4 min-w-0'>
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
-          <h3 className='font-semibold leading-none text-inherit'>{info.getValue()}</h3>
+          <h3 className='font-semibold leading-none text-inherit w-min'>{info.getValue()}</h3>
           <div className='leading-none text-gray' onClick={(e) => e.stopPropagation()}>
             <LinkList type='artist' array={info.row.original.artists || []} />
           </div>

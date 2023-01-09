@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import { toast } from 'react-toastify'
 import {
@@ -15,14 +16,16 @@ import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline'
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useFetchPlayerState, useLocalStorage, useSongInfo, useSpotify } from 'hooks'
 import { debounce } from 'lodash'
-import { LinkList } from 'components/LinkList'
-import Link from 'next/link'
+import { LinkList } from 'components'
+import { Devices } from './components/Devices'
+import { selectedDeviceIdState } from 'atoms/devices'
 
 const UPDATE_DELAY = 200
 const REFRESH_INTERVAL = 10000
 
 export const Player = () => {
   const spotifyApi = useSpotify()
+  const [selectedDeviceId] = useRecoilState(selectedDeviceIdState)
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   const [volume, setVolume] = useLocalStorage<number>({ key: 'volume', initialValue: 50 })
@@ -169,6 +172,9 @@ export const Player = () => {
           {shuffleMode && <div className='btn-dot-green' />}
         </div>
         <BackwardIcon className='player-btn hidden md:block' onClick={previousSong} />
+        <div className='flex md:hidden'>
+          <Devices />
+        </div>
         <div
           onClick={handlePlayPause}
           className='player-btn p-0 w-8 h-8 md:bg-white md:text-dark rounded-full cursor-pointer flex items-center justify-center'
@@ -196,6 +202,8 @@ export const Player = () => {
 
       {/* Right */}
       <div className='hidden md:flex items-center gap-2 justify-end pr-5'>
+        <Devices />
+
         <div onClick={() => (volume === 0 ? setVolume(50) : setVolume(0))}>
           {volume === 0 ? (
             <SpeakerXMarkIcon className='player-btn' />
@@ -203,6 +211,7 @@ export const Player = () => {
             <SpeakerWaveIcon className='player-btn' />
           )}
         </div>
+
         <input
           type='range'
           value={volume}

@@ -47,7 +47,7 @@ const columns: ColumnsType<SongType> = [
         <div className='flex flex-col min-w-0 justify-center md:justify-between'>
           <Link href={`/album/${info.row.original.album?.id}`}>
             <h3
-              className='font-semibold leading-none text-inherit link truncate'
+              className='font-semibold leading-none text-inherit link truncate w-min'
               onClick={(e) => e.stopPropagation()}
             >
               {info.getValue()}
