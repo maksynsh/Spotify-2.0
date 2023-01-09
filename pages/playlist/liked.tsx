@@ -17,7 +17,7 @@ const PlaylistLiked: NextPage = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const fetchLikedTracks = () => {
-    const offset = tracks.length || 0
+    const offset = tracks.length
 
     spotifyApi
       .getMySavedTracks({ limit: SONGS_LIMIT, offset })
@@ -28,12 +28,12 @@ const PlaylistLiked: NextPage = ({}) => {
         })
 
         setTracks((prev) => [
-          ...prev,
-          ...(data?.body?.items?.map((song) => ({
+          ...(offset === 0 ? [] : prev),
+          ...data.body.items.map((song) => ({
             added_at: song.added_at,
             image: song.track?.album.images.at(-1)?.url ?? '',
             ...song.track,
-          })) ?? []),
+          })),
         ])
       })
       .catch((err) => {
