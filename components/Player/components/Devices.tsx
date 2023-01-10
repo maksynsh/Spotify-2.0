@@ -38,6 +38,17 @@ export const Devices = () => {
     return () => document.removeEventListener('mousedown', handleOutsideClick)
   }, [dropdownRef, handleOutsideClick])
 
+  const renderDeviceIcon = (type?: string) => {
+    switch (type) {
+      case 'Computer':
+        return <ComputerDesktopIcon />
+      case 'Smartphone':
+        return <DeviceTabletIcon />
+      default:
+        return <ComputerDesktopIcon />
+    }
+  }
+
   const currentDevice = useMemo(
     () => devices?.find((d) => d.id === selectedId),
     [selectedId, devices],
@@ -55,9 +66,7 @@ export const Devices = () => {
         aria-label='Menu dropdown'
       >
         <div className='flex items-center gap-4 px-4 py-2'>
-          <div className='h-8 w-8'>
-            <ComputerDesktopIcon />
-          </div>
+          <div className='h-8 w-8'>{renderDeviceIcon(currentDevice?.type)}</div>
           <div>
             <h3 className='text-lg font-bold'>Current device</h3>
             <p className='text-green text-sm'>{currentDevice?.name}</p>
@@ -67,22 +76,22 @@ export const Devices = () => {
         <div className='mt-2 flex flex-col'>
           {devices
             ?.filter((d) => d.id !== selectedId)
-            .map(({ id, name }) => (
+            .map(({ id, name, type }) => (
               <div
                 key={id}
                 className='flex items-center gap-4 px-4 py-2 ease-in duration-100 
                 hover:bg-carbon hover:bg-opacity-60 rounded'
                 onClick={() => setSelectedId(id)}
               >
-                <div className='h-8 w-8'>
-                  <ComputerDesktopIcon />
-                </div>
+                <div className='h-8 w-8'>{renderDeviceIcon(type)}</div>
                 <h3 className='text-sm font-bold'>{name}</h3>
               </div>
             ))}
         </div>
       </div>
-      <DeviceTabletIcon className='player-btn' ref={menuRef} onClick={handleMenuClick} />
+      <div className='player-btn' ref={menuRef} onClick={handleMenuClick}>
+        {renderDeviceIcon(currentDevice?.type)}
+      </div>
     </div>
   )
 }

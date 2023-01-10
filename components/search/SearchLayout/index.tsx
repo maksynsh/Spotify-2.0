@@ -62,7 +62,7 @@ export const SearchLayout: React.FC<PropsWithChildren> = ({ children }) => {
   //  if we emptied query, then return to default page
   //  else, push query to url params
   useEffect(() => {
-    if (!debouncedValue) {
+    if (!debouncedValue.trim()) {
       router.push('/search')
       return
     }
