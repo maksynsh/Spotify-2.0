@@ -57,7 +57,9 @@ export const Devices = () => {
   return (
     <div className='relative' id='menu' aria-label='Menu'>
       <div
-        className={`${!open ? 'hidden' : 'block'} whitespace-nowrap select-none text-white
+        className={`${
+          !open ? 'scale-0' : 'scale-100'
+        } duration-100 whitespace-nowrap select-none text-white
           z-50 fixed max-md:left-0 bottom-0 md:bottom-10 md:absolute md:right-1/2 md:translate-x-1/2
           bg-dark text-base w-full md:w-auto p-4 pt-6
           list-none rounded-lg shadow-xl`}

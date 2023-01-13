@@ -17,6 +17,7 @@ const PlaylistSlug: NextPage = ({}) => {
     tracks: SongType[]
   }>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<{ status: number; message: string } | null>(null)
 
   const fetchTracks = () => {
     const offset = playlist?.tracks.length || 0
@@ -45,6 +46,7 @@ const PlaylistSlug: NextPage = ({}) => {
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
+      setError(null)
       setIsLoading(true)
 
       spotifyApi
@@ -62,6 +64,11 @@ const PlaylistSlug: NextPage = ({}) => {
           })
         })
         .catch((err) => {
+          if (err.body.error.status === 404) {
+            router.push('/404')
+            return
+          }
+          setError(err.body.error)
           console.error('Something went wrong!', err)
         })
         .finally(() => {
@@ -69,6 +76,14 @@ const PlaylistSlug: NextPage = ({}) => {
         })
     }
   }, [spotifyApi, id])
+
+  if (error) {
+    return (
+      <div className='text-red-600'>
+        {error.status}. {error.message}
+      </div>
+    )
+  }
 
   return (
     <PlaylistContainer
