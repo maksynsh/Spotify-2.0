@@ -150,7 +150,7 @@ export const Player = () => {
           />
         </div>
 
-        <div className='flex flex-col min-w-0 justify-center'>
+        <div className='flex flex-col min-w-0 justify-center w-full pr-4'>
           <Link href={`/album/${songInfo?.album.id}`}>
             <h3 className='font-semibold text-white text-sm link marquee truncate'>
               {songInfo?.name}
