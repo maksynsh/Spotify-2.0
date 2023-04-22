@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
-import InfiniteScroll from 'react-infinite-scroll-component'
 
-import { PlaylistContainer, Preloader, SongsTable, SongType } from 'components'
+import { InfiniteScroll, PlaylistContainer, SongsTable, SongType } from 'components'
 import { useSpotify } from 'hooks'
 
 const PlaylistSlug: NextPage = ({}) => {
@@ -98,11 +97,6 @@ const PlaylistSlug: NextPage = ({}) => {
         next={fetchTracks}
         hasMore={(playlist?.tracks?.length || 0) < (playlist?.info?.tracks?.total || 0)}
         dataLength={playlist?.tracks.length || 0}
-        loader={
-          <div className='w-full flex justify-center'>
-            <Preloader />
-          </div>
-        }
       >
         <SongsTable
           data={playlist?.tracks || []}
