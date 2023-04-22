@@ -102,10 +102,10 @@ export const Sidebar = () => {
         onDrag={onDrag}
       />
       <div
-        className={`w-6 h-6 hover:brightness-90 box-content ease-in duration-150 bg-green text-white 
+        className={`w-6 h-6 hover:brightness-90 box-content ease-in duration-150 text-white 
         rounded-full border-4 border-black cursor-pointer absolute top-4 -right-3 z-20 
         hidden md:flex justify-center items-center 
-        ${hidden && 'rotate-180 -right-4 border-0 top-[20px] bg-dark bg-opacity-60'}`}
+        ${hidden ? 'rotate-180 -right-4 border-0 top-[20px] bg-dark' : 'bg-green'}`}
         onClick={toggleSidebar}
       >
         {<ChevronLeftIcon width={19} height={19} />}

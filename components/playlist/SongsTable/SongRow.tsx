@@ -1,9 +1,10 @@
 import Image from 'next/image'
-import { flexRender, Row } from '@tanstack/react-table'
+import { Cell, flexRender, Row } from '@tanstack/react-table'
 import { useRecoilState } from 'recoil'
 
 import { currentTrackIdState, isPlayingState } from 'atoms/song'
 import { usePlayPause } from 'hooks'
+import { PlayIcon } from '@heroicons/react/24/solid'
 
 interface SongRowProps {
   row: Row<any>
@@ -23,9 +24,28 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
       songId: row.original.id,
     })
 
+  const renderIdCell = (cell: Cell<any, unknown>) => {
+    return (
+      <>
+        <div className='absolute w-5 h-5 transition-all ease-in duration-100 group-hover:opacity-100 opacity-0'>
+          <PlayIcon />
+        </div>
+        {cell.row.original.id === currentTrackId && isPlaying ? (
+          <div className='relative w-3 h-3 group-hover:opacity-0 opacity-100 transition-all ease-in duration-100'>
+            <Image layout='fill' src={'/images/equaliser-animated.gif'} alt='eq' />
+          </div>
+        ) : (
+          <div className='group-hover:opacity-0 opacity-100 transition-all ease-in duration-100'>
+            {flexRender(cell.column.columnDef.cell, { ...cell.getContext() })}
+          </div>
+        )}
+      </>
+    )
+  }
+
   return (
     <tr
-      className='text-gray h-14 ease-in duration-100 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
+      className='group text-gray h-14 ease-in duration-100 hover:bg-carbon hover:bg-opacity-60 hover:text-white'
       onClick={playSong}
     >
       {row.getVisibleCells().map((cell) => {
@@ -41,13 +61,9 @@ export const SongRow = ({ row, contextUri }: SongRowProps) => {
                 : ''
             }`}
           >
-            {cell.column.id === 'id' && cell.row.original.id === currentTrackId && isPlaying ? (
-              <div className='relative w-3 h-3'>
-                <Image layout='fill' src={'/images/equaliser-animated.gif'} alt='eq' />
-              </div>
-            ) : (
-              flexRender(cell.column.columnDef.cell, { ...cell.getContext() })
-            )}
+            {cell.column.id === 'id'
+              ? renderIdCell(cell)
+              : flexRender(cell.column.columnDef.cell, { ...cell.getContext() })}
           </td>
         )
       })}
