@@ -118,6 +118,12 @@ body {
   .marquee {
     position: relative;
     overflow: hidden;
+    overflow-x: -webkit-marquee;
+	  -webkit-marquee-direction: forwards;
+	  -webkit-marquee-increment: medium;
+	  -webkit-marquee-repetition: 9;
+	  -webkit-marquee-speed: slow;
+	  -webkit-marquee-style: slide;
   }
   
   .marquee > * {
