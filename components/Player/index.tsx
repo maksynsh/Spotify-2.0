@@ -19,18 +19,18 @@ import { debounce } from 'lodash'
 import { LinkList } from 'components'
 import { Devices } from './components/Devices'
 import { selectedDeviceIdState } from 'atoms/devices'
+import { repeatState, shuffleState } from 'atoms/player'
 
 const UPDATE_DELAY = 200
 const REFRESH_INTERVAL = 10000
 
 export const Player = () => {
   const spotifyApi = useSpotify()
-  const [selectedDeviceId] = useRecoilState(selectedDeviceIdState)
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
+  const [repeatMode, setRepeatMode] = useRecoilState(repeatState)
+  const [shuffleMode, setShuffleMode] = useRecoilState(shuffleState)
   const [volume, setVolume] = useLocalStorage<number>({ key: 'volume', initialValue: 50 })
-  const [repeatMode, setRepeatMode] = useState<SpotifyApi.PlaybackObject['repeat_state']>('off')
-  const [shuffleMode, setShuffleMode] = useState<SpotifyApi.PlaybackObject['shuffle_state']>(false)
 
   const songInfo = useSongInfo()
   const fetchCurrentPlaybackState = useFetchPlayerState()

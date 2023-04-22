@@ -4,15 +4,16 @@ import { toast } from 'react-toastify'
 
 import { currentContextUriState, currentTrackIdState, isPlayingState } from 'atoms/song'
 import { useLocalStorage, useSpotify } from 'hooks'
+import { repeatState, shuffleState } from 'atoms/player'
 
 export const useFetchPlayerState = () => {
   const spotifyApi = useSpotify()
   const [, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [, setIsPlaying] = useRecoilState(isPlayingState)
   const [, setSongContextUri] = useRecoilState(currentContextUriState)
+  const [, setRepeatMode] = useRecoilState(repeatState)
+  const [, setShuffleMode] = useRecoilState(shuffleState)
   const [, setVolume] = useLocalStorage<number>({ key: 'volume', initialValue: 50 })
-  const [, setRepeatMode] = useState<SpotifyApi.PlaybackObject['repeat_state']>('off')
-  const [, setShuffleMode] = useState<SpotifyApi.PlaybackObject['shuffle_state']>(false)
 
   return () => {
     if (spotifyApi.getAccessToken()) {
@@ -24,7 +25,7 @@ export const useFetchPlayerState = () => {
           if (data?.body?.item?.id) setCurrentTrackId(data.body.item.id)
           setIsPlaying(data.body.is_playing)
           setRepeatMode(data.body.repeat_state || 'off')
-          setShuffleMode(data.body.shuffle_state || false)
+          setShuffleMode(!!data.body.shuffle_state)
           if (data?.body?.context?.uri) {
             setSongContextUri(data.body.context.uri)
           }
