@@ -15,9 +15,7 @@ const PlaylistLiked: NextPage = ({}) => {
   const [pagination, setPagination] = useState<Omit<SpotifyApi.UsersSavedTracksResponse, 'items'>>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const fetchLikedTracks = () => {
-    const offset = tracks.length
-
+  const fetchLikedTracks = (offset?: number) => {
     spotifyApi
       .getMySavedTracks({ limit: SONGS_LIMIT, offset })
       .then((data) => {

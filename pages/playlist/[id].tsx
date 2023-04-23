@@ -18,9 +18,7 @@ const PlaylistSlug: NextPage = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<{ status: number; message: string } | null>(null)
 
-  const fetchTracks = () => {
-    const offset = playlist?.tracks.length || 0
-
+  const fetchTracks = (offset: number) => {
     spotifyApi
       .getPlaylistTracks(id as string, { offset, limit: 100 })
       .then((data) => {
