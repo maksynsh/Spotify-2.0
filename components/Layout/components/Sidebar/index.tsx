@@ -39,7 +39,7 @@ export const Sidebar = () => {
   useEffect(() => {
     if (spotifyApi.getAccessToken() && playlists.length < 1) {
       spotifyApi
-        .getUserPlaylists({ limit: 30 })
+        .getUserPlaylists({ limit: 40 })
         .then((data) => {
           setPlaylists(data?.body?.items ?? [])
         })
